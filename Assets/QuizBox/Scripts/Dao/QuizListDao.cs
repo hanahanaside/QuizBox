@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class QuizListDao : MonoBehaviour
+public class QuizListDao
 {
 
 	public const string ID_FIELD = "id";
@@ -11,18 +11,13 @@ public class QuizListDao : MonoBehaviour
 
 	public static QuizListDao instance {
 		get {
+			if (sInstance == null) {
+				sInstance = new QuizListDao();
+			}
 			return sInstance;
 		}
 	}
-
-	void Awake ()
-	{
-		if (sInstance == null) {
-			sInstance = this;
-			DontDestroyOnLoad (gameObject);
-		}
-	}
-
+	
 	public IList<IDictionary> GetQuizList ()
 	{
 		SQLiteDB sqliteDB = new SQLiteDB ();
