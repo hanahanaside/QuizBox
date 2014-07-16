@@ -10,6 +10,8 @@ public class SelectedQuiz : MonoBehaviour
 
 	public string name{ get; set; }
 
+	private bool created = false;
+
 	public static SelectedQuiz instance {
 		get {
 			return sInstance;
@@ -18,9 +20,10 @@ public class SelectedQuiz : MonoBehaviour
 
 	void Start ()
 	{
-		if (sInstance == null) {
-			sInstance = this;
+		if(!created){
 			DontDestroyOnLoad (gameObject);
+			sInstance = this;
+			created = true;
 		}
 	}
 	

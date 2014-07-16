@@ -8,6 +8,8 @@ public class ScoreKeeper : MonoBehaviour
 
 	public int score{ get; set; }
 
+	private bool created = false;
+
 	public static ScoreKeeper instance {
 		get {
 			return sInstance;
@@ -16,9 +18,10 @@ public class ScoreKeeper : MonoBehaviour
 
 	void Awake ()
 	{
-		if (sInstance == null) {
+		if (!created) {
 			sInstance = this;
 			DontDestroyOnLoad (gameObject);
+			created = true;
 		}
 	}
 }

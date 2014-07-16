@@ -13,6 +13,12 @@ public class TitleInitializer : MonoBehaviour
 		#if UNITY_IOS
 		EtceteraBinding.showActivityView();
 		#endif
+
+#if UNITY_ANDROID
+		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
+		string message = "\u554f\u984c\u3092\u53d6\u5f97\u3057\u3066\u3044\u307e\u3059";
+		EtceteraAndroid.showProgressDialog(title,message);
+#endif
 		QuizListManager.instance.InitQuizList ();
 	}
 
@@ -21,6 +27,10 @@ public class TitleInitializer : MonoBehaviour
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView();
 		#endif
+
+#if UNITY_ANDROID
+		EtceteraAndroid.hideProgressDialog();
+#endif
 
 		if (success) {
 			StringBuilder stringBuilder = new StringBuilder ();
