@@ -21,6 +21,6 @@ public class PrefsManager
 	}
 
 	public int GetUserPoint(){
-		return PlayerPrefs.GetInt(USER_POINT_KEY);
+		return PlayerPrefs.GetInt(USER_POINT_KEY,100);
 	}
 }

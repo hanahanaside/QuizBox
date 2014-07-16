@@ -31,9 +31,8 @@ public class QuizListManager : MonoBehaviour
 
 	public void InitQuizList ()
 	{
-		string id = SelectedQuiz.instance.id;
-		string jsonUrl = "http://ryodb.us/projects/" + id + "/quizzes.json";
-		WWW www = new WWW (jsonUrl);
+		Debug.Log ("url = " + SelectedQuiz.instance.quizUrl);
+		WWW www = new WWW (SelectedQuiz.instance.quizUrl);
 		StartCoroutine (GetJson (www));
 	}
 
@@ -64,11 +63,11 @@ public class QuizListManager : MonoBehaviour
 
 	public void PlaySeriesMode (string selectedSeriesName)
 	{
-		foreach(object quizObject in allQuizList){
+		foreach (object quizObject in allQuizList) {
 			IDictionary quizDictionary = (IDictionary)quizObject;
-			string seriesName = quizDictionary["series"].ToString();
-			if(seriesName == selectedSeriesName){
-				quizList.Add(quizDictionary);
+			string seriesName = quizDictionary ["series"].ToString ();
+			if (seriesName == selectedSeriesName) {
+				quizList.Add (quizDictionary);
 			}
 		}
 	}
@@ -90,7 +89,7 @@ public class QuizListManager : MonoBehaviour
 			Debug.Log ("json = " + json);
 			IDictionary jsonObject = (IDictionary)Json.Deserialize (json);
 			allQuizList = (IList)jsonObject ["updated_quiz"];
-			mSeriesList = (IList)jsonObject["series_orderd"];
+			mSeriesList = (IList)jsonObject ["series_orderd"];
 			Debug.Log ("count = " + allQuizList.Count);
 			titleInitializer.OnLoadFinished (true);
 		} else {
@@ -99,8 +98,8 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 
-	public IList SeriesList{
-		get{
+	public IList SeriesList {
+		get {
 			return mSeriesList;
 		}
 	}

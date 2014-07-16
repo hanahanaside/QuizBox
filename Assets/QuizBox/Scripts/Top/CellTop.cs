@@ -4,16 +4,18 @@ using System.Collections;
 public class CellTop : MonoBehaviour
 {
 
-	private string mId;
+	private int mId;
 	private string mName;
+	private string mQuizUrl;
 
 	public void OnClick(){
 		SelectedQuiz.instance.id = mId;
 		SelectedQuiz.instance.name = mName;
+		SelectedQuiz.instance.quizUrl = mQuizUrl;
 		Application.LoadLevel("Title");
 	}
 
-	public string id {
+	public int id {
 		get {
 			return mId;
 		}
@@ -29,6 +31,15 @@ public class CellTop : MonoBehaviour
 		set {
 			mName = value;
 			gameObject.GetComponentInChildren<UILabel>().text = mName;
+		}
+	}
+
+	public string quizUrl{
+		get{
+			return mQuizUrl;
+		}
+		set{
+			mQuizUrl = value;
 		}
 	}
 }

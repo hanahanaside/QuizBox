@@ -179,6 +179,7 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddPointDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuiz.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizButtonController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizController.cs" />
@@ -186,6 +187,7 @@
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\HttpClient.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\ShortPointDialog.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Common\OkDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\PrefsManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Dao\QuizListDao.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DatabaseCreator.cs" />
