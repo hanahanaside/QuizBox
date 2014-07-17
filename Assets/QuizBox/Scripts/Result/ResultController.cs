@@ -15,6 +15,14 @@ public class ResultController : MonoBehaviour
 		Debug.Log ("score = " + score);
 	}
 
+	void Update ()
+	{
+		if (Input.GetKey (KeyCode.Escape)) {
+			Application.LoadLevel("Top");
+		}
+	}
+
+
 	public void OnButtonClick(){
 		Reset();
 		string buttonName = UIButton.current.name;

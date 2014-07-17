@@ -19,7 +19,7 @@ public class QuizKeeper : MonoBehaviour
 	void Awake ()
 	{
 		sInstance = this;
-		questionNumber = 1;
+		questionNumber = QuizListManager.instance.questionCount;
 		setQuiz ();
 	}
 

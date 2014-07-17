@@ -12,5 +12,9 @@ public class CheckSaveQuizDialog : MonoBehaviour {
 		string[] buttons = {positiveButton,negativeButton};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
 #endif
+
+#if UNITY_ANDROID
+		EtceteraAndroid.showAlert(title,message,positiveButton,negativeButton);
+#endif
 	}
 }

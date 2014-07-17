@@ -11,6 +11,8 @@ public class QuizListManager : MonoBehaviour
 	private IList mSeriesList;
 	private bool created = false;
 	private string mJsonString;
+	private int mQuestionCount;
+	private int mCorrectCount;
 
 	public IList quizList{ get; set; }
 
@@ -23,6 +25,24 @@ public class QuizListManager : MonoBehaviour
 	public int allQuizListCount{
 		get{
 			return allQuizList.Count;
+		}
+	}
+
+	public int questionCount{
+		get{
+			return mQuestionCount;
+		}
+		set {
+			mQuestionCount = value;
+		}
+	}
+
+	public int correctCount {
+		get{
+			return mCorrectCount;
+		}
+		set{
+			mCorrectCount = value;
 		}
 	}
 
@@ -51,6 +71,7 @@ public class QuizListManager : MonoBehaviour
 
 	public void PlayQuickMode ()
 	{
+		ResetCount();
 		IList indexNumberList = new List<int> ();
 		while (indexNumberList.Count <15) {
 			int number = Random.Range (0, allQuizList.Count);
@@ -76,6 +97,7 @@ public class QuizListManager : MonoBehaviour
 
 	public void PlaySeriesMode (string selectedSeriesName)
 	{
+		ResetCount();
 		foreach (object quizObject in allQuizList) {
 			IDictionary quizDictionary = (IDictionary)quizObject;
 			string seriesName = quizDictionary ["series"].ToString ();
@@ -84,10 +106,18 @@ public class QuizListManager : MonoBehaviour
 			}
 		}
 	}
-
+	
 	public void PlayChallengeMode ()
 	{
+		ResetCount();
 		quizList = allQuizList;
+	}
+
+	public void PlayChallenteModeResume(string jsonString,int questionCount,int correctCount){
+		mQuestionCount = questionCount;
+		mCorrectCount = correctCount;
+		IDictionary jsonObject = (IDictionary)Json.Deserialize (jsonString);
+		quizList = (IList)jsonObject ["updated_quiz"];
 	}
 
 	private IEnumerator GetJson (WWW www)
@@ -98,6 +128,7 @@ public class QuizListManager : MonoBehaviour
 		// check for errors
 		if (www.error == null) {
 			mJsonString = www.text;
+			mJsonString = mJsonString.Replace("'","");
 			Debug.Log ("WWW Ok!: ");
 			Debug.Log ("json = " + mJsonString);
 			IDictionary jsonObject = (IDictionary)Json.Deserialize (mJsonString);
@@ -115,5 +146,10 @@ public class QuizListManager : MonoBehaviour
 		get {
 			return mSeriesList;
 		}
+	}
+
+	private void ResetCount(){
+		mQuestionCount = 1;
+		mCorrectCount = 0;
 	}
 }

@@ -7,12 +7,18 @@ public class GameController : MonoBehaviour
 {
 	public GameObject referee;
 	public GameObject quizSetter;
+	public QuizKeeper quizKeeper;
+	public ScoreKeeper scoreKeeper;
 	public UILabel[] buttonLabelArray;
 
 	void OnEnable ()
 	{
 #if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent += AlertButtonClickedEvent;
+#endif
+
+#if UNITY_ANDROID
+		EtceteraAndroidManager.alertButtonClickedEvent += AlertButtonClickedEvent;
 #endif
 	}
 
@@ -22,12 +28,16 @@ public class GameController : MonoBehaviour
 		EtceteraManager.alertButtonClickedEvent -= AlertButtonClickedEvent;
 		#endif
 
+		#if UNITY_ANDROID
+		EtceteraAndroidManager.alertButtonClickedEvent -= AlertButtonClickedEvent;
+		#endif
+
 	}
 
 	void Update ()
 	{
 		if (Input.GetKey (KeyCode.Escape)) {
-			Application.LoadLevel ("Title");
+			OnBackButtonClick();
 		}
 	}
 	
@@ -68,6 +78,12 @@ public class GameController : MonoBehaviour
 		}
 		if(clickedButton == "\u30bb\u30fc\u30d6\u3057\u3066\u7d42\u4e86"){
 			//save
+			Debug.Log("save");
+			string jsonString = QuizListManager.instance.jsonString;
+			int id = SelectedQuiz.instance.id;
+			int quizCount = quizKeeper.questionNumber;
+			int correctCount = scoreKeeper.score;
+			QuizListDao.instance.UpdateChallengeData(jsonString,quizCount,correctCount,id);
 			Application.LoadLevel("Title");
 		}
 	}

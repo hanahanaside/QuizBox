@@ -62,7 +62,7 @@ public class AddQuizController : MonoBehaviour
 			ShortPointDialog shortPointDialog = Instantiate (shortPointDialogPrefab) as ShortPointDialog;
 			shortPointDialog.Show ();
 		} else {
-			mSelectedQuiz = addQuiz;
+			mSelectedQuiz = addQuiz; 
 			AddQuizDialog addQuizDialog = Instantiate (addQuizDialogPrefab)as AddQuizDialog;
 			addQuizDialog.Show (addQuiz, mUserPoint);
 		}

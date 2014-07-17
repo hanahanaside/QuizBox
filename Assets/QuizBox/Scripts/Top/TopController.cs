@@ -3,6 +3,14 @@ using System.Collections;
 
 public class TopController : MonoBehaviour {
 
+	void Update ()
+	{
+		if (Input.GetKey (KeyCode.Escape)) {
+			Application.Quit();
+		}
+	}
+
+
 	public void OnButtonClick(){
 		string buttonName = UIButton.current.name;
 		Debug.Log(buttonName);
