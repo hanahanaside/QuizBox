@@ -6,10 +6,14 @@ public class TitleInitializer : MonoBehaviour
 {
 
 	public GameObject titleDialogManager;
+	public GameObject[] inVisibleObjectsArray;
 	public UILabel middleLabel;
 
 	void Start ()
 	{
+		foreach(GameObject item in inVisibleObjectsArray){
+			item.SetActive(false);
+		}
 		#if UNITY_IOS
 		EtceteraBinding.showActivityView();
 		#endif
@@ -40,6 +44,9 @@ public class TitleInitializer : MonoBehaviour
 			stringBuilder.Append (System.Environment.NewLine + System.Environment.NewLine);
 			stringBuilder.Append ("挑戦者数 ： ");
 			middleLabel.text = stringBuilder.ToString ();
+			foreach(GameObject item in inVisibleObjectsArray){
+				item.SetActive(true);
+			}
 		} else {
 			#if !UNITY_EDITOR
 			titleDialogManager.GetComponent<TitleDialogManager> ().ShowErrorDialog ();
