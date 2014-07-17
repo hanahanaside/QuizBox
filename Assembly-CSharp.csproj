@@ -191,6 +191,8 @@
      <Compile Include="Assets\QuizBox\Scripts\Common\PrefsManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Dao\QuizListDao.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DatabaseCreator.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Game\CheckFinishQuizDialog.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Game\CheckSaveQuizDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\FailedAnimationController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\GameController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\GoodAnswerAnimation.cs" />

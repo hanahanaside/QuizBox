@@ -10,12 +10,25 @@ public class QuizListManager : MonoBehaviour
 	private IList allQuizList;
 	private IList mSeriesList;
 	private bool created = false;
+	private string mJsonString;
 
 	public IList quizList{ get; set; }
 
 	public static QuizListManager instance {
 		get {
 			return sInstance;
+		}
+	}
+
+	public int allQuizListCount{
+		get{
+			return allQuizList.Count;
+		}
+	}
+
+	public string jsonString{
+		get{
+			return mJsonString;
 		}
 	}
 
@@ -84,10 +97,10 @@ public class QuizListManager : MonoBehaviour
 		TitleInitializer titleInitializer = GameObject.Find ("TitleInitializer").GetComponent<TitleInitializer> ();
 		// check for errors
 		if (www.error == null) {
-			string json = www.text;
+			mJsonString = www.text;
 			Debug.Log ("WWW Ok!: ");
-			Debug.Log ("json = " + json);
-			IDictionary jsonObject = (IDictionary)Json.Deserialize (json);
+			Debug.Log ("json = " + mJsonString);
+			IDictionary jsonObject = (IDictionary)Json.Deserialize (mJsonString);
 			allQuizList = (IList)jsonObject ["updated_quiz"];
 			mSeriesList = (IList)jsonObject ["series_orderd"];
 			Debug.Log ("count = " + allQuizList.Count);
