@@ -23,5 +23,6 @@ public class ScoreKeeper : MonoBehaviour
 			DontDestroyOnLoad (gameObject);
 			created = true;
 		}
+		score = QuizListManager.instance.correctCount;
 	}
 }
