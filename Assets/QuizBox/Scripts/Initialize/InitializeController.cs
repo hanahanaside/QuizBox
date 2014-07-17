@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InitController : MonoBehaviour {
+public class InitializeController : MonoBehaviour {
 
 	void OnEnable(){
 		DatabaseCreator.createdDatabaseEvent += OnDatabaseCreated;
@@ -18,4 +18,5 @@ public class InitController : MonoBehaviour {
 	void OnDatabaseCreated(){
 		Application.LoadLevel("Top");
 	}
+
 }

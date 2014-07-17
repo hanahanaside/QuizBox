@@ -8,6 +8,8 @@ public class QuizListManager : MonoBehaviour
 
 	private static QuizListManager sInstance;
 	private IList allQuizList;
+	private IList mSeriesList;
+	private bool created = false;
 
 	public IList quizList{ get; set; }
 
@@ -19,18 +21,18 @@ public class QuizListManager : MonoBehaviour
 
 	void Awake ()
 	{
-		if (sInstance == null) {
+		if (!created) {
 			sInstance = this;
 			quizList = new List<IDictionary> ();
 			DontDestroyOnLoad (gameObject);
+			created = true;
 		}
 	}
 
 	public void InitQuizList ()
 	{
-		string id = SelectedQuiz.instance.id;
-		string jsonUrl = "http://ryodb.us/projects/" + id + "/quizzes.json";
-		WWW www = new WWW (jsonUrl);
+		Debug.Log ("url = " + SelectedQuiz.instance.quizUrl);
+		WWW www = new WWW (SelectedQuiz.instance.quizUrl);
 		StartCoroutine (GetJson (www));
 	}
 
@@ -59,9 +61,15 @@ public class QuizListManager : MonoBehaviour
 		return true;
 	}
 
-	public void PlaySeriesMode (string seriesName)
+	public void PlaySeriesMode (string selectedSeriesName)
 	{
-
+		foreach (object quizObject in allQuizList) {
+			IDictionary quizDictionary = (IDictionary)quizObject;
+			string seriesName = quizDictionary ["series"].ToString ();
+			if (seriesName == selectedSeriesName) {
+				quizList.Add (quizDictionary);
+			}
+		}
 	}
 
 	public void PlayChallengeMode ()
@@ -81,11 +89,18 @@ public class QuizListManager : MonoBehaviour
 			Debug.Log ("json = " + json);
 			IDictionary jsonObject = (IDictionary)Json.Deserialize (json);
 			allQuizList = (IList)jsonObject ["updated_quiz"];
+			mSeriesList = (IList)jsonObject ["series_orderd"];
 			Debug.Log ("count = " + allQuizList.Count);
 			titleInitializer.OnLoadFinished (true);
 		} else {
 			Debug.Log ("WWW Error: " + www.error);
 			titleInitializer.OnLoadFinished (false);
+		}
+	}
+
+	public IList SeriesList {
+		get {
+			return mSeriesList;
 		}
 	}
 }

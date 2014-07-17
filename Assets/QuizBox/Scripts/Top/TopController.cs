@@ -6,8 +6,8 @@ public class TopController : MonoBehaviour {
 	public void OnButtonClick(){
 		string buttonName = UIButton.current.name;
 		Debug.Log(buttonName);
-		if(buttonName == "AddButton"){
-
+		if(buttonName == "AddQuizButton"){
+			Application.LoadLevel("AddQuiz");
 		}
 		if(buttonName == "PostButton"){
 			

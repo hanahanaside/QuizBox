@@ -14,4 +14,19 @@ public class ResultController : MonoBehaviour
 		resultLabel.text = size + "問中" + score + "問正解!!";
 		Debug.Log ("score = " + score);
 	}
+
+	public void OnButtonClick(){
+		Reset();
+		string buttonName = UIButton.current.name;
+		if(buttonName == "RetryButton"){
+			Application.LoadLevel("Game");
+		}
+		if(buttonName == "TopButton"){
+			Application.LoadLevel("Top");
+		}
+	}
+
+	private void Reset(){
+		ScoreKeeper.instance.score = 0;
+	}
 }

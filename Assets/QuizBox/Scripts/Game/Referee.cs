@@ -4,6 +4,7 @@ using System.Collections;
 public class Referee : MonoBehaviour
 {
 	public GameObject goodAnswerAnimationPrefab;
+	public GameObject failedAnswerAnimationPrefab;
 	public GameObject uiRoot;
 	
 	public void Judge (string selectedText)
@@ -11,15 +12,20 @@ public class Referee : MonoBehaviour
 		IDictionary quizDictionary = QuizKeeper.instance.quizDictionary;
 		string answer = (string)quizDictionary ["answer"];
 		if (selectedText == answer) {
-			GameObject goodAnswerAnimationObject = Instantiate (goodAnswerAnimationPrefab) as GameObject;
-			goodAnswerAnimationObject.transform.parent = uiRoot.transform;
-			goodAnswerAnimationObject.transform.localScale = new Vector3 (1, 1, 1);
+			StartAnswerAnimation(goodAnswerAnimationPrefab);
 			ScoreKeeper.instance.score = ScoreKeeper.instance.score + 1;
 			Debug.Log ("success");
 		} else {
+			StartAnswerAnimation(failedAnswerAnimationPrefab);
 			Debug.Log ("fail");
 		}
 		StartCoroutine (Next ());
+	}
+
+	private void StartAnswerAnimation(GameObject animationPrefab){
+		GameObject animationObject = Instantiate (animationPrefab) as GameObject;
+		animationObject.transform.parent = uiRoot.transform;
+		animationObject.transform.localScale = new Vector3 (1, 1, 1);
 	}
 
 	private IEnumerator Next ()

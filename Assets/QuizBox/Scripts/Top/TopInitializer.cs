@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,11 +15,13 @@ public class TopInitializer : MonoBehaviour
 			GameObject cellObject = Instantiate(topCellPrefab) as GameObject;
 			cellObject.transform.parent = grid.transform;
 			cellObject.transform.localScale = new Vector2(1f,1f);
-			string id = (string)quiz[QuizListDao.ID_FIELD];
-			string name = (string)quiz[QuizListDao.NAME_FIELD];
+			int id = (int)quiz[QuizListDao.ID_FIELD];
+			string name = (string)quiz[QuizListDao.TITLE_FIELD];
+			string quizUrl = (string)quiz[QuizListDao.QUIZ_URL_FIELD];
 			CellTop cellTop = cellObject.GetComponent<CellTop>();
 			cellTop.id = id;
 			cellTop.name = name;
+			cellTop.quizUrl = quizUrl;
 		}
 	}
 }

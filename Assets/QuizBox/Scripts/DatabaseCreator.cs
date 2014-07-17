@@ -34,6 +34,7 @@ public class DatabaseCreator : MonoBehaviour
 		Debug.Log("delete");
 		baseFilePath = "file://"+Path.Combine (Application.streamingAssetsPath, databaseFileName);
 #endif
+		File.Delete(filePath);
 		if(File.Exists(filePath)){
 			CreatedDatabase();
 		}else {

@@ -6,9 +6,13 @@ public class SelectedQuiz : MonoBehaviour
 
 	private static SelectedQuiz sInstance;
 
-	public string id{ get; set; }
+	public int id{ get; set; }
 
 	public string name{ get; set; }
+
+	public string quizUrl{get;set;}
+
+	private bool created = false;
 
 	public static SelectedQuiz instance {
 		get {
@@ -18,9 +22,10 @@ public class SelectedQuiz : MonoBehaviour
 
 	void Start ()
 	{
-		if (sInstance == null) {
-			sInstance = this;
+		if(!created){
 			DontDestroyOnLoad (gameObject);
+			sInstance = this;
+			created = true;
 		}
 	}
 	
