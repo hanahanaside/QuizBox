@@ -11,6 +11,7 @@ public class QuizListManager : MonoBehaviour
 	private IList mSeriesList;
 	private bool created = false;
 	private string mJsonString;
+	private string mModeName;
 	private int mQuestionCount;
 	private int mCorrectCount;
 
@@ -52,6 +53,12 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 
+	public string modeName{
+		get {
+			return mModeName;
+		}
+	}
+
 	void Awake ()
 	{
 		if (!created) {
@@ -71,6 +78,7 @@ public class QuizListManager : MonoBehaviour
 
 	public void PlayQuickMode ()
 	{
+		mModeName = "クイックモード";
 		ResetCount();
 		IList indexNumberList = new List<int> ();
 		while (indexNumberList.Count <15) {
@@ -97,6 +105,7 @@ public class QuizListManager : MonoBehaviour
 
 	public void PlaySeriesMode (string selectedSeriesName)
 	{
+		mModeName = selectedSeriesName;
 		ResetCount();
 		foreach (object quizObject in allQuizList) {
 			IDictionary quizDictionary = (IDictionary)quizObject;
@@ -109,11 +118,13 @@ public class QuizListManager : MonoBehaviour
 	
 	public void PlayChallengeMode ()
 	{
+		mModeName = "チャレンジモード";
 		ResetCount();
 		quizList = allQuizList;
 	}
 
 	public void PlayChallenteModeResume(string jsonString,int questionCount,int correctCount){
+		mModeName = "チャレンジモード";
 		mQuestionCount = questionCount;
 		mCorrectCount = correctCount;
 		IDictionary jsonObject = (IDictionary)Json.Deserialize (jsonString);
