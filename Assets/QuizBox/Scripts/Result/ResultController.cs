@@ -3,26 +3,30 @@ using System.Collections;
 
 public class ResultController : MonoBehaviour
 {
-	
-
-
 	void Update ()
 	{
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.LoadLevel ("Top");
 		}
 	}
-
-	public void OnButtonClick ()
-	{
+	
+	public void OnRetryClick(){
 		Reset ();
-		string buttonName = UIButton.current.name;
-		if (buttonName == "RetryButton") {
-			Application.LoadLevel ("Game");
-		}
-		if (buttonName == "TopButton") {
-			Application.LoadLevel ("Top");
-		}
+		Application.LoadLevel ("Game");
+	}
+
+	public void OnTopClick(){
+		Reset ();
+		Application.LoadLevel ("Top");
+	
+	}
+
+	public void OnTwitterClick(){
+
+	}
+
+	public void OnFaceBookClick(){
+
 	}
 
 	private void Reset ()
