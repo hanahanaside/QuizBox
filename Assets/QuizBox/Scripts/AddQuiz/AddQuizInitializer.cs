@@ -9,6 +9,7 @@ public class AddQuizInitializer : MonoBehaviour
 	public UIGrid grid;
 	public GameObject addQuizButtonPrefab;
 	public OkDialog okDialogPrefab;
+	public UIScrollView scrollView;
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 
 	void OnEnable ()
@@ -67,6 +68,7 @@ public class AddQuizInitializer : MonoBehaviour
 			IDictionary jsonObject = (IDictionary)item;
 			SetButtons (jsonObject);
 		}
+		scrollView.ResetPosition();
 	}
 	
 	private void SetButtons (IDictionary jsonObject)

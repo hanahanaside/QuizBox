@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class QuizListManager : MonoBehaviour
 {
-
+	public HttpClient httpClient;
 	private static QuizListManager sInstance;
 	private IList allQuizList;
 	private IList mSeriesList;
@@ -59,6 +59,17 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 
+	void OnEnable ()
+	{
+		HttpClient.responseEvent += ResponseCallback;
+	}
+	
+	void OnDisable ()
+	{
+		HttpClient.responseEvent -= ResponseCallback;
+	}
+
+
 	void Awake ()
 	{
 		if (!created) {
@@ -73,7 +84,7 @@ public class QuizListManager : MonoBehaviour
 	{
 		Debug.Log ("url = " + SelectedQuiz.instance.quizUrl);
 		WWW www = new WWW (SelectedQuiz.instance.quizUrl);
-		StartCoroutine (GetJson (www));
+		StartCoroutine (httpClient.Excute(www));
 	}
 
 	public void PlayQuickMode ()
@@ -131,27 +142,33 @@ public class QuizListManager : MonoBehaviour
 		quizList = (IList)jsonObject ["updated_quiz"];
 	}
 
-	private IEnumerator GetJson (WWW www)
-	{
-		yield return www;
 
+	void ResponseCallback (string response)
+	{
 		TitleInitializer titleInitializer = GameObject.Find ("TitleInitializer").GetComponent<TitleInitializer> ();
-		// check for errors
-		if (www.error == null) {
-			mJsonString = www.text;
+		#if UNITY_IOS
+		EtceteraBinding.hideActivityView();
+		#endif
+		
+		#if UNITY_ANDROID
+		EtceteraAndroid.hideProgressDialog();
+		#endif
+
+		if (response == null) {
+			//error
+			titleInitializer.OnLoadFinished (false);
+		}else {
+			mJsonString = response;
 			mJsonString = mJsonString.Replace("'","");
-			Debug.Log ("WWW Ok!: ");
-			Debug.Log ("json = " + mJsonString);
 			IDictionary jsonObject = (IDictionary)Json.Deserialize (mJsonString);
 			allQuizList = (IList)jsonObject ["updated_quiz"];
 			mSeriesList = (IList)jsonObject ["series_orderd"];
 			Debug.Log ("count = " + allQuizList.Count);
 			titleInitializer.OnLoadFinished (true);
-		} else {
-			Debug.Log ("WWW Error: " + www.error);
-			titleInitializer.OnLoadFinished (false);
+
 		}
 	}
+
 
 	public IList SeriesList {
 		get {

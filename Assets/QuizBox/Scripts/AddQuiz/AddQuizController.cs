@@ -2,19 +2,16 @@ using UnityEngine;
 using MiniJSON;
 using System.Collections;
 
-public class AddQuizController : MonoBehaviour
-{
+public class AddQuizController : MonoBehaviour {
 
 	public AddQuizDialog addQuizDialogPrefab;
 	public ShortPointDialog shortPointDialogPrefab;
 	public OkDialog okDialogPrefab;
-	public GameObject addPointDialogPrefab;
-	public GameObject uiRoot;
+	private GameObject uiRoot;
 	private AddQuiz mSelectedQuiz;
 	private int mUserPoint;
 
-	void OnEnable ()
-	{
+	void OnEnable () {
 		AddQuizButtonController.clickedEvent += OnClickAddQuiz;
 
 #if UNITY_IPHONE
@@ -26,8 +23,7 @@ public class AddQuizController : MonoBehaviour
 #endif
 	}
 	
-	void OnDisable ()
-	{
+	void OnDisable () {
 		AddQuizButtonController.clickedEvent -= OnClickAddQuiz;
 
 		#if UNITY_IPHONE
@@ -39,24 +35,22 @@ public class AddQuizController : MonoBehaviour
 #endif
 	}
 
-	void Start ()
-	{
+	void Start () {
 		mUserPoint = PrefsManager.instance.GetUserPoint ();
+		uiRoot = transform.parent.gameObject.transform.parent.gameObject;
 	}
 
-	void Update ()
-	{
+	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.LoadLevel ("Top");
 		}
 	}
 
-	public void OnBackButtonClick(){
-		Application.LoadLevel("Top");
+	public void OnBackButtonClick () {
+		Application.LoadLevel ("Top");
 	}
 
-	void OnClickAddQuiz (AddQuiz addQuiz)
-	{
+	void OnClickAddQuiz (AddQuiz addQuiz) {
 		int needPoint = addQuiz.point;
 		if (mUserPoint < needPoint) {
 			ShortPointDialog shortPointDialog = Instantiate (shortPointDialogPrefab) as ShortPointDialog;
@@ -68,8 +62,7 @@ public class AddQuizController : MonoBehaviour
 		}
 	}
 
-	void alertButtonClickedEvent (string clickedButton)
-	{
+	void alertButtonClickedEvent (string clickedButton) {
 		Debug.Log ("alertButtonClickedEvent: " + clickedButton);
 		if (clickedButton == "\u306f\u3044") {
 			//add quiz
@@ -83,10 +76,7 @@ public class AddQuizController : MonoBehaviour
 		}
 		if (clickedButton == "\u8cfc\u5165\u3059\u308b") {
 			Debug.Log ("create");
-			//buy point
-			GameObject addPointDialog = Instantiate (addPointDialogPrefab) as GameObject;
-			addPointDialog.transform.parent = uiRoot.transform;
-			addPointDialog.transform.localScale = new Vector3 (1, 1, 1);
+			GameObject.Find("TopController").GetComponent<TopController>().OnAddPointClicked();
 		}
 	}
 }

@@ -8,7 +8,7 @@ public class HttpClient : MonoBehaviour {
 
 	public  IEnumerator Excute(WWW www){
 		Debug.Log("excute");
-		yield return StartCoroutine(ResponceCheckForTimeOutWWW(www, 5.0f));
+		yield return StartCoroutine(ResponceCheckForTimeOutWWW(www, 10.0f));
 		if(www.error != null){
 			//レスポンスエラーの場合
 			Debug.Log("error"+www.error);
@@ -16,7 +16,7 @@ public class HttpClient : MonoBehaviour {
 		
 		}else if(www.isDone){
 			//リクエスト成功の場合
-			Debug.Log("www ok"+www.text);
+			Debug.Log("www ok");
 			ResponseCallback(www.text);
 		}
 	}
