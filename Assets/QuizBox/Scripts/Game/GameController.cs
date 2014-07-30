@@ -3,16 +3,16 @@ using MiniJSON;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameController : MonoBehaviour
-{
-	public GameObject referee;
+public class GameController : MonoBehaviour {
 	public GameObject quizSetter;
 	public QuizKeeper quizKeeper;
 	public ScoreKeeper scoreKeeper;
+	public Referee referee;
+	public UILabel titleLabel;
 	public UILabel[] buttonLabelArray;
 
-	void OnEnable ()
-	{
+
+	void OnEnable () {
 #if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent += AlertButtonClickedEvent;
 #endif
@@ -22,8 +22,7 @@ public class GameController : MonoBehaviour
 #endif
 	}
 
-	void OnDisable ()
-	{
+	void OnDisable () {
 		#if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent -= AlertButtonClickedEvent;
 		#endif
@@ -34,15 +33,17 @@ public class GameController : MonoBehaviour
 
 	}
 
-	void Update ()
-	{
+	void Start () {
+		titleLabel.text = SelectedQuiz.instance.name;
+	}
+
+	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
-			OnBackButtonClick();
+			OnBackButtonClick ();
 		}
 	}
 	
-	public void OnAnswerButtonClick ()
-	{
+	public void OnAnswerButtonClick () {
 		string buttonName = UIButton.current.name;
 		string selectedText = "";
 		if (buttonName == "Button1") {
@@ -56,35 +57,33 @@ public class GameController : MonoBehaviour
 		}
 
 		quizSetter.GetComponent<QuizSetter> ().StopTyping ();
-		referee.GetComponent<Referee> ().Judge (selectedText);
+		referee.Judge (selectedText);
 
 	}
 
-	public void OnBackButtonClick ()
-	{
+	public void OnBackButtonClick () {
 		if (QuizListManager.instance.quizList.Count == QuizListManager.instance.allQuizListCount) {
 			//check save
-			CheckSaveQuizDialog.Show();
+			CheckSaveQuizDialog.Show ();
 		} else {
-			CheckFinishQuizDialog.Show();
+			CheckFinishQuizDialog.Show ();
 		}
 	}
 
-	private void AlertButtonClickedEvent (string clickedButton)
-	{
-		Debug.Log(clickedButton);
-		if(clickedButton == "\u7d42\u4e86\u3059\u308b"){
-			Application.LoadLevel("Title");
+	private void AlertButtonClickedEvent (string clickedButton) {
+		Debug.Log (clickedButton);
+		if (clickedButton == "\u7d42\u4e86\u3059\u308b") {
+			Application.LoadLevel ("Title");
 		}
-		if(clickedButton == "\u30bb\u30fc\u30d6\u3057\u3066\u7d42\u4e86"){
+		if (clickedButton == "\u30bb\u30fc\u30d6\u3057\u3066\u7d42\u4e86") {
 			//save
-			Debug.Log("save");
+			Debug.Log ("save");
 			string jsonString = QuizListManager.instance.jsonString;
 			int id = SelectedQuiz.instance.id;
 			int quizCount = quizKeeper.questionNumber;
 			int correctCount = scoreKeeper.score;
-			QuizListDao.instance.UpdateChallengeData(jsonString,quizCount,correctCount,id);
-			Application.LoadLevel("Title");
+			QuizListDao.instance.UpdateChallengeData (jsonString, quizCount, correctCount, id);
+			Application.LoadLevel ("Title");
 		}
 	}
 

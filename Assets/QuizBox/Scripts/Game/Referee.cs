@@ -1,43 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Referee : MonoBehaviour
-{
-	public GameObject goodAnswerAnimationPrefab;
-	public GameObject failedAnswerAnimationPrefab;
-	public GameObject uiRoot;
+public class Referee : MonoBehaviour {
+	public GameObject answerDialog;
+	public UISprite correctSprite;
+	public UILabel answerLabel;
+	public UIAtlas atlas;
 	
-	public void Judge (string selectedText)
-	{
+	public void Judge (string selectedText) {
 		IDictionary quizDictionary = QuizKeeper.instance.quizDictionary;
 		string answer = (string)quizDictionary ["answer"];
 		if (selectedText == answer) {
-			StartAnswerAnimation(goodAnswerAnimationPrefab);
+			ShowAnswerDialog (answer, true);
 			ScoreKeeper.instance.score = ScoreKeeper.instance.score + 1;
 			Debug.Log ("success");
 		} else {
-			StartAnswerAnimation(failedAnswerAnimationPrefab);
+			ShowAnswerDialog (answer, false);
 			Debug.Log ("fail");
 		}
-		StartCoroutine (Next ());
 	}
 
-	private void StartAnswerAnimation(GameObject animationPrefab){
-		GameObject animationObject = Instantiate (animationPrefab) as GameObject;
-		animationObject.transform.parent = uiRoot.transform;
-		animationObject.transform.localScale = new Vector3 (1, 1, 1);
-	}
-
-	private IEnumerator Next ()
-	{
-		yield return new WaitForSeconds (2.0f);
-		if (QuizKeeper.instance.questionNumber >= QuizListManager.instance.quizList.Count) {
-			Application.LoadLevel ("Result");
+	private void ShowAnswerDialog (string answer, bool isCorrect) {
+		answerDialog.SetActive (true);
+		answerLabel.text = "正解は" + answer;
+		string spriteName;
+		if (isCorrect) {
+			spriteName = "correct_answer";
 		} else {
-			GameObject.Find ("QuizKeeper").GetComponent<QuizKeeper> ().UpdateQuiz ();
-			GameObject.Find ("QuizSetter").GetComponent<QuizSetter> ().UpdateQuizComponents ();
+			spriteName = "incorrect_answer";
 		}
-
+		correctSprite.spriteName = spriteName;
+		int width = atlas.GetSprite (spriteName).width;
+		int height = atlas.GetSprite (spriteName).height;
+		correctSprite.SetDimensions (width, height);
 	}
 
 }

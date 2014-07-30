@@ -2,17 +2,15 @@
 using System.Collections;
 using System.Text;
 
-public class TitleInitializer : MonoBehaviour
-{
+public class TitleInitializer : MonoBehaviour {
 
 	public GameObject titleDialogManager;
 	public GameObject[] inVisibleObjectsArray;
-	public UILabel middleLabel;
+	public UILabel titleLabel;
 
-	void Start ()
-	{
-		foreach(GameObject item in inVisibleObjectsArray){
-			item.SetActive(false);
+	void Start () {
+		foreach (GameObject item in inVisibleObjectsArray) {
+			item.SetActive (false);
 		}
 		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
 		#if UNITY_IOS
@@ -26,8 +24,7 @@ public class TitleInitializer : MonoBehaviour
 		QuizListManager.instance.InitQuizList ();
 	}
 
-	public void OnLoadFinished (bool success)
-	{
+	public void OnLoadFinished (bool success) {
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView();
 		#endif
@@ -37,16 +34,10 @@ public class TitleInitializer : MonoBehaviour
 #endif
 
 		if (success) {
-			StringBuilder stringBuilder = new StringBuilder ();
-			stringBuilder.Append ("最終更新日 ： ");
-			stringBuilder.Append (System.Environment.NewLine + System.Environment.NewLine);
-			stringBuilder.Append ("問題数 ： ");
-			stringBuilder.Append (System.Environment.NewLine + System.Environment.NewLine);
-			stringBuilder.Append ("挑戦者数 ： ");
-			middleLabel.text = stringBuilder.ToString ();
-			foreach(GameObject item in inVisibleObjectsArray){
-				item.SetActive(true);
+			foreach (GameObject item in inVisibleObjectsArray) {
+				item.SetActive (true);
 			}
+			titleLabel.text = SelectedQuiz.instance.name;
 		} else {
 			#if !UNITY_EDITOR
 			titleDialogManager.GetComponent<TitleDialogManager> ().ShowErrorDialog ();

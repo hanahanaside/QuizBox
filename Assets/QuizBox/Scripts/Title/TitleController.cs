@@ -35,33 +35,19 @@ public class TitleController : MonoBehaviour
 			Application.LoadLevel ("Top");
 		}
 	}
-
-
-	public void OnButtonClick ()
-	{
-		string buttonName = UIButton.current.name;
-		if (buttonName == "QuickButton") {
-			QuizListManager.instance.PlayQuickMode ();
-			Application.LoadLevel ("Game");
-		}
-
-		if (buttonName == "SeriesButton") {
-			GameObject seriesDialog = Instantiate (seriesDialogPrefab)as GameObject;
-			seriesDialog.transform.parent = uiRoot.transform;
-			seriesDialog.transform.localScale = new Vector3 (1, 1, 1);
-		}
-
-		if (buttonName == "ChallengeButton") {
-			OnChallengeModeClicked ();
-		}
-
-		if (buttonName == "BackButton") {
-			Application.LoadLevel ("Top");
-		}
+	
+	public void OnQuickModeClicked(){
+		QuizListManager.instance.PlayQuickMode ();
+		Application.LoadLevel ("Game");
 	}
 
-	private void OnChallengeModeClicked ()
-	{
+	public void OnSeriesModeClicked(){
+		GameObject seriesDialog = Instantiate (seriesDialogPrefab)as GameObject;
+		seriesDialog.transform.parent = uiRoot.transform;
+		seriesDialog.transform.localScale = new Vector3 (1, 1, 1);
+	}
+
+	public void OnChallengeModeClicked(){
 		int id = SelectedQuiz.instance.id;
 		IDictionary challengeQuizDictionary = QuizListDao.instance.GetChallengeData (id);
 		string jsonString = (string)challengeQuizDictionary [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD];
@@ -73,8 +59,13 @@ public class TitleController : MonoBehaviour
 			QuizListManager.instance.PlayChallenteModeResume(jsonString,questionCount,correctCount);
 			RestartChallengeDialog.Show();
 		}
+
 	}
 
+	public void OnBackClicked(){
+		Application.LoadLevel ("Top");
+	}
+	
 	private void AlertButtonCoicked (string clickedButton)
 	{
 		if (clickedButton == "\u6311\u6226\u3059\u308b") {
