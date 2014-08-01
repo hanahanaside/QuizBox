@@ -22,10 +22,10 @@ public class ResultInitializer : MonoBehaviour {
 		HistoryDataDao.instance.InsertHistoryData (historyData);
 
 		System.Text.StringBuilder sb = new System.Text.StringBuilder ();
-		sb.Append ("result = " + result + "\n");
-		sb.Append ("date = " + DateTime.Now.ToString ()+ "\n");
-		sb.Append ("title = " + SelectedQuiz.instance.name + "\n");
-		sb.Append ("mode = " + QuizListManager.instance.modeName);
+		sb.Append (result + "\n");
+		sb.Append (DateTime.Now.ToString ()+ "\n");
+		sb.Append (SelectedQuiz.instance.name + "\n");
+		sb.Append (QuizListManager.instance.modeName);
 		resultLabel.text = sb.ToString();
 	}
 	

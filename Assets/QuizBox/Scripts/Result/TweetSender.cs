@@ -5,10 +5,7 @@ public class TweetSender : MonoBehaviour {
 
 	public string consumerKey;
 	public string consumerSecret;
-#if UNITY_ANDROID
-	private string mTweetText;
-#endif
-
+	
 	void OnEnable () {
 		TwitterManager.tweetSheetCompletedEvent += tweetSheetCompletedEvent;
 		TwitterManager.requestDidFinishEvent += requestDidFinishEvent;
@@ -111,7 +108,7 @@ public class TweetSender : MonoBehaviour {
 	#if UNITY_ANDROID
 	void promptFinishedWithTextEvent (string param) {
 		Debug.Log ("promptFinishedWithTextEvent: " + param);
-		TwitterAndroid.postStatusUpdate (mTweetText);
+		TwitterAndroid.postStatusUpdate ("text");
 	}
 	#endif
 
@@ -121,15 +118,35 @@ public class TweetSender : MonoBehaviour {
 		ShowOKDialog(title,message);
 	}
 
-	public void SendTweet (string tweetText) {
+	public void SendTweet () {
 		Debug.Log ("SendTweet");
 #if UNITY_IPHONE
-		TwitterBinding.showTweetComposer(tweetText);
+		TwitterBinding.showTweetComposer("text");
 #endif
 	
 #if UNITY_ANDROID
-		mTweetText = tweetText;
-		EtceteraAndroid.showAlertPrompt("Twitter" ,"Message","",mTweetText,"\u30b7\u30a7\u30a2\u3059\u308b","cancel");
+		EtceteraAndroid.showAlertPrompt("Twitter" ,"Message","","text","\u30b7\u30a7\u30a2\u3059\u308b","cancel");
+#endif
+	}
+
+	public bool IsLoggedIn(){
+		#if UNITY_IPHONE
+		return TwitterBinding.isLoggedIn();
+		#endif
+
+		#if UNITY_ANDROID
+		return TwitterAndroid.isLoggedIn();
+		#endif
+	}
+
+	public void ShowLoginDialog(){
+		#if UNITY_IPHONE
+		TwitterBinding.showLoginDialog();
+#endif
+
+		#if UNITY_ANDROID
+		EtceteraAndroid.showProgressDialog("\u30ed\u30b0\u30a4\u30f3\u3057\u3066\u3044\u307e\u3059","\u30ed\u30b0\u30a4\u30f3\u3057\u3066\u3044\u307e\u3059");
+		TwitterAndroid.showLoginDialog();
 #endif
 	}
 
