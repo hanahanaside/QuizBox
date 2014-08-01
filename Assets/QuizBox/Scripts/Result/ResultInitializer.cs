@@ -23,7 +23,7 @@ public class ResultInitializer : MonoBehaviour {
 
 		System.Text.StringBuilder sb = new System.Text.StringBuilder ();
 		sb.Append ("result = " + result + "\n");
-		sb.Append ("date = " + DateTime.Now.ToString ());
+		sb.Append ("date = " + DateTime.Now.ToString ()+ "\n");
 		sb.Append ("title = " + SelectedQuiz.instance.name + "\n");
 		sb.Append ("mode = " + QuizListManager.instance.modeName);
 		resultLabel.text = sb.ToString();

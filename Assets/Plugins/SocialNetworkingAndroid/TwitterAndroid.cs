@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Prime31;
 
-
 #if UNITY_ANDROID
 public class TwitterAndroid
 {

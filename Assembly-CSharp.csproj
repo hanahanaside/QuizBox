@@ -206,6 +206,7 @@
      <Compile Include="Assets\QuizBox\Scripts\History\HistoryInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Result\FacebookSenderIOS.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\TweetSender.cs" />
