@@ -25,12 +25,16 @@ public class FacebookSender : MonoBehaviour {
 
 	public void ShowShareDialog () {
 		Dictionary<string,object> dictionary = new Dictionary<string,object>();
-	//	dictionary.Add("name","namedjia");
-		dictionary.Add("description","textaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		dictionary.Add("name","クイズボックス");
+		dictionary.Add("description","desc");
 		dictionary.Add("link","http://www.yahoo.co.jp/");
 	//	dictionary.Add("caption","caption");
 #if UNITY_IPHONE
 		FacebookBinding.showFacebookShareDialog(dictionary);
+#endif
+
+#if UNITY_ANDROID
+		FacebookAndroid.showFacebookShareDialog(dictionary);
 #endif
 	}
 
@@ -48,6 +52,10 @@ public class FacebookSender : MonoBehaviour {
 	public void Login(){
 		#if UNITY_IPHONE
 		FacebookBinding.login();
+#endif
+
+#if UNITY_ANDROID
+		FacebookAndroid.login();
 #endif
 	}
 

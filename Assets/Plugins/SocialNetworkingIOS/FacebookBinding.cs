@@ -327,6 +327,7 @@ public class FacebookBinding
 	{
 		if( Application.platform == RuntimePlatform.IPhonePlayer )
 			_facebookShowFacebookShareDialog( parameters.toJson() );
+
 	}
 
 
