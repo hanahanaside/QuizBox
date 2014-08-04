@@ -10,6 +10,7 @@ public class QuizSetter : MonoBehaviour
 	public UILabel scoreLabel;
 	public UILabel seriesLabel;
 	public UILabel[] buttonLabelArray;
+	public TypewriterEffect typeWriterEffect;
 	private StringBuilder mStringBuilder;
 	private int mIndexNumber;
 	private char[] mCharArray;
