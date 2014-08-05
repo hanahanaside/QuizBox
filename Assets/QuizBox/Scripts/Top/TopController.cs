@@ -29,7 +29,7 @@ public class TopController : MonoBehaviour {
 
 	public void OnAddPointClicked () {
 		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [1])as GameObject);
+		ShowDialog (Instantiate (dialogArray [5])as GameObject);
 	}
 
 	public void OnPostQuizClicked () {
@@ -49,7 +49,7 @@ public class TopController : MonoBehaviour {
 
 	public void OnAddQuizClicked(){
 		OnButtonClicked();
-		ShowDialog (Instantiate (dialogArray [5])as GameObject);
+		ShowDialog (Instantiate (dialogArray [1])as GameObject);
 	}
 
 	private void OnButtonClicked () {

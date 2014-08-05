@@ -6,6 +6,7 @@ public class QuizTopicInitializer : MonoBehaviour {
 
 	public GameObject topCellPrefab;
 	public UIGrid grid;
+	public UIScrollView scrollView;
 	
 	void Start () {
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
@@ -21,5 +22,6 @@ public class QuizTopicInitializer : MonoBehaviour {
 			cellTop.name = name;
 			cellTop.quizUrl = quizUrl;
 		}
+		scrollView.ResetPosition ();
 	}
 }

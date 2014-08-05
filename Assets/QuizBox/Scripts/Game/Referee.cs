@@ -21,8 +21,9 @@ public class Referee : MonoBehaviour {
 	}
 
 	private void ShowAnswerDialog (string answer, bool isCorrect) {
+		AdManager.Instance.ShowRectangleAd ();
 		answerDialog.SetActive (true);
-		answerLabel.text = "正解は" + answer;
+		answerLabel.text = "正解は「" + answer + "」";
 		string spriteName;
 		if (isCorrect) {
 			spriteName = "correct_answer";

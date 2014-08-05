@@ -102,12 +102,24 @@ public class QuizListManager : MonoBehaviour {
 	public void PlaySeriesMode (string selectedSeriesName) {
 		mModeName = selectedSeriesName;
 		ResetCount ();
+		IList allSeriesList = new List<IDictionary> ();
 		foreach (object quizObject in allQuizList) {
 			IDictionary quizDictionary = (IDictionary)quizObject;
 			string seriesName = quizDictionary ["series"].ToString ();
 			if (seriesName == selectedSeriesName) {
-				quizList.Add (quizDictionary);
+				allSeriesList.Add (quizDictionary);
 			}
+		}
+		IList indexNumberList = new List<int> ();
+		while (indexNumberList.Count <15) {
+			int number = Random.Range (0, allSeriesList.Count);
+			if (CheckNotDuplicate (indexNumberList, number)) {
+				indexNumberList.Add (number);
+			}
+		}
+		foreach (int indexNumber in indexNumberList) {
+			IDictionary quiz = (IDictionary)allSeriesList [indexNumber];
+			quizList.Add (quiz);
 		}
 	}
 	

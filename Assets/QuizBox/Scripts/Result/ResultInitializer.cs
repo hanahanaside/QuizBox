@@ -15,7 +15,7 @@ public class ResultInitializer : MonoBehaviour {
 		resultLabel.text = result;
 		HistoryData historyData = new HistoryData ();
 		historyData.result = result;
-		historyData.date = DateTime.Now.ToString ();
+		historyData.date = DateTime.Now.ToString ("yyyy/MM/dd (ddd) HH:mm:ss");
 		historyData.title = SelectedQuiz.instance.name;
 		historyData.mode = QuizListManager.instance.modeName;
 	
@@ -23,7 +23,6 @@ public class ResultInitializer : MonoBehaviour {
 
 		System.Text.StringBuilder sb = new System.Text.StringBuilder ();
 		sb.Append (result + "\n");
-		sb.Append (DateTime.Now.ToString ()+ "\n");
 		sb.Append (SelectedQuiz.instance.name + "\n");
 		sb.Append (QuizListManager.instance.modeName);
 		resultLabel.text = sb.ToString();
