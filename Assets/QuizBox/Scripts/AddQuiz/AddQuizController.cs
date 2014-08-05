@@ -36,7 +36,7 @@ public class AddQuizController : MonoBehaviour {
 	}
 
 	void Start () {
-		mUserPoint = PrefsManager.instance.GetUserPoint ();
+		mUserPoint = PrefsManager.Instance.GetUserPoint ();
 		uiRoot = transform.parent.gameObject.transform.parent.gameObject;
 	}
 
@@ -68,7 +68,7 @@ public class AddQuizController : MonoBehaviour {
 			//add quiz
 			QuizListDao.instance.Insert (mSelectedQuiz.title, mSelectedQuiz.url);
 			mUserPoint -= mSelectedQuiz.point;
-			PrefsManager.instance.SaveUserPoint (mUserPoint);
+			PrefsManager.Instance.SaveUserPoint (mUserPoint);
 			GameObject.Find ("UserPointLabel").GetComponent<UILabel> ().text = mUserPoint + "pt";
 			string title = "\u8ffd\u52a0\u5b8c\u4e86";
 			string message = mSelectedQuiz.title + "\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f";

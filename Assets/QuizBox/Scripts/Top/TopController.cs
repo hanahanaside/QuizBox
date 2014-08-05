@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TopController : MonoBehaviour {
@@ -10,7 +10,7 @@ public class TopController : MonoBehaviour {
 
 	void Start () {
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
-		int userPoint = PrefsManager.instance.GetUserPoint ();
+		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		userPointLabel.text = userPoint + "pt";
 	}
 
