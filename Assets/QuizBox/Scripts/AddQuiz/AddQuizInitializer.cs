@@ -2,8 +2,7 @@
 using MiniJSON;
 using System.Collections;
 
-public class AddQuizInitializer : MonoBehaviour
-{
+public class AddQuizInitializer : MonoBehaviour {
 
 	public HttpClient httpClient;
 	public UIGrid grid;
@@ -12,19 +11,18 @@ public class AddQuizInitializer : MonoBehaviour
 	public UIScrollView scrollView;
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 
-	void OnEnable ()
-	{
+	void OnEnable () {
+		Debug.Log("enable");
 		HttpClient.responseEvent += ResponseCallback;
 	}
 	
-	void OnDisable ()
-	{
+	void OnDisable () {
+		Debug.Log("disable");
 		HttpClient.responseEvent -= ResponseCallback;
 	}
 
 	// Use this for initialization
-	void Start ()
-	{
+	void Start () {
 		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
 		#if UNITY_IOS
 		EtceteraBinding.showBezelActivityViewWithLabel(title);
@@ -39,8 +37,7 @@ public class AddQuizInitializer : MonoBehaviour
 		StartCoroutine (httpClient.Excute (www));
 	}
 
-	void ResponseCallback (string response)
-	{
+	void ResponseCallback (string response) {
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView();
 		#endif
@@ -54,25 +51,23 @@ public class AddQuizInitializer : MonoBehaviour
 			//error
 			string title = "\u901a\u4fe1\u306b\u5931\u6557\u3057\u307e\u3057\u305f";
 			string message = "\u30af\u30a4\u30ba\u3092\u53d6\u5f97\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f";
-			OkDialog okDialog = Instantiate(okDialogPrefab)as OkDialog;
-			okDialog.Show(title,message);
-		}else {
+			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
+			okDialog.Show (title, message);
+		} else {
 			IList jsonArray = (IList)Json.Deserialize (response);
 			CreateScrollView (jsonArray);
 		}
 	}
 
-	private void CreateScrollView (IList jsonArray)
-	{
+	private void CreateScrollView (IList jsonArray) {
 		foreach (object item in jsonArray) {
 			IDictionary jsonObject = (IDictionary)item;
 			SetButtons (jsonObject);
 		}
-		scrollView.ResetPosition();
+		scrollView.ResetPosition ();
 	}
 	
-	private void SetButtons (IDictionary jsonObject)
-	{
+	private void SetButtons (IDictionary jsonObject) {
 		bool publish = (bool)jsonObject ["publish"];
 		if (publish) {
 			long point = (long)jsonObject ["point"];
@@ -83,10 +78,10 @@ public class AddQuizInitializer : MonoBehaviour
 			addQuiz.url = url;
 			addQuiz.title = title;
 			GameObject addQuizButtonObject = Instantiate (addQuizButtonPrefab)as GameObject;
-			grid.AddChild(addQuizButtonObject.transform);
-			addQuizButtonObject.transform.localScale = new Vector3(1,1,1);
-			AddQuizButtonController controller = addQuizButtonObject.GetComponentInChildren<AddQuizButtonController>();
-			controller.Init(addQuiz);
+			grid.AddChild (addQuizButtonObject.transform);
+			addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);
+			AddQuizButtonController controller = addQuizButtonObject.GetComponentInChildren<AddQuizButtonController> ();
+			controller.Init (addQuiz);
 		}
 	}
 

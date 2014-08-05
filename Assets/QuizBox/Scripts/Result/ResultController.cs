@@ -25,21 +25,23 @@ public class ResultController : MonoBehaviour {
 	}
 
 	public void OnTwitterClick () {
-		if (tweetSender.IsLoggedIn ()) {
-			tweetSender.SendTweet ();
-		} else {
-			tweetSender.ShowLoginDialog ();
-		}
+		tweetSender.SendTweet ();
+//		if (tweetSender.IsLoggedIn ()) {
+//			tweetSender.SendTweet ();
+//		} else {
+//			tweetSender.ShowLoginDialog ();
+//		}
 	}
 	
 	public void OnFaceBookClick () {
 		Debug.Log ("facebook");
 		Debug.Log(""+facebookSender.IsSessionValid());
-		if (facebookSender.IsSessionValid ()) {
-			facebookSender.ShowShareDialog();
-		} else {
-			facebookSender.Login ();
-		}
+		SocialConnector.Share("text");
+//		if (facebookSender.IsSessionValid ()) {
+//			facebookSender.ShowShareDialog();
+//		} else {
+//			facebookSender.Login ();
+//		}
 	}
 
 	private void Reset () {

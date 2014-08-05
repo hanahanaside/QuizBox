@@ -69,6 +69,7 @@ public class AddQuizController : MonoBehaviour {
 			QuizListDao.instance.Insert (mSelectedQuiz.title, mSelectedQuiz.url);
 			mUserPoint -= mSelectedQuiz.point;
 			PrefsManager.instance.SaveUserPoint (mUserPoint);
+			GameObject.Find ("UserPointLabel").GetComponent<UILabel> ().text = mUserPoint + "pt";
 			string title = "\u8ffd\u52a0\u5b8c\u4e86";
 			string message = mSelectedQuiz.title + "\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f";
 			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
@@ -76,7 +77,7 @@ public class AddQuizController : MonoBehaviour {
 		}
 		if (clickedButton == "\u8cfc\u5165\u3059\u308b") {
 			Debug.Log ("create");
-			GameObject.Find("TopController").GetComponent<TopController>().OnAddPointClicked();
+			GameObject.Find ("TopController").GetComponent<TopController> ().OnAddPointClicked ();
 		}
 	}
 }

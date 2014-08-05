@@ -3,8 +3,7 @@ using MiniJSON;
 using System.Collections;
 using System.Collections.Generic;
 
-public class QuizListManager : MonoBehaviour
-{
+public class QuizListManager : MonoBehaviour {
 	public HttpClient httpClient;
 	private static QuizListManager sInstance;
 	private IList allQuizList;
@@ -23,14 +22,14 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 
-	public int allQuizListCount{
-		get{
+	public int allQuizListCount {
+		get {
 			return allQuizList.Count;
 		}
 	}
 
-	public int questionCount{
-		get{
+	public int questionCount {
+		get {
 			return mQuestionCount;
 		}
 		set {
@@ -39,39 +38,27 @@ public class QuizListManager : MonoBehaviour
 	}
 
 	public int correctCount {
-		get{
+		get {
 			return mCorrectCount;
 		}
-		set{
+		set {
 			mCorrectCount = value;
 		}
 	}
 
-	public string jsonString{
-		get{
+	public string jsonString {
+		get {
 			return mJsonString;
 		}
 	}
 
-	public string modeName{
+	public string modeName {
 		get {
 			return mModeName;
 		}
 	}
-
-	void OnEnable ()
-	{
-		HttpClient.responseEvent += ResponseCallback;
-	}
 	
-	void OnDisable ()
-	{
-		HttpClient.responseEvent -= ResponseCallback;
-	}
-
-
-	void Awake ()
-	{
+	void Awake () {
 		if (!created) {
 			sInstance = this;
 			quizList = new List<IDictionary> ();
@@ -80,17 +67,16 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 
-	public void InitQuizList ()
-	{
+	public void InitQuizList () {
 		Debug.Log ("url = " + SelectedQuiz.instance.quizUrl);
+		HttpClient.responseEvent += ResponseCallback;
 		WWW www = new WWW (SelectedQuiz.instance.quizUrl);
-		StartCoroutine (httpClient.Excute(www));
+		StartCoroutine (httpClient.Excute (www));
 	}
 
-	public void PlayQuickMode ()
-	{
+	public void PlayQuickMode () {
 		mModeName = "クイックモード";
-		ResetCount();
+		ResetCount ();
 		IList indexNumberList = new List<int> ();
 		while (indexNumberList.Count <15) {
 			int number = Random.Range (0, allQuizList.Count);
@@ -104,8 +90,7 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 
-	private bool CheckNotDuplicate (IList indexNumberList, int number)
-	{
+	private bool CheckNotDuplicate (IList indexNumberList, int number) {
 		foreach (int indexNumber in indexNumberList) {
 			if (indexNumber == number) {
 				return false;
@@ -114,10 +99,9 @@ public class QuizListManager : MonoBehaviour
 		return true;
 	}
 
-	public void PlaySeriesMode (string selectedSeriesName)
-	{
+	public void PlaySeriesMode (string selectedSeriesName) {
 		mModeName = selectedSeriesName;
-		ResetCount();
+		ResetCount ();
 		foreach (object quizObject in allQuizList) {
 			IDictionary quizDictionary = (IDictionary)quizObject;
 			string seriesName = quizDictionary ["series"].ToString ();
@@ -127,14 +111,13 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 	
-	public void PlayChallengeMode ()
-	{
+	public void PlayChallengeMode () {
 		mModeName = "チャレンジモード";
-		ResetCount();
+		ResetCount ();
 		quizList = allQuizList;
 	}
 
-	public void PlayChallenteModeResume(string jsonString,int questionCount,int correctCount){
+	public void PlayChallenteModeResume (string jsonString, int questionCount, int correctCount) {
 		mModeName = "チャレンジモード";
 		mQuestionCount = questionCount;
 		mCorrectCount = correctCount;
@@ -142,9 +125,9 @@ public class QuizListManager : MonoBehaviour
 		quizList = (IList)jsonObject ["updated_quiz"];
 	}
 
-
-	void ResponseCallback (string response)
-	{
+	void ResponseCallback (string response) {
+		Debug.Log ("ResponseCallback");
+		HttpClient.responseEvent -= ResponseCallback;
 		TitleInitializer titleInitializer = GameObject.Find ("TitleInitializer").GetComponent<TitleInitializer> ();
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView();
@@ -157,9 +140,9 @@ public class QuizListManager : MonoBehaviour
 		if (response == null) {
 			//error
 			titleInitializer.OnLoadFinished (false);
-		}else {
+		} else {
 			mJsonString = response;
-			mJsonString = mJsonString.Replace("'","");
+			mJsonString = mJsonString.Replace ("'", "");
 			IDictionary jsonObject = (IDictionary)Json.Deserialize (mJsonString);
 			allQuizList = (IList)jsonObject ["updated_quiz"];
 			mSeriesList = (IList)jsonObject ["series_orderd"];
@@ -169,14 +152,13 @@ public class QuizListManager : MonoBehaviour
 		}
 	}
 
-
 	public IList SeriesList {
 		get {
 			return mSeriesList;
 		}
 	}
 
-	private void ResetCount(){
+	private void ResetCount () {
 		mQuestionCount = 1;
 		mCorrectCount = 0;
 	}
