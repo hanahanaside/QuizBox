@@ -382,7 +382,6 @@
      <None Include="Assets\sqlitekit\license.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 1.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
-     <None Include="Assets\Plugins\GoogleCloudMessaging\Manifest.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\styles.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_top_background.xml" />
