@@ -18,9 +18,7 @@ public class DatabaseCreator : MonoBehaviour
 		#if UNITY_IPHONE
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
-		File.Delete(filePath);
 		if(!File.Exists(filePath)){
-		
 			File.Copy( baseFilePath, filePath); 
 			Debug.Log("create Database");
 		}

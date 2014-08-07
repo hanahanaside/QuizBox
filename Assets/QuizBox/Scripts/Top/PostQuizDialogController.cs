@@ -17,43 +17,30 @@ public class PostQuizDialogController : MonoBehaviour {
 	public UIToggle checkMarkToggle;
 
 	public void OnPostButtonClicked () {
-//		if (themeLabel.text == DEFAULT_TEXT) {
-//			ShowErrorDialog ("\u30c6\u30fc\u30de\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
-//		} else if (seriesLabel.text == DEFAULT_TEXT) {
-//			ShowErrorDialog ("\u30b7\u30ea\u30fc\u30ba\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
-//		} else if (questionLabel.text == DEFAULT_TEXT) {
-//			ShowErrorDialog ("\u554f\u984c\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
-//		} else if (answerLabel.text == DEFAULT_TEXT) {
-//			ShowErrorDialog ("\u6b63\u89e3\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
-//		} else if (!checkMarkToggle.value) {
-//			ShowErrorDialog ("\u5229\u7528\u898f\u7d04\u306b\u540c\u610f\u3057\u3066\u304f\u3060\u3055\u3044");
-//		} else {
-//			Dictionary<string,object> dictionary = new Dictionary<string,object> ();
-//			dictionary.Add ("title", "title");
-//			dictionary.Add ("series", "series");
-//			dictionary.Add ("question", "question");
-//			dictionary.Add ("answer", "answer");
-//			dictionary.Add ("mistake1", "mistake1");
-//			dictionary.Add ("mistake2", "mistake2");
-//			dictionary.Add ("userid", "userid");
-//	//		dictionary.Add ("api_version", 1);
-//			string json = Json.Serialize (dictionary);
-//			WWW www = new WWW (POST_DATA_URL, Encoding.UTF8.GetBytes (json));
-//			StartCoroutine (PostData (www));
-//		}
-
-		Dictionary<string,object> dictionary = new Dictionary<string,object> ();
-		dictionary.Add ("title", "title");
-		dictionary.Add ("series", "series");
-		dictionary.Add ("question", "question");
-		dictionary.Add ("answer", "answer");
-		dictionary.Add ("mistake1", "mistake1");
-		dictionary.Add ("mistake2", "mistake2");
-		dictionary.Add ("userid", "userid");
-		dictionary.Add ("api_version", 1);
-		string json = Json.Serialize (dictionary);
-		WWW www = new WWW (POST_DATA_URL, Encoding.UTF8.GetBytes (json));
-		StartCoroutine (PostData (www));
+		if (themeLabel.text == DEFAULT_TEXT) {
+			ShowErrorDialog ("\u30c6\u30fc\u30de\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
+		} else if (seriesLabel.text == DEFAULT_TEXT) {
+			ShowErrorDialog ("\u30b7\u30ea\u30fc\u30ba\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
+		} else if (questionLabel.text == DEFAULT_TEXT) {
+			ShowErrorDialog ("\u554f\u984c\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
+		} else if (answerLabel.text == DEFAULT_TEXT) {
+			ShowErrorDialog ("\u6b63\u89e3\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
+		} else if (!checkMarkToggle.value) {
+			ShowErrorDialog ("\u5229\u7528\u898f\u7d04\u306b\u540c\u610f\u3057\u3066\u304f\u3060\u3055\u3044");
+		} else {
+			Dictionary<string,object> dictionary = new Dictionary<string,object> ();
+			dictionary.Add ("title", "title");
+			dictionary.Add ("series", "series");
+			dictionary.Add ("question", "question");
+			dictionary.Add ("answer", "answer");
+			dictionary.Add ("mistake1", "mistake1");
+			dictionary.Add ("mistake2", "mistake2");
+			dictionary.Add ("userid", "userid");
+			dictionary.Add ("api_version", 1);
+			string json = Json.Serialize (dictionary);
+			WWW www = new WWW (POST_DATA_URL, Encoding.UTF8.GetBytes (json));
+			StartCoroutine (PostData (www));
+		}
 	}
 
 	private IEnumerator PostData (WWW www) {
@@ -64,7 +51,7 @@ public class PostQuizDialogController : MonoBehaviour {
 #endif
 		yield return www;
 
-		#if UNITY_IPHONE
+#if UNITY_IPHONE
 		EtceteraBinding.hideActivityView();
 		FenceInstanceKeeper.Instance.SetActive(false);
 #endif

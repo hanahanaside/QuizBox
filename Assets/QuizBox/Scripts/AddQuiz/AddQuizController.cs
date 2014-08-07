@@ -75,9 +75,5 @@ public class AddQuizController : MonoBehaviour {
 			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
 			okDialog.Show (title, message);
 		}
-		if (clickedButton == "\u8cfc\u5165\u3059\u308b") {
-			Debug.Log ("create");
-			GameObject.Find ("TopController").GetComponent<TopController> ().OnAddPointClicked ();
-		}
 	}
 }

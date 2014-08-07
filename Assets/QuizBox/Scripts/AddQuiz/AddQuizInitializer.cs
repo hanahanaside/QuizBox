@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using MiniJSON;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AddQuizInitializer : MonoBehaviour {
 
@@ -10,21 +11,28 @@ public class AddQuizInitializer : MonoBehaviour {
 	public OkDialog okDialogPrefab;
 	public UIScrollView scrollView;
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
+	private static IList sAddQuizButtonList = null;
+	private List<string> mTitleList;
 
 	void OnEnable () {
-		Debug.Log("enable");
+		Debug.Log ("enable");
 		HttpClient.responseEvent += ResponseCallback;
 	}
 	
 	void OnDisable () {
-		Debug.Log("disable");
+		Debug.Log ("disable");
 		HttpClient.responseEvent -= ResponseCallback;
 	}
 
 	// Use this for initialization
 	void Start () {
+		mTitleList = QuizListDao.instance.GetTitleList ();
+		if (sAddQuizButtonList != null) {
+			CreateScrollView(sAddQuizButtonList);
+			return;
+		}
 		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
-		FenceInstanceKeeper.Instance.SetActive(true);
+		FenceInstanceKeeper.Instance.SetActive (true);
 		#if UNITY_IOS
 		EtceteraBinding.showBezelActivityViewWithLabel(title);
 		#endif
@@ -39,7 +47,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	}
 
 	void ResponseCallback (string response) {
-		FenceInstanceKeeper.Instance.SetActive(false);
+		FenceInstanceKeeper.Instance.SetActive (false);
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView();
 		#endif
@@ -48,7 +56,6 @@ public class AddQuizInitializer : MonoBehaviour {
 		EtceteraAndroid.hideProgressDialog();
 		#endif
 
-		Debug.Log ("callBack" + response);
 		if (response == null) {
 			//error
 			string title = "\u901a\u4fe1\u306b\u5931\u6557\u3057\u307e\u3057\u305f";
@@ -56,8 +63,8 @@ public class AddQuizInitializer : MonoBehaviour {
 			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
 			okDialog.Show (title, message);
 		} else {
-			IList jsonArray = (IList)Json.Deserialize (response);
-			CreateScrollView (jsonArray);
+			sAddQuizButtonList = (IList)Json.Deserialize (response);
+			CreateScrollView (sAddQuizButtonList);
 		}
 	}
 
@@ -71,20 +78,32 @@ public class AddQuizInitializer : MonoBehaviour {
 	
 	private void SetButtons (IDictionary jsonObject) {
 		bool publish = (bool)jsonObject ["publish"];
-		if (publish) {
-			long point = (long)jsonObject ["point"];
-			string url = jsonObject ["quiz_management_url"].ToString ();
-			string title = jsonObject ["title"].ToString ();
-			AddQuiz addQuiz = new AddQuiz ();
-			addQuiz.point = (int)point;
-			addQuiz.url = url;
-			addQuiz.title = title;
-			GameObject addQuizButtonObject = Instantiate (addQuizButtonPrefab)as GameObject;
-			grid.AddChild (addQuizButtonObject.transform);
-			addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);
-			AddQuizButtonController controller = addQuizButtonObject.GetComponentInChildren<AddQuizButtonController> ();
-			controller.Init (addQuiz);
+		string title = jsonObject ["title"].ToString ();
+		if (!publish) {
+			return;
 		}
+		if (!CheckNotDuplicateTitle (title)) {
+			return;
+		}
+		long point = (long)jsonObject ["point"];
+		string url = jsonObject ["quiz_management_url"].ToString ();
+
+		AddQuiz addQuiz = new AddQuiz ();
+		addQuiz.point = (int)point;
+		addQuiz.url = url;
+		addQuiz.title = title;
+		GameObject addQuizButtonObject = Instantiate (addQuizButtonPrefab)as GameObject;
+		grid.AddChild (addQuizButtonObject.transform);
+		addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);
+		addQuizButtonObject.BroadcastMessage ("Init", addQuiz);
 	}
 
+	private bool CheckNotDuplicateTitle (string text) {
+		foreach (string title in mTitleList) {
+			if (title == text) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

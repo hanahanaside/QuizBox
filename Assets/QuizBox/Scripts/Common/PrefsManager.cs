@@ -28,7 +28,7 @@ public class PrefsManager {
 
 	public void AddUserPoint(int addPoint){
 		int userPoint = GetUserPoint();
-		userPoint++;
+		userPoint+=addPoint;
 		SaveUserPoint(userPoint);
 	}
 
