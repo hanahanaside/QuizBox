@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
 using System.Collections.Generic;
 
 public class FacebookSender : MonoBehaviour {
 
-	// common event handler used for all graph requests that logs the data to the console
-	void completionHandler (string error, object result) {
-		Debug.Log ("completionHandler");
-		if (error != null)
-			Debug.LogError (error);
-		else
-			Prime31.Utils.logObject (result);
+	void OnEnable () {
+		FacebookManager.facebookComposerCompletedEvent += composerCompletedEvent;
+	}
+
+	void OnDisable () {
+		FacebookManager.facebookComposerCompletedEvent -= composerCompletedEvent;
 	}
 
 	void Start () {
@@ -24,13 +24,18 @@ public class FacebookSender : MonoBehaviour {
 	}
 
 	public void ShowShareDialog () {
-		Dictionary<string,object> dictionary = new Dictionary<string,object>();
-		dictionary.Add("name","クイズボックス");
-		dictionary.Add("description","desc");
-		dictionary.Add("link","http://www.yahoo.co.jp/");
-	//	dictionary.Add("caption","caption");
+		int score = ScoreKeeper.instance.score;
+		int size = QuizListManager.instance.quizList.Count;
+		string result = size + "問中" + score + "問正解!!";
+		StringBuilder sb = new StringBuilder ();
+		sb.Append (SelectedQuiz.instance.name + "|" + QuizListManager.instance.modeName + "\u3067");
+		sb.Append ("、" + result + "\n");
+		sb.Append ("\u3053\u306e\u30af\u30a4\u30ba\u30a2\u30d7\u30ea\u9762\u767d\u3044\u304b\u3089\u3084\u3063\u3066\u307f\u3066\uff01" + "\n");
+
+		string imagePath = Application.streamingAssetsPath + "/share_image.png";
+
 #if UNITY_IPHONE
-		FacebookBinding.showFacebookShareDialog(dictionary);
+		FacebookBinding.showFacebookComposer(sb.ToString(),imagePath,"http://www.yahoo.co.jp/");
 #endif
 
 #if UNITY_ANDROID
@@ -49,7 +54,7 @@ public class FacebookSender : MonoBehaviour {
 
 	}
 
-	public void Login(){
+	public void Login () {
 		#if UNITY_IPHONE
 		FacebookBinding.login();
 #endif
@@ -57,6 +62,25 @@ public class FacebookSender : MonoBehaviour {
 #if UNITY_ANDROID
 		FacebookAndroid.login();
 #endif
+	}
+
+	void composerCompletedEvent (bool result) {
+		Debug.Log ("composer result = " + result);
+		if (result) {
+			string title = "\u6210\u529f!!";
+			string message = "facebook\u306b\u6295\u7a3f\u3057\u307e\u3057\u305f";
+#if UNITY_IPHONE
+			string[] buttons = {"OK"};
+			EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
+#endif
+		} else {
+			string title = "\u5931\u6557";
+			string message = "facebook\u306b\u6295\u7a3f\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f";
+#if UNITY_IPHONE
+			string[] buttons = {"OK"};
+			EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
+#endif
+		}
 	}
 
 }

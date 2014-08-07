@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Text;
 using System.Collections;
 
 public class TweetSender : MonoBehaviour {
@@ -54,7 +55,7 @@ public class TweetSender : MonoBehaviour {
 		#if UNITY_ANDROID
 		EtceteraAndroid.hideProgressDialog();
 		#endif
-		ShowOKDialog(title,message);
+		ShowOKDialog (title, message);
 	}
 	
 	void loginFailed (string error) {
@@ -67,7 +68,7 @@ public class TweetSender : MonoBehaviour {
 		#if UNITY_ANDROID
 		EtceteraAndroid.hideProgressDialog();
 		#endif
-		ShowErrorDialog();
+		ShowErrorDialog ();
 	}
 
 	void requestDidFailEvent (string error) {
@@ -75,13 +76,13 @@ public class TweetSender : MonoBehaviour {
 		#if UNITY_ANDROID
 		EtceteraAndroid.hideProgressDialog();
 		#endif
-		ShowErrorDialog();  
+		ShowErrorDialog ();  
 	}
 
 	private void ShowErrorDialog () {
 		string title = "\u30c4\u30a4\u30fc\u30c8\u5931\u6557";
 		string message = "\u518d\u5ea6\u304a\u3053\u306a\u3063\u3066\u304f\u3060\u3055\u3044 ";
-		ShowOKDialog(title,message);
+		ShowOKDialog (title, message);
 	}
 
 	void requestDidFinishEvent (object result) {
@@ -115,21 +116,30 @@ public class TweetSender : MonoBehaviour {
 	private void ShowCompleteDialog () {
 		string title = "\u30c4\u30a4\u30fc\u30c8\u6210\u529f!!";
 		string message = "\u30c4\u30a4\u30fc\u30c8\u3057\u307e\u3057\u305f";
-		ShowOKDialog(title,message);
+		ShowOKDialog (title, message);
 	}
 
 	public void SendTweet () {
 		Debug.Log ("SendTweet");
+		int score = ScoreKeeper.instance.score;
+		int size = QuizListManager.instance.quizList.Count;
+		string result = size + "問中" + score + "問正解!!";
+		StringBuilder sb = new StringBuilder ();
+		sb.Append (SelectedQuiz.instance.name + "|" + QuizListManager.instance.modeName + "\u3067");
+		sb.Append ("、" + result + "\n");
+		sb.Append("\u3053\u306e\u30af\u30a4\u30ba\u30a2\u30d7\u30ea\u9762\u767d\u3044\u304b\u3089\u3084\u3063\u3066\u307f\u3066\uff01"+ "\n");
+		sb.Append("→http://tt5.us/quizbox #クイズボックス");
+		string imagePath = Application.streamingAssetsPath + "/share_image.png";
 #if UNITY_IPHONE
-		TwitterBinding.showTweetComposer("text");
+		TwitterBinding.showTweetComposer(sb.ToString(),imagePath);
 #endif
 	
 #if UNITY_ANDROID
-		EtceteraAndroid.showAlertPrompt("Twitter" ,"Message","","text","\u30b7\u30a7\u30a2\u3059\u308b","cancel");
+		EtceteraAndroid.showAlertPrompt("Twitter" ,"Message","",sb.ToString(),"\u30b7\u30a7\u30a2\u3059\u308b","cancel");
 #endif
 	}
 
-	public bool IsLoggedIn(){
+	public bool IsLoggedIn () {
 		#if UNITY_IPHONE
 		return TwitterBinding.isLoggedIn();
 		#endif
@@ -139,7 +149,7 @@ public class TweetSender : MonoBehaviour {
 		#endif
 	}
 
-	public void ShowLoginDialog(){
+	public void ShowLoginDialog () {
 		#if UNITY_IPHONE
 		TwitterBinding.showLoginDialog();
 #endif
@@ -154,7 +164,7 @@ public class TweetSender : MonoBehaviour {
 		Debug.Log ("promptCancelledEvent");
 	}
 
-	private void ShowOKDialog(string title,string message){
+	private void ShowOKDialog (string title, string message) {
 		#if UNITY_IPHONE
 		string[] buttons = {"OK"};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);

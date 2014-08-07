@@ -39,10 +39,7 @@ public class TitleInitializer : MonoBehaviour {
 			}
 			titleLabel.text = SelectedQuiz.instance.name;
 		} else {
-			#if !UNITY_EDITOR
 			titleDialogManager.GetComponent<TitleDialogManager> ().ShowErrorDialog ();
-			#endif
-
 		}
 	}
 }

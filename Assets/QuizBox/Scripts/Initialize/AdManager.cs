@@ -18,10 +18,14 @@ public class AdManager : MonoBehaviour {
 	}
 
 	public void ShowRectangleAd () {
+#if !UNITY_EDITOR
 		rectangleAd.Show ();
+#endif
 	}
 
 	public void HideRectangleAd () {
+#if !UNITY_EDITOR
 		rectangleAd.Hide ();
+#endif
 	}
 }

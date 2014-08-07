@@ -4,8 +4,6 @@
   <dict>
     <key>FacebookAppID</key>
     <string>324089397758597</string>
-    <key>FacebookDisplayName</key>
-    <string>クイズボックス</string>
     <key>plistKeys</key>
     <array>
       <string>MinimumOSVersion</string>

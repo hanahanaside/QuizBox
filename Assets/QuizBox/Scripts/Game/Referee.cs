@@ -11,10 +11,12 @@ public class Referee : MonoBehaviour {
 		IDictionary quizDictionary = QuizKeeper.instance.quizDictionary;
 		string answer = (string)quizDictionary ["answer"];
 		if (selectedText == answer) {
+			SoundManager.Instance.PlaySESound(SoundManager.GOOD_SOUND_ID);
 			ShowAnswerDialog (answer, true);
 			ScoreKeeper.instance.score = ScoreKeeper.instance.score + 1;
 			Debug.Log ("success");
 		} else {
+			SoundManager.Instance.PlaySESound(SoundManager.BAD_SOUND_ID);
 			ShowAnswerDialog (answer, false);
 			Debug.Log ("fail");
 		}

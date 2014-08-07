@@ -4,8 +4,8 @@ using System.Collections;
 public class PrefsManager {
 	private const string USER_POINT_KEY = "user_point_key";
 	private const string IS_REGISTERED = "isRegistered";
-	private const string RECOMMEND_COUNT_KEY = "recommendCount";
 	private const string IS_REVIEWED = "isReviewed";
+	private const string IS_SOUND_ON = "isSoundOn";
 	private static PrefsManager sInstance;
 
 	public static PrefsManager Instance {
@@ -39,15 +39,6 @@ public class PrefsManager {
 		return true;
 	}
 
-	public void SaveRecommendCount (int recommendCount) {
-		PlayerPrefs.SetInt (RECOMMEND_COUNT_KEY, recommendCount);
-		PlayerPrefs.Save ();
-	}
-	
-	public int GetRecommendCount () {
-		return PlayerPrefs.GetInt (RECOMMEND_COUNT_KEY);
-	}
-
 	public void SetReviewed () {
 		PlayerPrefs.SetInt (IS_REVIEWED, 1);
 		PlayerPrefs.Save ();
@@ -58,5 +49,23 @@ public class PrefsManager {
 			return false;
 		}
 		return true;
+	}
+
+	public void SaveSoundON (bool soundOn) {
+		if (soundOn) {
+			PlayerPrefs.SetInt (IS_SOUND_ON, 0);
+		} else {
+			PlayerPrefs.SetInt (IS_SOUND_ON, 1);
+		}
+		PlayerPrefs.Save ();
+	}
+
+	public bool IsSoundON () {
+		int flag = PlayerPrefs.GetInt (IS_SOUND_ON, 0);
+		if (flag == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

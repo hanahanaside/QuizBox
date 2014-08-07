@@ -211,6 +211,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\AdManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\SoundManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\FacebookSender.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultInitializer.cs" />
@@ -235,6 +236,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\SettingDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\TopController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\UIRootAdjustScript.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\UIRootInstanceKeeper.cs" />
      <Compile Include="Assets\iTweenEditor\Examples\StartAndStopTween.cs" />
      <Compile Include="Assets\iTweenEditor\Helper Classes\EventParamMappings.cs" />
      <Compile Include="Assets\iTweenEditor\Helper Classes\Vector3OrTransform.cs" />
