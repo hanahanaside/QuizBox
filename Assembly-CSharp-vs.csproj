@@ -226,6 +226,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleDialogManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\CellTop.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\FenceInstanceKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryCellController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryDialogInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PostQuizDialogController.cs" />

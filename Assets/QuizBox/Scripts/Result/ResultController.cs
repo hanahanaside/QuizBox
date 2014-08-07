@@ -36,7 +36,8 @@ public class ResultController : MonoBehaviour {
 	public void OnFaceBookClick () {
 		Debug.Log ("facebook");
 		Debug.Log(""+facebookSender.IsSessionValid());
-		facebookSender.ShowShareDialog();
+
+		facebookSender.ShowFacebookComposer();
 //		if (facebookSender.IsSessionValid ()) {
 //			facebookSender.ShowShareDialog();
 //		} else {

@@ -26,6 +26,12 @@ public class PrefsManager {
 		return PlayerPrefs.GetInt (USER_POINT_KEY, 100);
 	}
 
+	public void AddUserPoint(int addPoint){
+		int userPoint = GetUserPoint();
+		userPoint++;
+		SaveUserPoint(userPoint);
+	}
+
 	public void SaveRegistered () {
 		PlayerPrefs.SetInt (IS_REGISTERED, 1);
 		PlayerPrefs.Save ();

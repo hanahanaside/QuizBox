@@ -24,6 +24,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
+		FenceInstanceKeeper.Instance.SetActive(true);
 		#if UNITY_IOS
 		EtceteraBinding.showBezelActivityViewWithLabel(title);
 		#endif
@@ -38,6 +39,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	}
 
 	void ResponseCallback (string response) {
+		FenceInstanceKeeper.Instance.SetActive(false);
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView();
 		#endif

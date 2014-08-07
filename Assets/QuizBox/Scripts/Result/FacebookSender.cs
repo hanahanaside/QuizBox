@@ -23,7 +23,8 @@ public class FacebookSender : MonoBehaviour {
 #endif
 	}
 
-	public void ShowShareDialog () {
+	public void ShowFacebookComposer () {
+		Debug.Log("show composer");
 		int score = ScoreKeeper.instance.score;
 		int size = QuizListManager.instance.quizList.Count;
 		string result = size + "問中" + score + "問正解!!";
@@ -35,7 +36,7 @@ public class FacebookSender : MonoBehaviour {
 		string imagePath = Application.streamingAssetsPath + "/share_image.png";
 
 #if UNITY_IPHONE
-		FacebookBinding.showFacebookComposer(sb.ToString(),imagePath,"http://www.yahoo.co.jp/");
+		FacebookBinding.showFacebookComposer(sb.ToString(),imagePath,"http://tt5.us/quizbox");
 #endif
 
 #if UNITY_ANDROID
