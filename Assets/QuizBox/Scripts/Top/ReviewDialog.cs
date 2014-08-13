@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ReviewDialog : AlertDialog
-{
+public class ReviewDialog : AlertDialog {
 
 	public string appStoreUrl;
 	public string googlePlayUrl;
@@ -11,8 +10,7 @@ public class ReviewDialog : AlertDialog
 	private const string POSITIVE_BUTTON = "\u5354\u529b\u3059\u308b";
 	private const string NEGATIVE_BUTTON = "\u8868\u793a\u3057\u306a\u3044";
 
-	public override void alertButtonClicked (string text)
-	{
+	public override void alertButtonClicked (string text) {
 		if (text == POSITIVE_BUTTON) {
 			if (!PrefsManager.Instance.GetReviewed ()) {
 				PrefsManager.Instance.SetReviewed ();
@@ -26,22 +24,21 @@ public class ReviewDialog : AlertDialog
 			#endif
 		}
 
-		if(text == NEGATIVE_BUTTON){
+		if (text == NEGATIVE_BUTTON) {
 			//do not show
 			PrefsManager.Instance.SetReviewed ();
 		}
-		Destroy(gameObject);
+		Destroy (gameObject);
 	}
 
-	public override void Show ()
-	{
+	public override void Show () {
 		#if UNITY_IPHONE
 		string[] buttons = new string[] {POSITIVE_BUTTON,"後で",NEGATIVE_BUTTON};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(TITLE, MESSAGE, buttons);
 		#endif
 		
 		#if UNITY_ANDROID
-		EtceteraAndroid.showAlert(TITLE,MESSAGE,POSITIVE_BUTTON,NEGATIVE_BUTTON);
+		EtceteraAndroid.showAlert(TITLE,MESSAGE,POSITIVE_BUTTON,"後で");
 		#endif
 	}
 

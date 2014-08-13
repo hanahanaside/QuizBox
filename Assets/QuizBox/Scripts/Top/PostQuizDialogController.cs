@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class PostQuizDialogController : MonoBehaviour {
 
-	private const string DEFAULT_TEXT = "\u4f8b ) \u3053\u3068\u308f\u3056\u30af\u30a4\u30ba";
+	private const string DEFAULT_TEXT = "\u4f8b )";
 	private const string POST_DATA_URL = "http://quizbox.tt5.us/api/post_user_quiz";
 	public UILabel themeLabel;
 	public UILabel seriesLabel;
@@ -15,15 +15,15 @@ public class PostQuizDialogController : MonoBehaviour {
 	public UILabel mistake1Label;
 	public UILabel mistake2Label;
 	public UIToggle checkMarkToggle;
-
+	 
 	public void OnPostButtonClicked () {
-		if (themeLabel.text == DEFAULT_TEXT) {
+		if (themeLabel.text.Contains(DEFAULT_TEXT)) {
 			ShowErrorDialog ("\u30c6\u30fc\u30de\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
-		} else if (seriesLabel.text == DEFAULT_TEXT) {
+		} else if (seriesLabel.text.Contains(DEFAULT_TEXT)) {
 			ShowErrorDialog ("\u30b7\u30ea\u30fc\u30ba\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
-		} else if (questionLabel.text == DEFAULT_TEXT) {
+		} else if (questionLabel.text.Contains(DEFAULT_TEXT)) {
 			ShowErrorDialog ("\u554f\u984c\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
-		} else if (answerLabel.text == DEFAULT_TEXT) {
+		} else if (answerLabel.text.Contains(DEFAULT_TEXT)) {
 			ShowErrorDialog ("\u6b63\u89e3\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
 		} else if (!checkMarkToggle.value) {
 			ShowErrorDialog ("\u5229\u7528\u898f\u7d04\u306b\u540c\u610f\u3057\u3066\u304f\u3060\u3055\u3044");

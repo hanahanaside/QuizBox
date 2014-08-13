@@ -27,7 +27,8 @@ public class SettingDialogController : MonoBehaviour {
 	}
 
 	public void OnReviewClicked () {
-		Application.OpenURL ("https://itunes.apple.com/app/id906906783");
+		PrefsManager.Instance.SetReviewed();
+		Application.OpenURL ("https://itunes.apple.com/app/id527092979");
 	}
 
 	public void OnInformationClicked () {

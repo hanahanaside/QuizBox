@@ -100,22 +100,22 @@ public class StoreKitEventListener : MonoBehaviour
 		hideActivityView();
 		string productIdentifer = transaction.productIdentifier;
 		int addPoint = 0;
-		if(productIdentifer == "100pt"){
+		if(productIdentifer == "100pt_quiz"){
 			addPoint = 100;
 		}
-		if(productIdentifer == "600pt"){
+		if(productIdentifer == "600pt_quiz"){
 			addPoint = 600;
 		}
-		if(productIdentifer == "1350pt"){
+		if(productIdentifer == "1350pt_quiz"){
 			addPoint = 1350;
 		}
-		if(productIdentifer == "3000pt"){
+		if(productIdentifer == "3000pt_quiz"){
 			addPoint = 3000;
 		}
-		if(productIdentifer == "7800pt"){
+		if(productIdentifer == "7800pt_quiz"){
 			addPoint = 7800;
 		}
-		if(productIdentifer == "25000pt"){
+		if(productIdentifer == "25000pt_quiz"){
 			addPoint = 25000;
 		}
 		Debug.Log("addPoint = "+addPoint);
