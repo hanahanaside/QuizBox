@@ -12,7 +12,7 @@ public class TopController : MonoBehaviour {
 	void Start () {
 		sInstance = this;
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
-		SetUserPointLabel();
+		SetUserPointLabel ();
 	}
 
 	void Update () {
@@ -27,12 +27,12 @@ public class TopController : MonoBehaviour {
 		}
 	}
 
-	public void SetCurrentDialog(GameObject dialog){
+	public void SetCurrentDialog (GameObject dialog) {
 		mCurrentDialog = dialog;
 	}
 
-	public void UPdateUserPointLabel(){
-		SetUserPointLabel();
+	public void UPdateUserPointLabel () {
+		SetUserPointLabel ();
 	}
 
 	public void OnTopClicked () {
@@ -41,8 +41,9 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnAddPointClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [1])as GameObject);
+		GameObject addPointDialog = Instantiate (dialogArray [1])as GameObject;
+		addPointDialog.transform.parent = uiRoot.transform;
+		addPointDialog.transform.localScale = new Vector3 (1, 1, 1);
 	}
 
 	public void OnPostQuizClicked () {
@@ -65,7 +66,7 @@ public class TopController : MonoBehaviour {
 		ShowDialog (Instantiate (dialogArray [5])as GameObject);
 	}
 
-	private void SetUserPointLabel(){
+	private void SetUserPointLabel () {
 		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		userPointLabel.text = userPoint + "pt";
 	}

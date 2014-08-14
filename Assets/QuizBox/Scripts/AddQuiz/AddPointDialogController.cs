@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class AddPointDialogController : MonoBehaviour {
 
+	public void OnCloseClick () {
+		Destroy (transform.parent.gameObject);
+	}
+
 	public void On100ptButtonClicked () {
 		purchaseProduct (0);
 	}
@@ -30,11 +34,14 @@ public class AddPointDialogController : MonoBehaviour {
 
 	private void purchaseProduct (int index) {
 		List<StoreKitProduct> productList = ProductListKeeper.instance.productList;
+		if (productList == null) {
+			return;
+		}
 		StoreKitProduct product = productList [index];
 		
 		Debug.Log ("preparing to purchase product: " + product.productIdentifier);
 		StoreKitBinding.purchaseProduct (product.productIdentifier, 1);
-		FenceInstanceKeeper.Instance.SetActive(true);
+		FenceInstanceKeeper.Instance.SetActive (true);
 		EtceteraBinding.showBezelActivityViewWithLabel ("Loading");
 	}
 }

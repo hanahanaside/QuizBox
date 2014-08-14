@@ -12,11 +12,13 @@ public class ProductListKeeper : MonoBehaviour {
 	void OnEnable()
 	{
 		StoreKitManager.productListReceivedEvent += ReceivedProductsList;
+		StoreKitManager.productListRequestFailedEvent += productListRequestFailedEvent;
 	}
 	
 	void OnDisable()
 	{
 		StoreKitManager.productListReceivedEvent -= ReceivedProductsList;
+		StoreKitManager.productListRequestFailedEvent -= productListRequestFailedEvent;
 	}
 	
 	
@@ -28,6 +30,12 @@ public class ProductListKeeper : MonoBehaviour {
 		if(_products == null){
 			requestProductData();
 		}
+	}
+
+	void productListRequestFailedEvent(string error){
+		Debug.Log("productListRequestFailedEvent");
+		Debug.Log(error);
+		requestProductData();
 	}
 	
 	void ReceivedProductsList(List<StoreKitProduct> productsList){
