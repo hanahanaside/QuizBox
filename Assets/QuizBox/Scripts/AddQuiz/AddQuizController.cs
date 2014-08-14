@@ -73,7 +73,7 @@ public class AddQuizController : MonoBehaviour {
 			string title = "\u8ffd\u52a0\u5b8c\u4e86";
 			string message = mSelectedQuiz.title + "\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f";
 			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
-			okDialog.Show (title, message);
+			okDialog.Show (title, message); 
 		}
 	}
 }

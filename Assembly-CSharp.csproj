@@ -216,6 +216,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\TweetSender.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Splash\SplashController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Test\Test.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\QuizListManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\RestartChallengeDialog.cs" />

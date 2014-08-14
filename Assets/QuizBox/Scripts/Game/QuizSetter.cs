@@ -10,7 +10,6 @@ public class QuizSetter : MonoBehaviour
 	public UILabel scoreLabel;
 	public UILabel seriesLabel;
 	public UILabel[] buttonLabelArray;
-	public TypewriterEffect typeWriterEffect;
 	private StringBuilder mStringBuilder;
 	private int mIndexNumber;
 	private char[] mCharArray;
@@ -36,7 +35,7 @@ public class QuizSetter : MonoBehaviour
 			string choice = choicesArray [i];
 			buttonLabelArray [i].text = choice;
 		}
-		scoreLabel.text = QuizKeeper.instance.questionNumber + "/" + QuizListManager.instance.quizList.Count + "(" + ScoreKeeper.instance.score + ")";
+		scoreLabel.text = QuizKeeper.instance.questionNumber + "(" + ScoreKeeper.instance.score + ")/" + QuizListManager.instance.quizList.Count ;
 		seriesLabel.text = series;
 		mCharArray = question.ToCharArray ();
 		mIndexNumber = 0;

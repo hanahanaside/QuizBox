@@ -5,6 +5,7 @@ public class SoundManager : MonoBehaviour {
 
 	public static int  GOOD_SOUND_ID = 0;
 	public static int BAD_SOUND_ID = 1;
+	public static int HANAUTA_SOUND_ID = 2;
 	public AudioClip[] SEclipArray;
 	private AudioSource[] SEsourceArray;
 	private static SoundManager sInstance;

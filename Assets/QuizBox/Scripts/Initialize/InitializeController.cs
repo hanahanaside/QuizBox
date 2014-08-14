@@ -16,7 +16,7 @@ public class InitializeController : MonoBehaviour {
 	}
 
 	void OnDatabaseCreated(){
-		Application.LoadLevel("Top");
+		Application.LoadLevel("Splash");
 	}
 
 }
