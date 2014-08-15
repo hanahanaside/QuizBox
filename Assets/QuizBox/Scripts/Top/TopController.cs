@@ -47,8 +47,7 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnPostQuizClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [2])as GameObject);
+		Application.LoadLevel("PostQuiz");
 	}
 
 	public void OnResultClicked () {

@@ -27,7 +27,7 @@ public class SettingDialogController : MonoBehaviour {
 	}
 
 	public void OnReviewClicked () {
-		PrefsManager.Instance.SetReviewed();
+		PrefsManager.Instance.SetReviewed ();
 		Application.OpenURL ("https://itunes.apple.com/app/id527092979");
 	}
 
@@ -38,18 +38,20 @@ public class SettingDialogController : MonoBehaviour {
 	}
 
 	public void OnFAQClicked () {
-		GameObject faqDialog = Instantiate(faqDialogPrefab) as GameObject;
-		ShowDialog(faqDialog);
+		GameObject faqDialog = Instantiate (faqDialogPrefab) as GameObject;
+		ShowDialog (faqDialog);
 	}
 
 	public void OnUsePolicyClicked () {
 		GameObject userPolicyDialog = Instantiate (userPolicyDialogPrefab)as GameObject;
-		ShowDialog (userPolicyDialog);
+		userPolicyDialog.transform.parent = UIRootInstanceKeeper.Instance.transform;
+		userPolicyDialog.transform.localScale = new Vector3 (1, 1, 1);
 	}
 
 	public void OnPrivacyPolicyClicked () {
 		GameObject privacyPolicyDialog = Instantiate (privacyPolicyDialogPrefab) as GameObject;
-		ShowDialog (privacyPolicyDialog);
+		privacyPolicyDialog.transform.parent = UIRootInstanceKeeper.Instance.transform;
+		privacyPolicyDialog.transform.localScale = new Vector3 (1, 1, 1);
 	}
 
 	private void ShowDialog (GameObject dialog) {

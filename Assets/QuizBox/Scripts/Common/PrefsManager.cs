@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
+using MiniJSON;
 
 public class PrefsManager {
 	private const string USER_POINT_KEY = "user_point_key";
 	private const string IS_REGISTERED = "isRegistered";
 	private const string IS_REVIEWED = "isReviewed";
 	private const string IS_SOUND_ON = "isSoundOn";
+	private const string POST_COUNT_DATA = "postCountData";
+	private const string POST_DATE_KEY = "postDateKey";
+	private const string POST_COUNT_KEY = "postCountKey";
 	private static PrefsManager sInstance;
 
 	public static PrefsManager Instance {
@@ -26,10 +32,10 @@ public class PrefsManager {
 		return PlayerPrefs.GetInt (USER_POINT_KEY, 100);
 	}
 
-	public void AddUserPoint(int addPoint){
-		int userPoint = GetUserPoint();
-		userPoint+=addPoint;
-		SaveUserPoint(userPoint);
+	public void AddUserPoint (int addPoint) {
+		int userPoint = GetUserPoint ();
+		userPoint += addPoint;
+		SaveUserPoint (userPoint);
 	}
 
 	public void SaveRegistered () {
@@ -73,5 +79,37 @@ public class PrefsManager {
 		} else {
 			return false;
 		}
+	}
+
+	public void SavePostCountData (PostCountData postCountData) {
+		Dictionary<string,object> dictionary = new Dictionary<string, object> ();
+		dictionary.Add (POST_DATE_KEY, postCountData.PostDate);
+		dictionary.Add (POST_COUNT_KEY, postCountData.PostCount);
+		string json = Json.Serialize (dictionary);
+		Debug.Log("json = "+json);
+		PlayerPrefs.SetString (POST_COUNT_DATA, json);
+		PlayerPrefs.Save ();
+	}
+
+	public PostCountData GetPostCountData () {
+		string json = PlayerPrefs.GetString (POST_COUNT_DATA);
+		Debug.Log("json = "+json);
+		PostCountData postCountData = new PostCountData ();
+		if(json == ""){
+			postCountData.PostCount = 0;
+			postCountData.PostDate = "";
+			return postCountData;
+		}
+		Dictionary<string,object> dictionary = (Dictionary<string,object>)Json.Deserialize (json);
+		Debug.Log("2");
+		long postCount = (long)dictionary[POST_COUNT_KEY];
+		Debug.Log("3");
+		string postDate = dictionary[POST_DATE_KEY].ToString();
+		Debug.Log("4");
+
+		postCountData.PostCount = (int)postCount;
+		postCountData.PostDate = postDate;
+		Debug.Log("return");
+		return postCountData;
 	}
 }

@@ -212,6 +212,8 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\SoundManager.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountData.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\PostQuiz\UsePolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\FacebookSender.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultInitializer.cs" />
@@ -232,6 +234,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryCellController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryDialogInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PostQuizDialogController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\PrivacyPolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ProductListKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\QuizTopicInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\RecommendAppChecker.cs" />
