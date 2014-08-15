@@ -17,10 +17,12 @@ public class QuizTopicInitializer : MonoBehaviour {
 			int id = (int)quiz [QuizListDao.ID_FIELD];
 			string name = (string)quiz [QuizListDao.TITLE_FIELD];
 			string quizUrl = (string)quiz [QuizListDao.QUIZ_URL_FIELD];
+			string boughtDate = (string)quiz[QuizListDao.BOUGHT_DATE_FIELD];
 			CellTop cellTop = cellObject.GetComponent<CellTop> ();
 			cellTop.id = id;
 			cellTop.name = name;
 			cellTop.quizUrl = quizUrl;
+			cellTop.boughtDate = boughtDate;
 		}
 		scrollView.ResetPosition ();
 	}

@@ -7,11 +7,13 @@ public class CellTop : MonoBehaviour
 	private int mId;
 	private string mName;
 	private string mQuizUrl;
+	private string mBoughtDate;
 
 	public void OnClick(){
 		SelectedQuiz.instance.id = mId;
 		SelectedQuiz.instance.name = mName;
 		SelectedQuiz.instance.quizUrl = mQuizUrl;
+		SelectedQuiz.instance.boughtDate = mBoughtDate;
 		Application.LoadLevel("Title");
 	}
 
@@ -40,6 +42,15 @@ public class CellTop : MonoBehaviour
 		}
 		set{
 			mQuizUrl = value;
+		}
+	}
+
+	public string boughtDate{
+		get{
+			return mBoughtDate;
+		}
+		set{
+			mBoughtDate = value;
 		}
 	}
 }

@@ -25,7 +25,16 @@ public class ResultInitializer : MonoBehaviour {
 		sb.Append (result + "\n");
 		sb.Append (SelectedQuiz.instance.name + "\n");
 		sb.Append (QuizListManager.instance.modeName);
-		resultLabel.text = sb.ToString();
+		resultLabel.text = sb.ToString ();
+
+		if(OnSaleChecker.CheckOnSale()){
+			StartCoroutine (OpenWallAd ());
+		}
+	}
+
+	private IEnumerator OpenWallAd () {
+		yield return new WaitForSeconds (1.0f);
+		APUnityPlugin.ShowAppliPromotionWall ();
 	}
 	
 }
