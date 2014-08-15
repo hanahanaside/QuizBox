@@ -59,6 +59,7 @@ public class TitleController : MonoBehaviour {
 	}
 
 	public void OnBackClicked () {
+		QuizListManager.instance.ReleaseQuizList();
 		Application.LoadLevel ("Top");
 	}
 	

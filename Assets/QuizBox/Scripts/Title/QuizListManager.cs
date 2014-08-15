@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 public class QuizListManager : MonoBehaviour {
 	public HttpClient httpClient;
+	public TitleInitializer titleInitializer;
 	private static QuizListManager sInstance;
-	private IList allQuizList;
-	private IList mSeriesList;
+	private static IList allQuizList;
+	private static IList mSeriesList;
 	private bool created = false;
 	private string mJsonString;
 	private string mModeName;
@@ -69,9 +70,23 @@ public class QuizListManager : MonoBehaviour {
 
 	public void InitQuizList () {
 		Debug.Log ("url = " + SelectedQuiz.instance.quizUrl);
-		HttpClient.responseEvent += ResponseCallback;
-		WWW www = new WWW (SelectedQuiz.instance.quizUrl);
-		StartCoroutine (httpClient.Excute (www));
+		if(allQuizList == null){
+			string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
+			#if UNITY_IOS
+			EtceteraBinding.showBezelActivityViewWithLabel(title);
+			#endif
+			
+			#if UNITY_ANDROID
+			string message = "\u554f\u984c\u3092\u53d6\u5f97\u3057\u3066\u3044\u307e\u3059";
+			EtceteraAndroid.showProgressDialog(title,message);
+			#endif
+
+			HttpClient.responseEvent += ResponseCallback;
+			WWW www = new WWW (SelectedQuiz.instance.quizUrl);
+			StartCoroutine (httpClient.Excute (www));
+		}else {
+			titleInitializer.OnLoadFinished(true);
+		}
 	}
 
 	public void PlayQuickMode () {
@@ -140,7 +155,6 @@ public class QuizListManager : MonoBehaviour {
 	void ResponseCallback (string response) {
 		Debug.Log ("ResponseCallback");
 		HttpClient.responseEvent -= ResponseCallback;
-		TitleInitializer titleInitializer = GameObject.Find ("TitleInitializer").GetComponent<TitleInitializer> ();
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView();
 		#endif
@@ -168,6 +182,10 @@ public class QuizListManager : MonoBehaviour {
 		get {
 			return mSeriesList;
 		}
+	}
+
+	public void ReleaseQuizList(){
+		allQuizList = null;
 	}
 
 	private void ResetCount () {
