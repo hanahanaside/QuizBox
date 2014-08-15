@@ -113,4 +113,15 @@ public class QuizListDao {
 		sqliteDB.Close ();
 		return challengeQuizDictionary;
 	}
+
+	public void RemoveChallengeData(int id){
+		SQLiteDB sqliteDB = new SQLiteDB ();
+		string fileName = Application.persistentDataPath + "/quiz_box.db";
+		sqliteDB.Open (fileName);
+		StringBuilder sb = new StringBuilder ();
+		sb.Append("update quiz_list set "+CHALLENGE_QUIZ_DATA_FIELD +" = null where id = "+id);
+		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString ());
+		sqliteQuery.Step();
+		sqliteDB.Close ();
+	}
 }

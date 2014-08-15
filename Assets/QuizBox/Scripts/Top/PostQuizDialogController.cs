@@ -18,6 +18,7 @@ public class PostQuizDialogController : MonoBehaviour {
 	public UIInput mistake2Input;
 	public GameObject usePolicyDialogPrefab;
 	public GameObject uiRoot;
+	public BackDialog backDialog;
 
 	void Start () {
 		TouchScreenKeyboard.hideInput = true;
@@ -70,7 +71,7 @@ public class PostQuizDialogController : MonoBehaviour {
 	}
 
 	public void OnCloseButtonClicked () {
-		Application.LoadLevel ("Top");
+		backDialog.Show();
 	}
 
 	public void OnUsePolicyClicked () {

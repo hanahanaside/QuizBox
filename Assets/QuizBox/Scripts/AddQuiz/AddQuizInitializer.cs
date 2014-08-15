@@ -87,11 +87,13 @@ public class AddQuizInitializer : MonoBehaviour {
 		}
 		long point = (long)jsonObject ["point"];
 		string url = jsonObject ["quiz_management_url"].ToString ();
+		long quizCount = (long)jsonObject["quiz_count"];
 
 		AddQuiz addQuiz = new AddQuiz ();
 		addQuiz.point = (int)point;
 		addQuiz.url = url;
 		addQuiz.title = title;
+		addQuiz.quizCount = (int)quizCount;
 		GameObject addQuizButtonObject = Instantiate (addQuizButtonPrefab)as GameObject;
 		grid.AddChild (addQuizButtonObject.transform);
 		addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);

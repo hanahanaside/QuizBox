@@ -212,6 +212,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\SoundManager.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\PostQuiz\BackDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\UsePolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\FacebookSender.cs" />

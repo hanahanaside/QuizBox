@@ -10,7 +10,8 @@ public class HistoryDialogInitializer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
-		foreach (HistoryData historyData in historyDataList) {
+		for(int i = historyDataList.Count-1; i>=0;i--){
+			HistoryData historyData = historyDataList[i];
 			GameObject historyCellObject = Instantiate (historyCellPrefab) as GameObject;
 			grid.AddChild (historyCellObject.transform);
 			historyCellObject.transform.localScale = new Vector3 (1, 1, 1);
