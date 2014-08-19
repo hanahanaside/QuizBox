@@ -1,19 +1,39 @@
 ﻿using UnityEngine;
+using System.Text;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class Test : MonoBehaviour {
 
-	public UISprite sprite;
-	public UIAtlas atlas;
+	private DateTime mDateTime;
 
-	void Start(){
-		sprite.spriteName = "incorrect_answer";
-		int height = atlas.GetSprite("incorrect_answer").height;
-		int width = atlas.GetSprite("incorrect_answer").width;
-		sprite.SetDimensions(width,height);
+	void Start()
+	{
+		mDateTime = DateTime.Now;
 	}
 
-	void OnClick(){
-		Debug.Log("aaaaa");
+	public void OnButton1(){
+		DateTime now = DateTime.Now;
+		switch(mDateTime.CompareTo(now)){
+		case -1:
+			Debug.Log("Post は now より古い");
+			break;
+		case 0:
+			Debug.Log("Post と now は等しい");
+			break;
+		case 1:
+			Debug.Log("Post は now より新しい");
+			break;
+		}
 	}
+
+	public void OnButton2(){
+		TouchScreenKeyboard.Open("text2",TouchScreenKeyboardType.ASCIICapable);
+	}
+
+	public void OnButton3(){
+		TouchScreenKeyboard.hideInput = true;
+	}
+
 }

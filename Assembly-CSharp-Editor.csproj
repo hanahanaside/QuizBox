@@ -139,7 +139,9 @@
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_item_background.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_search_box.xml" />
+     <None Include="Assets\Plugins\iOS\NADView_readme.txt" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Masked Colored.shader" />
+     <None Include="Assets\Plugins\Android\res\values\version.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_top_button.xml" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo18.txt" />
@@ -197,6 +199,7 @@
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-he\strings.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-xhdpi\dimens.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_image.xml" />
+     <None Include="Assets\Plugins\Android\readme.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_activity_circle_row.xml" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Additive Colored.shader" />
      <None Include="Assets\SU3DJPFont\license_jp.txt" />
@@ -233,8 +236,6 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{06F4CBA6-54F3-73EA-8B01-328CFDC71FC8}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{C2E22E05-0113-F7C5-E9C7-77A95FA659A6}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript.unityproj">
       <Project>{29AB2940-CA97-81EE-0E64-42F67CE8389E}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
   </ItemGroup>

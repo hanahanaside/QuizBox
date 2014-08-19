@@ -8,18 +8,17 @@ public class AddQuizButtonController : MonoBehaviour {
 
 	public UILabel titleLabel;
 	public UILabel pointLabel;
-
 	private AddQuiz mAddQuiz;
 
-	public void Init(AddQuiz addQuiz){
+	public void Init (AddQuiz addQuiz) {
 		mAddQuiz = addQuiz;
-		titleLabel.text = mAddQuiz.title;
+		titleLabel.text = mAddQuiz.title + "\n(" + mAddQuiz.quizCount + "\u554f)";
 		pointLabel.text = mAddQuiz.point + "pt";
 	}
 
-	public void OnButtonClick(){
-		if(clickedEvent != null){
-			clickedEvent(mAddQuiz);
+	public void OnButtonClick () {
+		if (clickedEvent != null) {
+			clickedEvent (mAddQuiz);
 		}
 	}
 }

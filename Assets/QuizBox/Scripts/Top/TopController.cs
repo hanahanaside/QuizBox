@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TopController : MonoBehaviour {
@@ -6,21 +6,41 @@ public class TopController : MonoBehaviour {
 	public GameObject uiRoot;
 	public UILabel userPointLabel;
 	public GameObject[] dialogArray;
+	private static TopController sInstance;
 	private GameObject mCurrentDialog;
 
 	void Start () {
+		sInstance = this;
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
-		int userPoint = PrefsManager.instance.GetUserPoint ();
-		userPointLabel.text = userPoint + "pt";
+		SetUserPointLabel ();
 	}
 
-	void Update ()
-	{
+//	void OnGUI () {
+//		if(GUI.Button(new Rect(0,0,80,20), "Delete DB")) {
+//			string filePath = Application.persistentDataPath + "/" + "quiz_box.db";
+//			System.IO.File.Delete(filePath);
+//		}
+//	}
+
+	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
-			Application.Quit();
+			Application.Quit ();
 		}
 	}
 
+	public static TopController Instance {
+		get {
+			return sInstance;
+		}
+	}
+
+	public void SetCurrentDialog (GameObject dialog) {
+		mCurrentDialog = dialog;
+	}
+
+	public void UPdateUserPointLabel () {
+		SetUserPointLabel ();
+	}
 
 	public void OnTopClicked () {
 		OnButtonClicked ();
@@ -28,16 +48,16 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnAddPointClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [1])as GameObject);
+		GameObject addPointDialog = Instantiate (dialogArray [1])as GameObject;
+		addPointDialog.transform.parent = uiRoot.transform;
+		addPointDialog.transform.localScale = new Vector3 (1, 1, 1);
 	}
 
 	public void OnPostQuizClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [2])as GameObject);
+		Application.LoadLevel("PostQuiz");
 	}
 
-	public void OnResultClicked(){
+	public void OnResultClicked () {
 		OnButtonClicked ();
 		ShowDialog (Instantiate (dialogArray [3])as GameObject);
 	}
@@ -47,9 +67,14 @@ public class TopController : MonoBehaviour {
 		ShowDialog (Instantiate (dialogArray [4])as GameObject);
 	}
 
-	public void OnAddQuizClicked(){
-		OnButtonClicked();
+	public void OnAddQuizClicked () {
+		OnButtonClicked ();
 		ShowDialog (Instantiate (dialogArray [5])as GameObject);
+	}
+
+	private void SetUserPointLabel () {
+		int userPoint = PrefsManager.Instance.GetUserPoint ();
+		userPointLabel.text = userPoint + "pt";
 	}
 
 	private void OnButtonClicked () {

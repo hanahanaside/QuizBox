@@ -13,7 +13,6 @@ public class HttpClient : MonoBehaviour {
 			//レスポンスエラーの場合
 			Debug.Log("error"+www.error);
 			ResponseCallback(null);
-		
 		}else if(www.isDone){
 			//リクエスト成功の場合
 			Debug.Log("www ok");
@@ -31,7 +30,7 @@ public class HttpClient : MonoBehaviour {
 				yield return null;
 			else
 			{
-				Debug.LogWarning("TimeOut"); //タイムアウト
+				Debug.Log("TimeOut"); //タイムアウト
 				ResponseCallback(null);
 				break;
 			}

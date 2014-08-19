@@ -15,34 +15,26 @@ public class DatabaseCreator : MonoBehaviour
 	// Use this for initialization
 	private void CreateDatabase ()
 	{
-		#if UNITY_IPHONE
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
-		File.Delete(filePath);
+		#if UNITY_IPHONE
 		if(!File.Exists(filePath)){
-		
 			File.Copy( baseFilePath, filePath); 
+			QuizListDao.instance.InitBoughtDate();
 			Debug.Log("create Database");
 		}
 		CreatedDatabase();
 		#endif
 
-		#if UNITY_ANDROID
-		string baseFilePath = Path.Combine (Application.streamingAssetsPath, databaseFileName);
-		string filePath = Application.persistentDataPath + "/" + databaseFileName;
-#if UNITY_EDITOR
-		File.Delete(filePath);
-		Debug.Log("delete");
+		#if UNITY_ANDROID 
+		#if UNITY_EDITOR
 		baseFilePath = "file://"+Path.Combine (Application.streamingAssetsPath, databaseFileName);
-#endif
-		File.Delete(filePath);
+		#endif
 		if(File.Exists(filePath)){
 			CreatedDatabase();
 		}else {
-
 			StartCoroutine(CreateAndroidDatabase(baseFilePath,filePath));
 		}
-
 #endif
 	}
 

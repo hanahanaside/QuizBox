@@ -12,6 +12,8 @@ public class SelectedQuiz : MonoBehaviour
 
 	public string quizUrl{get;set;}
 
+	public string boughtDate{get;set;}
+
 	private bool created = false;
 
 	public static SelectedQuiz instance {

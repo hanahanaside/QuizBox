@@ -7,6 +7,7 @@ public class HistoryDataDao
 {
 	private const string TABLE_NAME = "history_data";
 	private const string ID_FIELD = "id";
+	private const string AVERAGE_FIELD = "average";
 	private const string TITLE_FIELD = "title";
 	private const string MODE_FIELD = "mode";
 	private const string RESULT_FIELD = "result";
@@ -40,6 +41,7 @@ public class HistoryDataDao
 		while (sqliteQuery.Step()) {
 			HistoryData historyData = new HistoryData ();
 			historyData.id = sqliteQuery.GetInteger (ID_FIELD);
+			historyData.Average = sqliteQuery.GetDouble(AVERAGE_FIELD);
 			historyData.title = sqliteQuery.GetString (TITLE_FIELD);
 			historyData.mode = sqliteQuery.GetString (MODE_FIELD);
 			historyData.result = sqliteQuery.GetString (RESULT_FIELD);
@@ -62,6 +64,7 @@ public class HistoryDataDao
 		StringBuilder sb = new StringBuilder ();
 		sb.Append ("insert into " + TABLE_NAME + " values(");
 		sb.Append ("null ,");
+		sb.Append(historyData.Average + " ,");
 		sb.Append ("'" + historyData.title + "',");
 		sb.Append ("'" + historyData.mode + "',");
 		sb.Append ("'" + historyData.result + "',");

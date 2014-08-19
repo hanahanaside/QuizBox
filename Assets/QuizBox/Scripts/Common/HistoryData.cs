@@ -5,6 +5,7 @@ public class HistoryData
 {
 
 	private int mId;
+	private double mAverage;
 	private string mTitle;
 	private string mMode;
 	private string mDate;
@@ -16,6 +17,15 @@ public class HistoryData
 		}
 		set {
 			mId = value;
+		}
+	}
+
+	public double Average{
+		get{
+			return mAverage;
+		}
+		set{
+			mAverage = value;
 		}
 	}
 
@@ -54,4 +64,6 @@ public class HistoryData
 			mResult = value;
 		}
 	}
+
+
 }
