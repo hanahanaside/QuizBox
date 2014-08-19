@@ -5,6 +5,7 @@ using System.Text;
 public class HistoryCellController : MonoBehaviour {
 
 	public UILabel historyLabel;
+	public UISprite medalSprite;
 	private HistoryData mHistoryData;
 
 	public void Init (HistoryData historyData) {
@@ -14,6 +15,19 @@ public class HistoryCellController : MonoBehaviour {
 		sb.Append (historyData.title + " | " + historyData.mode + "\n");
 		sb.Append (historyData.result);
 		historyLabel.text = sb.ToString ();
+		double average = mHistoryData.Average;
+		Debug.Log("average = "+ average);
+		if(average >=100){
+			medalSprite.spriteName = "01.gold";
+		}else if(average >= 90){
+			medalSprite.spriteName = "02.silver";
+		}else if(average >= 80){
+			medalSprite.spriteName = "03.bronze";
+		}else if(average <=15){
+			medalSprite.spriteName = "04.0";
+		}else {
+			medalSprite.enabled = false;
+		}
 	}
 
 	public void OnTweetButtonClicked () {

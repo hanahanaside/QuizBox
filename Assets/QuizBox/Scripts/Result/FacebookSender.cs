@@ -24,13 +24,14 @@ public class FacebookSender : MonoBehaviour {
 	}
 
 	public void ShowFacebookComposer () {
-		Debug.Log("show composer");
+		Debug.Log("show facebook composer"); 
 		int score = ScoreKeeper.instance.score;
 		int size = QuizListManager.instance.quizList.Count;
 		string result = size + "問中" + score + "問正解!!";
 		string imagePath = Application.streamingAssetsPath + "/share_image.png";
 
 #if UNITY_IPHONE
+		Debug.Log("can use composer = "+FacebookBinding.canUserUseFacebookComposer());
 			StringBuilder sb = new StringBuilder ();
 			sb.Append (SelectedQuiz.instance.name + "|" + QuizListManager.instance.modeName + "\u3067");
 			sb.Append ("、" + result + "\n");
@@ -40,7 +41,7 @@ public class FacebookSender : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-		FacebookAndroid.showFacebookShareDialog(dictionary);
+	//	FacebookAndroid.showFacebookShareDialog(dictionary);
 #endif
 	}
 

@@ -219,6 +219,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Result\MedalEffect.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultInitializer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Result\ShareDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\TweetSender.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Splash\SplashController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Test\Test.cs" />

@@ -26,8 +26,10 @@ public class PostQuizDialogController : MonoBehaviour {
 	 
 	public void OnPostButtonClicked () {
 		if (!CheckPostCountOK ()) { 
+#if UNITY_IPHONE
 			string[] buttons = {"OK"};
 			EtceteraBinding.showAlertWithTitleMessageAndButtons ("\u30a8\u30e9\u30fc", "\u6295\u7a3f\u306f1\u65e510\u56de\u307e\u3067\u3067\u3059", buttons);
+#endif
 			return;
 		}
 		if (themeInput.label.text.Contains (DEFAULT_TEXT) || themeInput.label.text == "") {

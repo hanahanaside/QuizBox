@@ -19,6 +19,7 @@ public class ResultInitializer : MonoBehaviour {
 		string result = size + "問中" + score + "問正解!!";
 
 		HistoryData historyData = new HistoryData ();
+		historyData.Average = ((double)score / (double) size) * 100;
 		historyData.result = result;
 		historyData.date = DateTime.Now.ToString ("yyyy/MM/dd (ddd) HH:mm:ss");
 		historyData.title = SelectedQuiz.instance.name;
@@ -49,7 +50,7 @@ public class ResultInitializer : MonoBehaviour {
 			spriteName = "02.silver";
 		} else if (mAverage >= 80) {
 			spriteName = "03.bronze";
-		} else if (mAverage <= 10) {
+		} else if (mAverage <= 15) {
 			spriteName = "04.0";
 		}
 		Debug.Log("spriteName = "+spriteName);
@@ -71,8 +72,8 @@ public class ResultInitializer : MonoBehaviour {
 	}
 
 	private IEnumerator OpenWallAd () {
-		yield return new WaitForSeconds (1.0f);
-		//	APUnityPlugin.ShowAppliPromotionWall ();
+		yield return new WaitForSeconds (3.0f);
+		APUnityPlugin.ShowAppliPromotionWall ();
 	}
 	
 }

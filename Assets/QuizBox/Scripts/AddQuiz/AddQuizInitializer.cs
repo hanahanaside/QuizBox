@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class AddQuizInitializer : MonoBehaviour {
 
 	public HttpClient httpClient;
-	public UIGrid grid;
+	public UIGrid grid; 
 	public GameObject addQuizButtonPrefab;
 	public OkDialog okDialogPrefab;
 	public UIScrollView scrollView;
@@ -102,7 +102,11 @@ public class AddQuizInitializer : MonoBehaviour {
 
 	private bool CheckNotDuplicateTitle (string text) {
 		foreach (string title in mTitleList) {
-			if (title == text) {
+			if (text.Contains(title)) {
+				return false;
+			}
+			if(text.Contains("\u91d1\u9b42")){
+				//check kinkon
 				return false;
 			}
 		}

@@ -16,8 +16,12 @@ public class QuizTopicInitializer : MonoBehaviour {
 			cellObject.transform.localScale = new Vector2 (1f, 1f);
 			int id = (int)quiz [QuizListDao.ID_FIELD];
 			string name = (string)quiz [QuizListDao.TITLE_FIELD];
+			if(!OnSaleChecker.CheckOnSale() && name == "\u9280\u9b42"){
+				//check gintama
+				name = "\u91d1\u9b42";
+			}
 			string quizUrl = (string)quiz [QuizListDao.QUIZ_URL_FIELD];
-			string boughtDate = (string)quiz[QuizListDao.BOUGHT_DATE_FIELD];
+			string boughtDate = (string)quiz [QuizListDao.BOUGHT_DATE_FIELD];
 			CellTop cellTop = cellObject.GetComponent<CellTop> ();
 			cellTop.id = id;
 			cellTop.name = name;

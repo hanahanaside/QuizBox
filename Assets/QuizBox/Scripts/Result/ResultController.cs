@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class ResultController : MonoBehaviour {
 
-	public TweetSender tweetSender;
-	public FacebookSender facebookSender;
-	
+	public GameObject shareDialogPrefab;
+	public GameObject uiRoot;
+
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.LoadLevel ("Top");
@@ -25,25 +25,10 @@ public class ResultController : MonoBehaviour {
 	
 	}
 
-	public void OnTwitterClick () {
-		tweetSender.SendTweet ();
-//		if (tweetSender.IsLoggedIn ()) {
-//			tweetSender.SendTweet ();
-//		} else {
-//			tweetSender.ShowLoginDialog ();
-//		}
-	}
-	
-	public void OnFaceBookClick () {
-		Debug.Log ("facebook");
-		Debug.Log(""+facebookSender.IsSessionValid());
-
-		facebookSender.ShowFacebookComposer();
-//		if (facebookSender.IsSessionValid ()) {
-//			facebookSender.ShowShareDialog();
-//		} else {
-//			facebookSender.Login ();
-//		}
+	public void OnShareButtonClicked(){
+		GameObject shareDialog = Instantiate(shareDialogPrefab) as GameObject;
+		shareDialog.transform.parent = uiRoot.transform;
+		shareDialog.transform.localScale = new Vector3(1,1,1);
 	}
 
 	private void Reset () {
