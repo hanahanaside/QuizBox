@@ -15,6 +15,7 @@ public class ResultController : MonoBehaviour {
 	
 	public void OnRetryClick () {
 		Reset ();
+		QuizListManager.instance.Retry();
 		Application.LoadLevel ("Game");
 	}
 

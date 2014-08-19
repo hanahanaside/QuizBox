@@ -216,6 +216,7 @@
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\UsePolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\FacebookSender.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Result\MedalEffect.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\TweetSender.cs" />

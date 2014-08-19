@@ -188,6 +188,21 @@ public class QuizListManager : MonoBehaviour {
 		allQuizList = null;
 	}
 
+	public void Retry(){
+		quizList = new List<IDictionary> ();
+		if(mModeName == "クイックモード"){
+			//quick mode
+			PlayQuickMode();
+		}else if(mModeName == "チャレンジモード"){
+			//challenge mode
+			PlayChallengeMode();
+		}else {
+			//series mode
+			PlaySeriesMode(mModeName);
+		}
+
+	}
+
 	private void ResetCount () {
 		mQuestionCount = 1;
 		mCorrectCount = 0;

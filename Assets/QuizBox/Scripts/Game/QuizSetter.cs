@@ -3,8 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Collections.Generic;
 
-public class QuizSetter : MonoBehaviour
-{
+public class QuizSetter : MonoBehaviour {
 
 	public UILabel questionLabel;
 	public UILabel scoreLabel;
@@ -14,15 +13,13 @@ public class QuizSetter : MonoBehaviour
 	private int mIndexNumber;
 	private char[] mCharArray;
 
-	void Start ()
-	{
+	void Start () {
 		mStringBuilder = new StringBuilder ();
 		UpdateQuizComponents ();
 
 	}
 
-	public void UpdateQuizComponents ()
-	{
+	public void UpdateQuizComponents () {
 		IDictionary quizDictionary = QuizKeeper.instance.quizDictionary;
 		string series = (string)quizDictionary ["series"];
 		string question = (string)quizDictionary ["question"];
@@ -35,7 +32,7 @@ public class QuizSetter : MonoBehaviour
 			string choice = choicesArray [i];
 			buttonLabelArray [i].text = choice;
 		}
-		scoreLabel.text = QuizKeeper.instance.questionNumber + "(" + ScoreKeeper.instance.score + ")/" + QuizListManager.instance.quizList.Count ;
+		scoreLabel.text = QuizKeeper.instance.questionNumber + "(" + ScoreKeeper.instance.score + ")/" + QuizListManager.instance.quizList.Count;
 		seriesLabel.text = series;
 		mCharArray = question.ToCharArray ();
 		mIndexNumber = 0;
@@ -44,8 +41,7 @@ public class QuizSetter : MonoBehaviour
 		StartCoroutine (TypeWrite ());
 	}
 
-	private IEnumerator TypeWrite ()
-	{
+	private IEnumerator TypeWrite () {
 		if (!enabled) {
 			return true; 
 		}
@@ -59,8 +55,7 @@ public class QuizSetter : MonoBehaviour
 		}
 	}
 
-	private string[] Shuffle (string[] stringArray)
-	{
+	private string[] Shuffle (string[] stringArray) {
 		System.Random random = new System.Random ();
 		int n = stringArray.Length;
 		while (n>1) {
@@ -73,8 +68,7 @@ public class QuizSetter : MonoBehaviour
 		return stringArray;
 	}
 
-	public void StopTyping ()
-	{
+	public void StopTyping () {
 		//mThinking = false;
 		enabled = false;
 	}
