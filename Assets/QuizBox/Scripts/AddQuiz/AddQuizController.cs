@@ -52,6 +52,7 @@ public class AddQuizController : MonoBehaviour {
 
 	void OnClickAddQuiz (AddQuiz addQuiz) {
 		int needPoint = addQuiz.point;
+		Debug.Log ("user point = " + mUserPoint );
 		if (mUserPoint < needPoint) {
 			ShortPointDialog shortPointDialog = Instantiate (shortPointDialogPrefab) as ShortPointDialog;
 			shortPointDialog.Show ();
