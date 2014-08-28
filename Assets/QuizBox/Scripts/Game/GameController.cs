@@ -11,6 +11,10 @@ public class GameController : MonoBehaviour {
 	public UILabel titleLabel;
 	public UILabel[] buttonLabelArray;
 
+	#if UNITY_ANDROID
+	private bool mBackClicked;
+	#endif
+
 
 	void OnEnable () {
 #if UNITY_IPHONE
@@ -38,9 +42,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKey (KeyCode.Escape)) {
+		#if UNITY_ANDROID
+		if (Input.GetKey (KeyCode.Escape) && !mBackClicked) {
+			mBackClicked = true;
 			OnBackButtonClick ();
+			return;
 		}
+		#endif
 	}
 	
 	public void OnAnswerButtonClick () {
@@ -85,6 +93,9 @@ public class GameController : MonoBehaviour {
 			QuizListDao.instance.UpdateChallengeData (jsonString, quizCount, correctCount, id);
 			Application.LoadLevel ("Title");
 		}
+		#if UNITY_ANDROID
+		mBackClicked = false;
+		#endif
 	}
 
 }

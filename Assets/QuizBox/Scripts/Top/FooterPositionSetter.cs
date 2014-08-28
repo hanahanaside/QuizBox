@@ -13,7 +13,10 @@ public class FooterPositionSetter : MonoBehaviour {
 		if(generationName == "iPhone4S" || generationName == "iPhone4"){
 			uiAnchor.relativeOffset.Set(0,0.145f);
 		}
-
 #endif
+
+		#if UNITY_ANDROID
+
+		#endif
 	}
 }
