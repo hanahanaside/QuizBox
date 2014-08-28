@@ -47,7 +47,6 @@ public class DatabaseCreator : MonoBehaviour
 		WWW www = new WWW (baseFilePath);
 		yield return www;
 		File.WriteAllBytes (filePath, www.bytes);
-		QuizListDao.instance.InitBoughtDate();
 		CreatedDatabase();
 	}
 	#endif

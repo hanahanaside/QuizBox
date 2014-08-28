@@ -108,7 +108,7 @@ public class PostQuizDialogController : MonoBehaviour {
 		if (result) {
 			PrefsManager.Instance.AddUserPoint (1);
 			UpdatePostCountData ();
-			TopController.Instance.UpdateUserPointLabel ();
+			TopController.Instance.UPdateUserPointLabel ();
 			ShowSuccessDialog ();
 			ResetInputLabel ();
 		} else {

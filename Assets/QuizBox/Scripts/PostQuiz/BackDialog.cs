@@ -12,31 +12,18 @@ public class BackDialog : MonoBehaviour {
 #if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent += alertButtonClicked;
 #endif
-
-		#if UNITY_ANDROID
-		EtceteraAndroidManager.alertButtonClickedEvent += alertButtonClicked;
-		#endif
 	}
 
 	void OnDisable () {
 		#if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent -= alertButtonClicked;
 		#endif
-
-		#if UNITY_ANDROID
-		EtceteraAndroidManager.alertButtonClickedEvent -= alertButtonClicked;
-		#endif
-
 	}
 
 	public void Show(){
 		#if UNITY_IPHONE
 		string[] buttons = {POSITIVE_BUTTON,NEGATIVE_BUTTON};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(TITLE,MESSAGE,buttons);
-		#endif
-
-		#if UNITY_ANDROID
-		EtceteraAndroid.showAlert(TITLE,MESSAGE,POSITIVE_BUTTON,NEGATIVE_BUTTON);
 		#endif
 	}
 

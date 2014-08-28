@@ -12,7 +12,7 @@ public class TopController : MonoBehaviour {
 	void Start () {
 		sInstance = this;
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
-		UpdateUserPointLabel ();
+		SetUserPointLabel ();
 	}
 
 //	void OnGUI () {
@@ -37,7 +37,11 @@ public class TopController : MonoBehaviour {
 	public void SetCurrentDialog (GameObject dialog) {
 		mCurrentDialog = dialog;
 	}
-		
+
+	public void UPdateUserPointLabel () {
+		SetUserPointLabel ();
+	}
+
 	public void OnTopClicked () {
 		OnButtonClicked ();
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
@@ -68,7 +72,7 @@ public class TopController : MonoBehaviour {
 		ShowDialog (Instantiate (dialogArray [5])as GameObject);
 	}
 
-	public void UpdateUserPointLabel () {
+	private void SetUserPointLabel () {
 		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		userPointLabel.text = userPoint + "pt";
 	}

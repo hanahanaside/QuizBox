@@ -120,7 +120,7 @@ public class StoreKitEventListener : MonoBehaviour
 		}
 		Debug.Log("addPoint = "+addPoint);
 		PrefsManager.Instance.AddUserPoint(addPoint);
-		TopController.Instance.UpdateUserPointLabel ();
+		TopController.Instance.UPdateUserPointLabel();
 	}
 	
 	

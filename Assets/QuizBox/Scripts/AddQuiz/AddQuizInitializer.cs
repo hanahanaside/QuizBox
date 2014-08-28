@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AddQuizInitializer : MonoBehaviour {
+
 	public HttpClient httpClient;
-	public UIGrid grid;
+	public UIGrid grid; 
 	public GameObject addQuizButtonPrefab;
 	public OkDialog okDialogPrefab;
 	public UIScrollView scrollView;
@@ -17,22 +18,23 @@ public class AddQuizInitializer : MonoBehaviour {
 		Debug.Log ("enable");
 		HttpClient.responseEvent += ResponseCallback;
 	}
-
+	
 	void OnDisable () {
 		Debug.Log ("disable");
 		HttpClient.responseEvent -= ResponseCallback;
 	}
+
 	// Use this for initialization
 	void Start () {
 		mTitleList = QuizListDao.instance.GetTitleList ();
 		if (sAddQuizButtonList != null) {
-			CreateScrollView (sAddQuizButtonList);
+			CreateScrollView(sAddQuizButtonList);
 			return;
 		}
 		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
 		FenceInstanceKeeper.Instance.SetActive (true);
 		#if UNITY_IOS
-		EtceteraBinding.showBezelActivityViewWithLabel (title);
+		EtceteraBinding.showBezelActivityViewWithLabel(title);
 		#endif
 		
 		#if UNITY_ANDROID
@@ -47,7 +49,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	void ResponseCallback (string response) {
 		FenceInstanceKeeper.Instance.SetActive (false);
 		#if UNITY_IOS
-		EtceteraBinding.hideActivityView ();
+		EtceteraBinding.hideActivityView();
 		#endif
 		
 		#if UNITY_ANDROID
@@ -73,7 +75,7 @@ public class AddQuizInitializer : MonoBehaviour {
 		}
 		scrollView.ResetPosition ();
 	}
-
+	
 	private void SetButtons (IDictionary jsonObject) {
 		bool publish = (bool)jsonObject ["publish"];
 		string title = jsonObject ["title"].ToString ();
@@ -85,7 +87,7 @@ public class AddQuizInitializer : MonoBehaviour {
 		}
 		long point = (long)jsonObject ["point"];
 		string url = jsonObject ["quiz_management_url"].ToString ();
-		long quizCount = (long)jsonObject ["quiz_count"];
+		long quizCount = (long)jsonObject["quiz_count"];
 
 		AddQuiz addQuiz = new AddQuiz ();
 		addQuiz.point = (int)point;
@@ -100,10 +102,10 @@ public class AddQuizInitializer : MonoBehaviour {
 
 	private bool CheckNotDuplicateTitle (string text) {
 		foreach (string title in mTitleList) {
-			if (text.Contains (title)) {
+			if (text.Contains(title)) {
 				return false;
 			}
-			if (text.Contains ("\u91d1\u9b42")) {
+			if(text.Contains("\u91d1\u9b42")){
 				//check kinkon
 				return false;
 			}

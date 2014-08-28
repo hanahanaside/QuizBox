@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AddQuiz {
+public class AddQuiz
+{
 	private int mPoint;
 	private int mQuizCount;
 	private string mUrl;
@@ -34,11 +35,11 @@ public class AddQuiz {
 		}
 	}
 
-	public int quizCount {
-		set {
+	public int quizCount{
+		set{
 			mQuizCount = value;
 		}
-		get {
+		get{
 			return mQuizCount;
 		}
 	}
