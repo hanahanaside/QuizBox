@@ -7,12 +7,20 @@ public class TitleDialogManager : MonoBehaviour {
 #if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent += alertButtonClicked;
 #endif
+		#if UNITY_ANDROID
+		EtceteraAndroidManager.alertButtonClickedEvent += alertButtonClicked;
+		#endif
 	}
 
 	void OnDisable () {
 		#if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent -= alertButtonClicked;
 		#endif
+
+		#if UNITY_ANDROID
+		EtceteraAndroidManager.alertButtonClickedEvent -= alertButtonClicked;
+		#endif
+
 	}
 
 	public void ShowErrorDialog () {
@@ -34,4 +42,10 @@ public class TitleDialogManager : MonoBehaviour {
 			Application.LoadLevel ("Top");
 		}
 	}
+
+	#if UNITY_ANDROID
+	void alertCancelled(){
+		Application.LoadLevel ("Top");
+	}
+	#endif
 }
