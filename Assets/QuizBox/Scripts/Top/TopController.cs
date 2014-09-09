@@ -44,11 +44,9 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnAddPointClicked () {
-		if(GameObject.FindGameObjectWithTag("AddPointDialog") == null){
-			GameObject addPointDialog = Instantiate (dialogArray [1])as GameObject;
-			addPointDialog.transform.parent = uiRoot.transform;
-			addPointDialog.transform.localScale = new Vector3 (1, 1, 1);
-		}
+		GameObject addPointDialog = Instantiate (dialogArray [1])as GameObject;
+		addPointDialog.transform.parent = uiRoot.transform;
+		addPointDialog.transform.localScale = new Vector3 (1, 1, 1);
 	}
 
 	public void OnPostQuizClicked () {

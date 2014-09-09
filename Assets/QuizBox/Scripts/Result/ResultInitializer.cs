@@ -14,7 +14,8 @@ public class ResultInitializer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		int score = ScoreKeeper.instance.score;
+		//	int score = ScoreKeeper.instance.score;
+		int score = 15;
 		int size = QuizListManager.instance.quizList.Count;
 		string result = size + "問中" + score + "問正解!!";
 

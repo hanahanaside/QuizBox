@@ -7,18 +7,6 @@ public class HistoryCellController : MonoBehaviour {
 	public UILabel historyLabel;
 	public UISprite medalSprite;
 	private HistoryData mHistoryData;
-	private bool mTweeted = false;
-
-	#if UNITY_ANDROID
-	void OnApplicationPause (bool pauseSatatus) {
-		Debug.Log ("pause = " + pauseSatatus);
-		if (!pauseSatatus && mTweeted) {
-			mTweeted = false;
-			PrefsManager.Instance.AddUserPoint (1);
-		}
-	}
-	#endif
-
 
 	public void Init (HistoryData historyData) {
 		mHistoryData = historyData;
@@ -52,11 +40,5 @@ public class HistoryCellController : MonoBehaviour {
 #if UNITY_IPHONE
 		TwitterBinding.showTweetComposer(sb.ToString(),imagePath);
 #endif
-
-		#if UNITY_ANDROID
-		string filePath = Application.persistentDataPath +  "/share_image.png";
-		SocialConnector.Share(sb.ToString(),"",filePath);
-		mTweeted = true;
-		#endif
 	}
 }
