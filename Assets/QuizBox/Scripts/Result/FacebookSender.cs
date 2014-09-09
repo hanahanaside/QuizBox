@@ -6,11 +6,23 @@ using System.Collections.Generic;
 public class FacebookSender : MonoBehaviour {
 
 	void OnEnable () {
+		#if UNITY_IPHONE
 		FacebookManager.facebookComposerCompletedEvent += composerCompletedEvent;
+		#endif
+		FacebookManager.shareDialogSucceededEvent += shareDialogSucceededEvent;
+		FacebookManager.shareDialogFailedEvent +=  shareDialogFailedEvent; 
+		FacebookManager.dialogCompletedWithUrlEvent += dialogCompletedWithUrlEvent;
+		FacebookManager.dialogFailedEvent += dialogFailedEvent;
 	}
 
 	void OnDisable () {
+		#if UNITY_IPHONE
 		FacebookManager.facebookComposerCompletedEvent -= composerCompletedEvent;
+		#endif
+		FacebookManager.shareDialogSucceededEvent -= shareDialogSucceededEvent;
+		FacebookManager.shareDialogFailedEvent -=  shareDialogFailedEvent; 
+		FacebookManager.dialogCompletedWithUrlEvent -= dialogCompletedWithUrlEvent;
+		FacebookManager.dialogFailedEvent -= dialogFailedEvent;
 	}
 
 	void Start () {
@@ -41,7 +53,8 @@ public class FacebookSender : MonoBehaviour {
 #endif
 
 #if UNITY_ANDROID
-	//	FacebookAndroid.showFacebookShareDialog(dictionary);
+		Dictionary<string,object> dictionary = new Dictionary<string,object>();
+		FacebookAndroid.showFacebookShareDialog(dictionary);
 #endif
 	}
 
@@ -83,6 +96,23 @@ public class FacebookSender : MonoBehaviour {
 			EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
 #endif
 		}
+	}
+
+	void shareDialogSucceededEvent(Dictionary<string,object> dictionary){
+		Debug.Log ("shareDialogSucceededEvent");
+	}
+
+	void shareDialogFailedEvent(Prime31.P31Error error){
+		Debug.Log ("shareDialogFailedEvent");
+		Debug.Log ("error = " + error);
+	}
+
+	void dialogCompletedWithUrlEvent(string url){
+		Debug.Log ("dialog completed");
+	}
+
+	void dialogFailedEvent(Prime31.P31Error errror){
+		Debug.Log ("dialog failed");
 	}
 
 }

@@ -26,10 +26,15 @@ public class PostQuizDialogController : MonoBehaviour {
 	 
 	public void OnPostButtonClicked () {
 		if (!CheckPostCountOK ()) { 
+			string title = "\u30a8\u30e9\u30fc";
+			string message = "\u6295\u7a3f\u306f1\u65e510\u56de\u307e\u3067\u3067\u3059";
 #if UNITY_IPHONE
 			string[] buttons = {"OK"};
-			EtceteraBinding.showAlertWithTitleMessageAndButtons ("\u30a8\u30e9\u30fc", "\u6295\u7a3f\u306f1\u65e510\u56de\u307e\u3067\u3067\u3059", buttons);
+			EtceteraBinding.showAlertWithTitleMessageAndButtons(title, message, buttons);
 #endif
+			#if UNITY_ANDROID
+			EtceteraAndroid.showAlert(title,message,"OK");
+			#endif
 			return;
 		}
 		if (themeInput.label.text.Contains (DEFAULT_TEXT) || themeInput.label.text == "") {
@@ -87,11 +92,20 @@ public class PostQuizDialogController : MonoBehaviour {
 #if UNITY_IPHONE
 		EtceteraBinding.showActivityView();
 #endif
+		#if UNITY_ANDROID
+		string title = "\u901a\u4fe1\u4e2d";
+		string message = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
+		EtceteraAndroid.showProgressDialog(title,message);
+		#endif
 		yield return www;
 
 #if UNITY_IPHONE
 		EtceteraBinding.hideActivityView();
 #endif
+
+		#if UNITY_ANDROID
+		EtceteraAndroid.hideProgressDialog();
+		#endif
 		// check for errors
 		if (www.error == null) {
 			Debug.Log ("WWW Ok!: " + www.text);
@@ -118,6 +132,10 @@ public class PostQuizDialogController : MonoBehaviour {
 			string[] buttons = {"OK"};
 			EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
 			#endif
+
+			#if UNITY_ANDROID
+			EtceteraAndroid.showAlert(title,message,"OK");
+			#endif
 		}
 	}
 
@@ -134,6 +152,10 @@ public class PostQuizDialogController : MonoBehaviour {
 		string[] buttons = {"OK"};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
 #endif
+
+		#if UNITY_ANDROID
+		EtceteraAndroid.showAlert(title,message,"OK");
+		#endif
 	}
 
 	private void ShowSuccessDialog () {
@@ -144,6 +166,11 @@ public class PostQuizDialogController : MonoBehaviour {
 		string[] buttons = {"OK"};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
 		#endif
+
+		#if UNITY_ANDROID
+		EtceteraAndroid.showAlert(title,message,"OK");
+		#endif
+
 	}
 
 	private void UpdatePostCountData () {
