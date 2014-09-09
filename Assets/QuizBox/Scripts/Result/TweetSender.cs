@@ -6,6 +6,7 @@ public class TweetSender : MonoBehaviour {
 
 	public string consumerKey;
 	public string consumerSecret;
+	private static TweetSender sInstance;
 	
 	void OnEnable () {
 		TwitterManager.tweetSheetCompletedEvent += tweetSheetCompletedEvent;
@@ -33,6 +34,8 @@ public class TweetSender : MonoBehaviour {
 	}
 
 	void Start () {
+		sInstance = this;
+		DontDestroyOnLoad (gameObject);
 		#if UNITY_IPHONE
 		TwitterBinding.init(consumerKey,consumerSecret);
 		#endif
@@ -41,6 +44,12 @@ public class TweetSender : MonoBehaviour {
 		TwitterAndroid.init( consumerKey, consumerSecret );
 		#endif
 
+	}
+
+	public static TweetSender Instance{
+		get{
+			return sInstance;
+		}
 	}
 
 	void loginSucceeded (string username) {
@@ -102,7 +111,6 @@ public class TweetSender : MonoBehaviour {
 		EtceteraAndroid.hideProgressDialog();
 		#endif
 		if (didSucceed) {
-			PrefsManager.Instance.AddUserPoint(1);
 			ShowCompleteDialog ();
 		}
 	}
@@ -110,11 +118,13 @@ public class TweetSender : MonoBehaviour {
 	#if UNITY_ANDROID
 	void promptFinishedWithTextEvent (string param) {
 		Debug.Log ("promptFinishedWithTextEvent: " + param);
-		TwitterAndroid.postStatusUpdate ("text");
+		TwitterAndroid.postStatusUpdate (param);
 	}
 	#endif
 
 	private void ShowCompleteDialog () {
+		PrefsManager.Instance.AddUserPoint(1);
+		TopController.Instance.UpdateUserPointLabel ();
 		string title = "\u30c4\u30a4\u30fc\u30c8\u6210\u529f!!";
 		string message = "1\u30dd\u30a4\u30f3\u30c8\u8ffd\u52a0\u3057\u307e\u3057\u305f";
 		ShowOKDialog (title, message);
@@ -130,13 +140,15 @@ public class TweetSender : MonoBehaviour {
 		sb.Append ("、" + result + "\n");
 		sb.Append("\u3053\u306e\u30af\u30a4\u30ba\u30a2\u30d7\u30ea\u9762\u767d\u3044\u304b\u3089\u3084\u3063\u3066\u307f\u3066\uff01"+ "\n");
 		sb.Append("→http://tt5.us/quizbox #クイズボックス");
+
+		#if UNITY_IPHONE
 		string imagePath = Application.streamingAssetsPath + "/share_image.png";
-#if UNITY_IPHONE
 		TwitterBinding.showTweetComposer(sb.ToString(),imagePath);
 #endif
 	
 #if UNITY_ANDROID
-		EtceteraAndroid.showAlertPrompt("Twitter" ,"Message","",sb.ToString(),"\u30b7\u30a7\u30a2\u3059\u308b","cancel");
+		string filePath = Application.persistentDataPath +  "/share_image.png";
+		SocialConnector.Share(sb.ToString(),"",filePath);
 #endif
 	}
 
