@@ -12,9 +12,10 @@ public class FooterPositionSetter : MonoBehaviour {
 			uiAnchor.relativeOffset.Set (0, 0.145f);
 		}
 #endif
-
 		#if UNITY_ANDROID
-
+		if(Screen.height == 800){
+			uiAnchor.relativeOffset.Set (0, 0.145f);
+		}
 		#endif
 	}
 }
