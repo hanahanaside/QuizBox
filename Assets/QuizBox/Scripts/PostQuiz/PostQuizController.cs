@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PostQuizController : MonoBehaviour {
 
+	public GameObject postSuccessDialog;
+	public GameObject postQuizDialog;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -13,5 +16,11 @@ public class PostQuizController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.LoadLevel ("Top");
 		}
+	}
+
+	public void OnCloseSuccessDialogClick(){
+		AdManager.Instance.HideRectangleAd ();
+		postSuccessDialog.SetActive (false);
+		postQuizDialog.SetActive (true);
 	}
 }

@@ -16,6 +16,7 @@
 		</activity>
 		<activity configChanges="orientation|screenLayout|screenSize" android:name="com.facebook.LoginActivity">
 		</activity>
+		<activity android:name="com.prime31.GoogleIABProxyActivity" android:configChanges="orientation"></activity>
 		<receiver android:name="com.prime31.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />

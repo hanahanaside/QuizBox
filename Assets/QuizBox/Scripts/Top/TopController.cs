@@ -6,12 +6,14 @@ public class TopController : MonoBehaviour {
 	public GameObject uiRoot;
 	public UILabel userPointLabel;
 	public GameObject[] dialogArray;
+	public UISprite[] buttonFilterArray;
 	private static TopController sInstance;
 	private GameObject mCurrentDialog;
 
 	void Start () {
 		sInstance = this;
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
+		SetActiveButtonFilter (0);
 		UpdateUserPointLabel ();
 	}
 
@@ -40,10 +42,12 @@ public class TopController : MonoBehaviour {
 		
 	public void OnTopClicked () {
 		OnButtonClicked ();
+		SetActiveButtonFilter (0);
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
 	}
 
 	public void OnAddPointClicked () {
+
 		if(GameObject.FindGameObjectWithTag("AddPointDialog") == null){
 			GameObject addPointDialog = Instantiate (dialogArray [1])as GameObject;
 			addPointDialog.transform.parent = uiRoot.transform;
@@ -57,16 +61,19 @@ public class TopController : MonoBehaviour {
 
 	public void OnResultClicked () {
 		OnButtonClicked ();
+		SetActiveButtonFilter (3);
 		ShowDialog (Instantiate (dialogArray [3])as GameObject);
 	}
 
 	public void OnSettingClicked () {
 		OnButtonClicked ();
+		SetActiveButtonFilter (4);
 		ShowDialog (Instantiate (dialogArray [4])as GameObject);
 	}
 
 	public void OnAddQuizClicked () {
 		OnButtonClicked ();
+		SetActiveButtonFilter (1);
 		ShowDialog (Instantiate (dialogArray [5])as GameObject);
 	}
 
@@ -83,5 +90,13 @@ public class TopController : MonoBehaviour {
 		dialog.transform.parent = uiRoot.transform;
 		dialog.transform.localScale = new Vector3 (1f, 1f, 1f);
 		mCurrentDialog = dialog;
+	}
+
+	private void SetActiveButtonFilter(int buttonId){
+		Debug.Log ("aaaa");
+		foreach(UISprite buttonFilter in buttonFilterArray){
+			buttonFilter.enabled = true;
+		}
+		buttonFilterArray [buttonId].enabled = false;
 	}
 }

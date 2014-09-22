@@ -38,27 +38,21 @@ public class SettingDialogController : MonoBehaviour {
 	}
 
 	public void OnFAQClicked () {
-		GameObject faqDialog = Instantiate (faqDialogPrefab) as GameObject;
-		ShowDialog (faqDialog);
+		ShowDialog (faqDialogPrefab);
 	}
 
 	public void OnUsePolicyClicked () {
-		GameObject userPolicyDialog = Instantiate (userPolicyDialogPrefab)as GameObject;
-		userPolicyDialog.transform.parent = UIRootInstanceKeeper.Instance.transform;
-		userPolicyDialog.transform.localScale = new Vector3 (1, 1, 1);
+		ShowDialog (userPolicyDialogPrefab);
 	}
 
 	public void OnPrivacyPolicyClicked () {
-		GameObject privacyPolicyDialog = Instantiate (privacyPolicyDialogPrefab) as GameObject;
-		privacyPolicyDialog.transform.parent = UIRootInstanceKeeper.Instance.transform;
-		privacyPolicyDialog.transform.localScale = new Vector3 (1, 1, 1);
+		ShowDialog (privacyPolicyDialogPrefab);
 	}
 
-	private void ShowDialog (GameObject dialog) {
-		TopController.Instance.SetCurrentDialog (dialog);
-		dialog.transform.parent = UIRootInstanceKeeper.Instance.transform;
-		dialog.transform.localScale = new Vector3 (1, 1, 1);
-		Destroy (transform.parent.gameObject);
-
+	private void ShowDialog (GameObject dialogPrefab) {
+		GameObject dialogObject = Instantiate (dialogPrefab) as GameObject;
+		TopController.Instance.SetCurrentDialog (dialogObject);
+		dialogObject.transform.parent = UIRootInstanceKeeper.Instance.transform;
+		dialogObject.transform.localScale = new Vector3 (1, 1, 1);
 	}
 }

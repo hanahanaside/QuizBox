@@ -19,6 +19,8 @@ public class PostQuizDialogController : MonoBehaviour {
 	public GameObject usePolicyDialogPrefab;
 	public GameObject uiRoot;
 	public BackDialog backDialog;
+	public GameObject postSuccessDialog;
+	public UILabel successLabel;
 
 	void Start () {
 		TouchScreenKeyboard.hideInput = true;
@@ -159,12 +161,14 @@ public class PostQuizDialogController : MonoBehaviour {
 	}
 
 	private void ShowSuccessDialog () {
+		AdManager.Instance.ShowRectangleAd ();
 		PostCountData postCountData = PrefsManager.Instance.GetPostCountData ();
 		string title = "\u6295\u7a3f\u3057\u307e\u3057\u305f";
 		string message = "1\u30dd\u30a4\u30f3\u30c8GET!!" + " (\u672c\u65e5" + postCountData.PostCount + "pt\u76ee)";
 		#if UNITY_IPHONE
-		string[] buttons = {"OK"};
-		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
+		successLabel.text = title + "\n" + message;
+		postSuccessDialog.SetActive(true);
+		transform.parent.gameObject.SetActive(false);
 		#endif
 
 		#if UNITY_ANDROID

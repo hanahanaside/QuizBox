@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_4_5_3;UNITY_4_5;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;UNITY_ANDROID_API;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_3;UNITY_4_5;UNITY_IPHONE;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_WWW;ENABLE_IMAGEEFFECTS;UNITY_IPHONE_API;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_GAMECENTER;UNITY_IOS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -211,6 +211,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\AdManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\GCMRegister.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\IABManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\ShareImageWriter.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\SoundManager.cs" />
@@ -225,6 +226,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Result\ShareDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\TweetSender.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Splash\SplashController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Test\Test.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\QuizListManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\RestartChallengeDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\SeriesButtonController.cs" />
@@ -234,6 +236,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleDialogManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\CellTop.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\FAQDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FenceInstanceKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FooterPositionSetter.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryCellController.cs" />
@@ -366,6 +369,7 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 3.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_top_button.xml" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo18.txt" />
+     <None Include="Assets\Plugins\InAppBillingAndroid\Manifest.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_search_bar_layout.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_title_bar.xml" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
