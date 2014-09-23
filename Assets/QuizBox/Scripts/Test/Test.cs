@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Test : MonoBehaviour {
 
-	// Update is called once per frame
-	void Update () {
-		transform.Translate (0,0.01f,0);
+	void Start(){
+		DateTime dtNow = DateTime.Now;
+		DateTime dtPast = DateTime.Now.AddDays (-2);
+		TimeSpan ts = dtNow - dtPast;
+		Debug.Log ("ts = " + ts.TotalDays);
 	}
 
-	void OnCollisionEnter(Collision collision) {
-		Debug.Log ("aaaa");
-			int depth =  collision.gameObject.GetComponent<UISprite>().depth;
-		Debug.Log ("d = " + depth);
-		GetComponent<UISprite>().depth = depth +1;
-	}
 }

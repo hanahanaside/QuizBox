@@ -6,6 +6,7 @@ public class TitleInitializer : MonoBehaviour {
 
 	public GameObject titleDialogManager;
 	public GameObject[] inVisibleObjectsArray;
+	public UISprite backButtonSprite;
 	public UILabel titleLabel;
 	public UILabel quizInfoLabel;
 
@@ -13,6 +14,7 @@ public class TitleInitializer : MonoBehaviour {
 		foreach (GameObject item in inVisibleObjectsArray) {
 			item.SetActive (false);
 		}
+		backButtonSprite.enabled = false;
 		QuizListManager.instance.InitQuizList ();
 	}
 
@@ -21,6 +23,7 @@ public class TitleInitializer : MonoBehaviour {
 			foreach (GameObject item in inVisibleObjectsArray) {
 				item.SetActive (true);
 			}
+			backButtonSprite.enabled = true;
 			titleLabel.text = SelectedQuiz.instance.name;
 			StringBuilder sb = new StringBuilder();
 			sb.Append("\u554f\u984c\u6570\n");

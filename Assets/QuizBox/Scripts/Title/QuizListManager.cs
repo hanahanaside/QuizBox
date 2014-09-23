@@ -10,7 +10,7 @@ public class QuizListManager : MonoBehaviour {
 	private static IList allQuizList;
 	private static IList mSeriesList;
 	private bool created = false;
-	private string mJsonString;
+	private static string sJsonString;
 	private string mModeName;
 	private int mQuestionCount;
 	private int mCorrectCount;
@@ -49,7 +49,7 @@ public class QuizListManager : MonoBehaviour {
 
 	public string jsonString {
 		get {
-			return mJsonString;
+			return sJsonString;
 		}
 	}
 
@@ -60,12 +60,21 @@ public class QuizListManager : MonoBehaviour {
 	}
 	
 	void Awake () {
-		if (!created) {
+		if(sInstance == null){
+
 			sInstance = this;
 			quizList = new List<IDictionary> ();
 			DontDestroyOnLoad (gameObject);
-			created = true;
+
+
 		}
+
+//		if (!created) {
+//			sInstance = this;
+//			quizList = new List<IDictionary> ();
+//			DontDestroyOnLoad (gameObject);
+//			created = true;
+//		}
 	}
 
 	public void InitQuizList () {
@@ -146,7 +155,7 @@ public class QuizListManager : MonoBehaviour {
 
 	public void PlayChallenteModeResume (string jsonString, int questionCount, int correctCount) {
 		Debug.Log ("resume");
-		mJsonString = jsonString;
+		Debug.Log ("jsonString = " + jsonString);
 		mModeName = "チャレンジモード";
 		mQuestionCount = questionCount;
 		mCorrectCount = correctCount;
@@ -165,13 +174,13 @@ public class QuizListManager : MonoBehaviour {
 		EtceteraAndroid.hideProgressDialog();
 		#endif
 
-		if (response == null) {
+		if (string.IsNullOrEmpty(response)) {
 			//error
 			titleInitializer.OnLoadFinished (false);
 		} else {
-			mJsonString = response;
-			mJsonString = mJsonString.Replace ("'", "");
-			IDictionary jsonObject = (IDictionary)Json.Deserialize (mJsonString);
+			sJsonString = response;
+			sJsonString = sJsonString.Replace ("'", "");
+			IDictionary jsonObject = (IDictionary)Json.Deserialize (sJsonString);
 			allQuizList = (IList)jsonObject ["updated_quiz"];
 			mSeriesList = (IList)jsonObject ["series_orderd"];
 			Debug.Log ("count = " + allQuizList.Count);

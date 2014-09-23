@@ -12,6 +12,7 @@ public class PrefsManager {
 	private const string POST_COUNT_DATA = "postCountData";
 	private const string POST_DATE_KEY = "postDateKey";
 	private const string POST_COUNT_KEY = "postCountKey";
+	private const string INSTALLED_DATE = "installedDate";
 	private static PrefsManager sInstance;
 
 	public static PrefsManager Instance {
@@ -42,7 +43,7 @@ public class PrefsManager {
 		PlayerPrefs.SetInt (IS_REGISTERED, 1);
 		PlayerPrefs.Save ();
 	}
-	
+
 	public bool isRegistered () {
 		int isRegistered = PlayerPrefs.GetInt (IS_REGISTERED);
 		if (isRegistered == 0) {
@@ -55,7 +56,7 @@ public class PrefsManager {
 		PlayerPrefs.SetInt (IS_REVIEWED, 1);
 		PlayerPrefs.Save ();
 	}
-	
+
 	public bool GetReviewed () {
 		if (PlayerPrefs.GetInt (IS_REVIEWED) == 0) {
 			return false;
@@ -81,35 +82,46 @@ public class PrefsManager {
 		}
 	}
 
+	public string InstalledDate {
+		set {
+			PlayerPrefs.SetString (INSTALLED_DATE, value);
+			PlayerPrefs.Save ();
+		}
+		get {
+			return PlayerPrefs.GetString (INSTALLED_DATE);
+		}
+
+	}
+
 	public void SavePostCountData (PostCountData postCountData) {
 		Dictionary<string,object> dictionary = new Dictionary<string, object> ();
 		dictionary.Add (POST_DATE_KEY, postCountData.PostDate);
 		dictionary.Add (POST_COUNT_KEY, postCountData.PostCount);
 		string json = Json.Serialize (dictionary);
-		Debug.Log("json = "+json);
+		Debug.Log ("json = " + json);
 		PlayerPrefs.SetString (POST_COUNT_DATA, json);
 		PlayerPrefs.Save ();
 	}
 
 	public PostCountData GetPostCountData () {
 		string json = PlayerPrefs.GetString (POST_COUNT_DATA);
-		Debug.Log("json = "+json);
+		Debug.Log ("json = " + json);
 		PostCountData postCountData = new PostCountData ();
-		if(json == ""){
+		if (json == "") {
 			postCountData.PostCount = 0;
 			postCountData.PostDate = "";
 			return postCountData;
 		}
 		Dictionary<string,object> dictionary = (Dictionary<string,object>)Json.Deserialize (json);
-		Debug.Log("2");
-		long postCount = (long)dictionary[POST_COUNT_KEY];
-		Debug.Log("3");
-		string postDate = dictionary[POST_DATE_KEY].ToString();
-		Debug.Log("4");
+		Debug.Log ("2");
+		long postCount = (long)dictionary [POST_COUNT_KEY];
+		Debug.Log ("3");
+		string postDate = dictionary [POST_DATE_KEY].ToString ();
+		Debug.Log ("4");
 
 		postCountData.PostCount = (int)postCount;
 		postCountData.PostDate = postDate;
-		Debug.Log("return");
+		Debug.Log ("return");
 		return postCountData;
 	}
 }

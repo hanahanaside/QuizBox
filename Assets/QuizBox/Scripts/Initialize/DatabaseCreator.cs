@@ -2,28 +2,28 @@
 using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 
-public class DatabaseCreator : MonoBehaviour
-{
+public class DatabaseCreator : MonoBehaviour {
 	public static event Action createdDatabaseEvent;
+
 	private static string databaseFileName = "quiz_box.db";
 
-	void Start(){
-		CreateDatabase();
+	void Start () {
+		CreateDatabase ();
 	}
-
 	// Use this for initialization
-	private void CreateDatabase ()
-	{
+	private void CreateDatabase () {
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
 		#if UNITY_IPHONE
-		if(!File.Exists(filePath)){
-			File.Copy( baseFilePath, filePath); 
-			QuizListDao.instance.InitBoughtDate();
-			Debug.Log("create Database");
+		if (!File.Exists (filePath)) {
+			File.Copy (baseFilePath, filePath); 
+			QuizListDao.instance.InitBoughtDate ();
+			Debug.Log ("create Database");
 		}
-		CreatedDatabase();
+
+		CreatedDatabase ();
 		#endif
 
 		#if UNITY_ANDROID 
@@ -37,7 +37,6 @@ public class DatabaseCreator : MonoBehaviour
 		}
 #endif
 	}
-
 	#if UNITY_ANDROID
 	private IEnumerator CreateAndroidDatabase (string baseFilePath,string filePath)
 	{
@@ -52,12 +51,39 @@ public class DatabaseCreator : MonoBehaviour
 	}
 	#endif
 
-	private void CreatedDatabase()
-	{
+	private void CreatedDatabase () {
 		Debug.Log ("create finished");
-		if( createdDatabaseEvent != null ){
-			createdDatabaseEvent();
+		CheckRenameQuiz();
+		if (createdDatabaseEvent != null) {
+			createdDatabaseEvent ();
 		}
 	}
 
+	private void CheckRenameQuiz () {
+		DateTime dtNow = DateTime.Now;
+		string installedDate = PrefsManager.Instance.InstalledDate;
+		if (string.IsNullOrEmpty (installedDate)) {
+			PrefsManager.Instance.InstalledDate = dtNow.ToString ();
+			return;
+		}
+		DateTime dtInstalled = DateTime.Parse (installedDate);
+		TimeSpan timeSpan = dtNow - dtInstalled;
+		Debug.Log ("days = " + timeSpan.TotalDays);
+		if (timeSpan.TotalDays >= 3) {
+			RenameToGintamaQuiz ();
+		} 
+	}
+
+	private void RenameToGintamaQuiz () {
+		Debug.Log ("Rename");
+		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+		foreach(IDictionary quiz in quizList){
+			string title = (string)quiz[QuizListDao.TITLE_FIELD];
+			if(title == "金魂クイズ"){
+				quiz[QuizListDao.TITLE_FIELD] = "銀魂クイズ";
+				QuizListDao.instance.UpdateQuiz (quiz);
+				break;
+			}
+		}
+	}
 }

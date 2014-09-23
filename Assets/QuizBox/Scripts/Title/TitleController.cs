@@ -6,6 +6,10 @@ public class TitleController : MonoBehaviour {
 	public GameObject seriesDialogPrefab;
 	public GameObject uiRoot;
 
+	void Start(){
+		Debug.Log ("start " + QuizListManager.instance.jsonString);
+	}
+
 	void OnEnable () {
 #if UNITY_IPHONE
 		EtceteraManager.alertButtonClickedEvent += AlertButtonCoicked;
