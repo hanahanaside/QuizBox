@@ -28,8 +28,8 @@ public class PostQuizDialogController : MonoBehaviour {
 	 
 	public void OnPostButtonClicked () {
 		if (!CheckPostCountOK ()) { 
-			string title = "\u30a8\u30e9\u30fc";
-			string message = "\u6295\u7a3f\u306f1\u65e510\u56de\u307e\u3067\u3067\u3059";
+			string title = "\u7372\u5f97\u3067\u304d\u308bpt\u306f1\u65e510pt\u307e\u3067\u3067\u3059";
+			string message = "\u3053\u306e\u6295\u7a3f\u306fpt\u3092\u7372\u5f97\u3067\u304d\u307e\u305b\u3093";
 #if UNITY_IPHONE
 			string[] buttons = {"OK"};
 			EtceteraBinding.showAlertWithTitleMessageAndButtons(title, message, buttons);
@@ -55,13 +55,13 @@ public class PostQuizDialogController : MonoBehaviour {
 			ShowErrorDialog ("\u5229\u7528\u898f\u7d04\u306b\u540c\u610f\u3057\u3066\u304f\u3060\u3055\u3044");
 		} else {
 			Dictionary<string,object> dictionary = new Dictionary<string,object> ();
-			dictionary.Add ("title", "title");
-			dictionary.Add ("series", "series");
-			dictionary.Add ("question", "question");
-			dictionary.Add ("answer", "answer");
-			dictionary.Add ("mistake1", "mistake1");
-			dictionary.Add ("mistake2", "mistake2");
-			dictionary.Add ("userid", "userid");
+			dictionary.Add ("title", themeInput.label.text);
+			dictionary.Add ("series", seriesInput.label.text);
+			dictionary.Add ("question", questionInput.label.text);
+			dictionary.Add ("answer", answerInput.label.text);
+			dictionary.Add ("mistake1", mistake1Input.label.text);
+			dictionary.Add ("mistake2", mistake2Input.label.text);
+			dictionary.Add ("userid", "userId");
 			dictionary.Add ("api_version", 1);
 			string json = Json.Serialize (dictionary);
 			WWW www = new WWW (POST_DATA_URL, Encoding.UTF8.GetBytes (json));
