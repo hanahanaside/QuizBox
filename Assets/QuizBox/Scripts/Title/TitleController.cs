@@ -44,8 +44,10 @@ public class TitleController : MonoBehaviour {
 	}
 
 	public void OnChallengeModeClicked () {
+		Debug.Log ("OnChallengeModeClicked");
 		int id = SelectedQuiz.instance.id;
 		IDictionary challengeQuizDictionary = QuizListDao.instance.GetChallengeData (id);
+		Debug.Log ("count = " + challengeQuizDictionary.Count);
 		string jsonString = (string)challengeQuizDictionary [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD];
 		if (jsonString == "null") {
 			StartChallengeDialog.Show ();

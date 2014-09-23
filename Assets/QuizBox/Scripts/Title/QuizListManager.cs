@@ -145,6 +145,8 @@ public class QuizListManager : MonoBehaviour {
 	}
 
 	public void PlayChallenteModeResume (string jsonString, int questionCount, int correctCount) {
+		Debug.Log ("resume");
+		mJsonString = jsonString;
 		mModeName = "チャレンジモード";
 		mQuestionCount = questionCount;
 		mCorrectCount = correctCount;

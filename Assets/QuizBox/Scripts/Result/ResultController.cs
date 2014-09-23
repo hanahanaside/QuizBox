@@ -21,6 +21,7 @@ public class ResultController : MonoBehaviour {
 
 	public void OnTopClick () {
 		Reset ();
+		QuizListManager.instance.ReleaseQuizList ();
 		Application.LoadLevel ("Top");
 	
 	}
@@ -34,4 +35,5 @@ public class ResultController : MonoBehaviour {
 	private void Reset () {
 		ScoreKeeper.instance.score = 0;
 	}
+
 }
