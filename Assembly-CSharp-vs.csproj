@@ -210,6 +210,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\APNsRegister.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\AdManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseUpdater.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\GCMRegister.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\IABManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />

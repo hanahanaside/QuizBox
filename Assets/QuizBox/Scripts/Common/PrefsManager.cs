@@ -14,6 +14,7 @@ public class PrefsManager {
 	private const string POST_COUNT_KEY = "postCountKey";
 	private const string INSTALLED_DATE = "installedDate";
 	private const string LOGIN_DATE = "loginDate";
+	private const string DATABASE_VERSION = "databaseVersion";
 	private static PrefsManager sInstance;
 
 	public static PrefsManager Instance {
@@ -101,6 +102,16 @@ public class PrefsManager {
 		}
 		get{
 			return PlayerPrefs.GetString (LOGIN_DATE);
+		}
+	}
+
+	public int DatabaseVersion{
+		set{
+			PlayerPrefs.SetInt (DATABASE_VERSION,value);
+			PlayerPrefs.Save ();
+		}
+		get{
+			return PlayerPrefs.GetInt (DATABASE_VERSION,1);
 		}
 	}
 

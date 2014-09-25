@@ -9,10 +9,23 @@ public class DatabaseCreator : MonoBehaviour {
 
 	private static string databaseFileName = "quiz_box.db";
 
+	void OnEnable(){
+		DatabaseUpdater.updatedDatabaseEvent += OnUpdated;
+	}
+
+	void OnDisable(){
+		DatabaseUpdater.updatedDatabaseEvent -= OnUpdated;
+	}
+
+
 	void Start () {
 		CreateDatabase ();
 	}
-	// Use this for initialization
+
+	void OnUpdated(){
+		CreatedDatabase ();
+	}
+
 	private void CreateDatabase () {
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
@@ -27,7 +40,7 @@ public class DatabaseCreator : MonoBehaviour {
 			Debug.Log ("create Database");
 		}
 
-		CreatedDatabase ();
+		DatabaseUpdater.Instance.UpdateDatabase();
 		#endif
 
 		#if UNITY_ANDROID 
