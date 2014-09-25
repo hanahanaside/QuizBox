@@ -219,6 +219,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\WWWClient.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\BackDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountData.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountDataKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostQuizController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\UsePolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\FacebookSender.cs" />

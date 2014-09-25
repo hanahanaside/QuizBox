@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using MiniJSON;
 using System.Text;
 using System.Collections;
@@ -21,24 +21,13 @@ public class PostQuizDialogController : MonoBehaviour {
 	public BackDialog backDialog;
 	public GameObject postSuccessDialog;
 	public UILabel successLabel;
+	public PostCountDataKeeper postCountDataKeeper;
 
 	void Start () {
 		TouchScreenKeyboard.hideInput = true;
 	}
 	 
 	public void OnPostButtonClicked () {
-		if (!CheckPostCountOK ()) { 
-			string title = "\u7372\u5f97\u3067\u304d\u308bpt\u306f1\u65e510pt\u307e\u3067\u3067\u3059";
-			string message = "\u3053\u306e\u6295\u7a3f\u306fpt\u3092\u7372\u5f97\u3067\u304d\u307e\u305b\u3093";
-#if UNITY_IPHONE
-			string[] buttons = {"OK"};
-			EtceteraBinding.showAlertWithTitleMessageAndButtons(title, message, buttons);
-#endif
-			#if UNITY_ANDROID
-			EtceteraAndroid.showAlert(title,message,"OK");
-			#endif
-			return;
-		}
 		if (themeInput.label.text.Contains (DEFAULT_TEXT) || themeInput.label.text == "") {
 			ShowErrorDialog ("\u30c6\u30fc\u30de\u304c\u5165\u529b\u3055\u308c\u3066\u3044\u307e\u305b\u3093");
 		} else if (seriesInput.label.text.Contains (DEFAULT_TEXT) || seriesInput.label.text == "") {
@@ -69,16 +58,7 @@ public class PostQuizDialogController : MonoBehaviour {
 
 		}
 	}
-
-	private bool CheckPostCountOK () {
-		PostCountData postCountData = PrefsManager.Instance.GetPostCountData ();
-		string now = DateTime.Now.ToShortDateString ();
-		if (now == postCountData.PostDate && postCountData.PostCount > 10) {
-			return false;
-		}
-		return true;
-	}
-
+		
 	public void OnCloseButtonClicked () {
 		#if UNITY_EDITOR
 		Application.LoadLevel("Top");
@@ -118,6 +98,16 @@ public class PostQuizDialogController : MonoBehaviour {
 			CheckResponse (www.text);
 		} else {
 			Debug.Log ("WWW Error: " + www.error);
+			string title = "通信エラー";
+			string message = "投稿に失敗しました";
+			#if UNITY_IPHONE
+			string[] buttons = {"OK"};
+			EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
+			#endif
+
+			#if UNITY_ANDROID
+			EtceteraAndroid.showAlert (title,message,"OK");
+			#endif
 		}
 	}
 
@@ -126,14 +116,12 @@ public class PostQuizDialogController : MonoBehaviour {
 		bool result = (bool)dictionary ["result"];
 		Debug.Log ("result = " + result);
 		if (result) {
-			PrefsManager.Instance.AddUserPoint (1);
-			UpdatePostCountData ();
-			TopController.Instance.UpdateUserPointLabel ();
+			postCountDataKeeper.UpdatePostCountData ();
 			ShowSuccessDialog ();
 			ResetInputLabel ();
 		} else {
-			string title = "\u6295\u7a3f\u306b\u5931\u6557\u3057\u307e\u3057\u305f";
-			string message = "\u518d\u5ea6\u6295\u7a3f\u3057\u3066\u304f\u3060\u3055\u3044";
+			string title = "通信エラー";
+			string message = "投稿に失敗しました";
 			#if UNITY_IPHONE
 			string[] buttons = {"OK"};
 			EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
@@ -169,24 +157,13 @@ public class PostQuizDialogController : MonoBehaviour {
 		postSuccessDialog.SetActive(true);
 		PostCountData postCountData = PrefsManager.Instance.GetPostCountData ();
 		string title = "\u6295\u7a3f\u3057\u307e\u3057\u305f";
-		string message = "1\u30dd\u30a4\u30f3\u30c8GET!!" + " (\u672c\u65e5" + postCountData.PostCount + "pt\u76ee)";
+		string message = "";
+		if(postCountData.PostCount <=10){
+			message = "1\u30dd\u30a4\u30f3\u30c8GET!!" + " (\u672c\u65e5" + postCountData.PostCount + "pt\u76ee)";
+		}else {
+			message = "1\u65e5\u306b\u7372\u5f97\u3067\u304d\u308bpt\u306f10pt\u307e\u3067\u3067\u3059";
+		}
 		successLabel.text = title + "\n" + message;
 		transform.parent.gameObject.SetActive(false);
-	}
-
-	private void UpdatePostCountData () {
-		PostCountData postCountData = PrefsManager.Instance.GetPostCountData ();
-		string now = DateTime.Now.ToShortDateString ();
-		if (now == postCountData.PostDate) {
-			postCountData.PostCount++;
-		} else {
-			postCountData.PostCount = 1;
-			postCountData.PostDate = now;
-		}
-		Debug.Log ("postCount = " + postCountData.PostCount);
-		Debug.Log ("postDate = " + postCountData.PostDate);
-		PrefsManager.Instance.SavePostCountData (postCountData);
-		UIInput i;
-
 	}
 }

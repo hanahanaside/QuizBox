@@ -22,8 +22,8 @@ public class LoginManager : MonoBehaviour {
 				return;
 			}
 			DateTime dtLogin = DateTime.Parse (loginDate);
-			int timeSpan = dtNow.Day - dtLogin.Day;
-			if (timeSpan >= 1) {
+			TimeSpan ts = dtNow - dtLogin;
+			if (ts.Days >= 1) {
 				// login bonus
 				PrefsManager.Instance.AddUserPoint (5);
 				userPointLabel.text = PrefsManager.Instance.GetUserPoint() + "pt";

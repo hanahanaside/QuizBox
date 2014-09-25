@@ -6,11 +6,6 @@ public class PostQuizController : MonoBehaviour {
 	public GameObject postSuccessDialog;
 	public GameObject postQuizDialog;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
