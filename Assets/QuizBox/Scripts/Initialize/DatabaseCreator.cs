@@ -16,6 +16,10 @@ public class DatabaseCreator : MonoBehaviour {
 	private void CreateDatabase () {
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
+		#if UNITY_EDITOR
+		File.Delete(filePath);
+		#endif
+
 		#if UNITY_IPHONE
 		if (!File.Exists (filePath)) {
 			File.Copy (baseFilePath, filePath); 

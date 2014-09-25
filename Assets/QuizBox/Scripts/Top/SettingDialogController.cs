@@ -28,13 +28,25 @@ public class SettingDialogController : MonoBehaviour {
 
 	public void OnReviewClicked () {
 		PrefsManager.Instance.SetReviewed ();
+		#if UNITY_IPHONE
 		Application.OpenURL ("https://itunes.apple.com/app/id527092979");
+		#endif
+
+		#if UNITY_ANDROID
+		Application.OpenURL("https://play.google.com/store/apps/details?id=com.app.quizbox");
+		#endif
 	}
 
 	public void OnInformationClicked () {
+		string adress = "hanauta.app@gmail.com";
+		string message = "お問い合わせ内容を書いてください";
 #if UNITY_IPHONE
-		EtceteraBinding.showMailComposer("hanauta.app@gmail.com","クイズボックス(i)","お問い合わせ内容を書いてください",false);
+		EtceteraBinding.showMailComposer(adress,"クイズボックス(i)",message,false);
 #endif
+
+		#if UNITY_ANDROID
+		EtceteraAndroid.showEmailComposer(adress,"クイズボックス(A)",message,false);
+		#endif
 	}
 
 	public void OnFAQClicked () {
@@ -51,7 +63,6 @@ public class SettingDialogController : MonoBehaviour {
 
 	private void ShowDialog (GameObject dialogPrefab) {
 		GameObject dialogObject = Instantiate (dialogPrefab) as GameObject;
-		TopController.Instance.SetCurrentDialog (dialogObject);
 		dialogObject.transform.parent = UIRootInstanceKeeper.Instance.transform;
 		dialogObject.transform.localScale = new Vector3 (1, 1, 1);
 	}

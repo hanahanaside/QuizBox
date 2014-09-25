@@ -12,6 +12,7 @@ public class QuizListDao {
 	public const string CHALLENGE_QUIZ_COUNT = "challenge_quiz_count";
 	public const string CHALLENGE_QUIZ_CORRECT = "challenge_quiz_correct";
 	public const string BOUGHT_DATE_FIELD = "bought_date";
+	public const string QUIZ_ID_FIELD = "quiz_id";
 	private static QuizListDao sInstance;
 
 	public static QuizListDao instance {
@@ -45,11 +46,13 @@ public class QuizListDao {
 			string title = sqliteQuery.GetString (TITLE_FIELD);
 			string quizUrl = sqliteQuery.GetString (QUIZ_URL_FIELD);
 			string boughtDate = sqliteQuery.GetString (BOUGHT_DATE_FIELD);
+			int quizId = sqliteQuery.GetInteger (QUIZ_ID_FIELD);
 			IDictionary quiz = new Dictionary<object,object> ();
 			quiz.Add (ID_FIELD, id);
 			quiz.Add (TITLE_FIELD, title);
 			quiz.Add (QUIZ_URL_FIELD, quizUrl);
 			quiz.Add (BOUGHT_DATE_FIELD, boughtDate);
+			quiz.Add (QUIZ_ID_FIELD,quizId);
 			quizList.Add (quiz);
 		}
 		sqliteDB.Close ();
@@ -68,7 +71,7 @@ public class QuizListDao {
 		return titleList;
 	}
 
-	public void Insert (string title, string quizUrl) {
+	public void Insert (string title, string quizUrl,int quizId) {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
 		sb.Append ("insert into quiz_list values(");
@@ -78,7 +81,8 @@ public class QuizListDao {
 		sb.Append ("'null' ,");
 		sb.Append ("0 ,");
 		sb.Append ("0 ,");
-		sb.Append ("'" + DateTime.Now.ToString ("yyyy/MM/dd") + "'");
+		sb.Append ("'" + DateTime.Now.ToString ("yyyy/MM/dd") + "',");
+		sb.Append (quizId);
 		sb.Append (");");
 		QuerySQL (sqliteDB, sb.ToString ());
 	}

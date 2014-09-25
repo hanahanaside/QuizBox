@@ -37,9 +37,14 @@ public class ResultInitializer : MonoBehaviour {
 			iTweenEvent.GetEvent (item, "EntranceEvent").Play ();
 		}
 
-		if (OnSaleChecker.CheckOnSale ()) {
+		DateTime dtNow = DateTime.Now;
+		string installedDate = PrefsManager.Instance.InstalledDate;
+		DateTime dtInstalled = DateTime.Parse (installedDate);
+		TimeSpan timeSpan = dtNow - dtInstalled;
+		if (timeSpan.TotalDays >= 3) {
 			StartCoroutine (OpenWallAd ());
-		}
+		} 
+
 	}
 
 	void OnLabelEventCompleted () {

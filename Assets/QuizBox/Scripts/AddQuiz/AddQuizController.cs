@@ -65,7 +65,7 @@ public class AddQuizController : MonoBehaviour {
 		Debug.Log ("alertButtonClickedEvent: " + clickedButton);
 		if (clickedButton == "\u306f\u3044") {
 			//add quiz
-			QuizListDao.instance.Insert (mSelectedQuiz.title, mSelectedQuiz.url);
+			QuizListDao.instance.Insert (mSelectedQuiz.title, mSelectedQuiz.url,mSelectedQuiz.QuizId);
 			int userPoint = PrefsManager.Instance.GetUserPoint ();
 			userPoint -= mSelectedQuiz.point;
 			PrefsManager.Instance.SaveUserPoint (userPoint);

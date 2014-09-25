@@ -213,8 +213,10 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\GCMRegister.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\IABManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\LoginManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\ShareImageWriter.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\SoundManager.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\WWWClient.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\BackDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostQuizController.cs" />

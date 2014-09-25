@@ -60,21 +60,21 @@ public class QuizListManager : MonoBehaviour {
 	}
 	
 	void Awake () {
-		if(sInstance == null){
-
-			sInstance = this;
-			quizList = new List<IDictionary> ();
-			DontDestroyOnLoad (gameObject);
-
-
-		}
-
-//		if (!created) {
+//		if(sInstance == null){
+//
 //			sInstance = this;
 //			quizList = new List<IDictionary> ();
 //			DontDestroyOnLoad (gameObject);
-//			created = true;
+//
+//
 //		}
+
+		if (!created) {
+			sInstance = this;
+			quizList = new List<IDictionary> ();
+			DontDestroyOnLoad (gameObject);
+			created = true;
+		}
 	}
 
 	public void InitQuizList () {

@@ -70,12 +70,16 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void OnBackButtonClick () {
+		#if UNITY_EDITOR
+		Application.LoadLevel ("Title");
+		#else
 		if (QuizListManager.instance.quizList.Count == QuizListManager.instance.allQuizListCount) {
 			//check save
 			CheckSaveQuizDialog.Show ();
 		} else {
 			CheckFinishQuizDialog.Show ();
 		}
+		#endif
 	}
 
 	private void AlertButtonClickedEvent (string clickedButton) {

@@ -35,11 +35,7 @@ public class TopController : MonoBehaviour {
 			return sInstance;
 		}
 	}
-
-	public void SetCurrentDialog (GameObject dialog) {
-		mCurrentDialog = dialog;
-	}
-		
+				
 	public void OnTopClicked () {
 		OnButtonClicked ();
 		SetActiveButtonFilter (0);
@@ -93,7 +89,6 @@ public class TopController : MonoBehaviour {
 	}
 
 	private void SetActiveButtonFilter(int buttonId){
-		Debug.Log ("aaaa");
 		foreach(UISprite buttonFilter in buttonFilterArray){
 			buttonFilter.enabled = true;
 		}

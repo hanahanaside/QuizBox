@@ -12,6 +12,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 	private static IList sAddQuizButtonList = null;
 	private List<string> mTitleList;
+	private IList<IDictionary> mQuizList;
 
 	void OnEnable () {
 		Debug.Log ("enable");
@@ -25,6 +26,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		mTitleList = QuizListDao.instance.GetTitleList ();
+		mQuizList = QuizListDao.instance.GetQuizList ();
 		if (sAddQuizButtonList != null) {
 			CreateScrollView (sAddQuizButtonList);
 			return;
@@ -80,22 +82,35 @@ public class AddQuizInitializer : MonoBehaviour {
 		if (!publish) {
 			return;
 		}
-		if (!CheckNotDuplicateTitle (title)) {
+		if (CheckDuplicateQuiz (jsonObject)) {
 			return;
 		}
 		long point = (long)jsonObject ["point"];
 		string url = jsonObject ["quiz_management_url"].ToString ();
 		long quizCount = (long)jsonObject ["quiz_count"];
+		long quizId = (long)jsonObject ["id"];
 
 		AddQuiz addQuiz = new AddQuiz ();
 		addQuiz.point = (int)point;
 		addQuiz.url = url;
 		addQuiz.title = title;
 		addQuiz.quizCount = (int)quizCount;
+		addQuiz.QuizId = (int)quizId;
 		GameObject addQuizButtonObject = Instantiate (addQuizButtonPrefab)as GameObject;
 		grid.AddChild (addQuizButtonObject.transform);
 		addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);
 		addQuizButtonObject.BroadcastMessage ("Init", addQuiz);
+	}
+
+	private bool CheckDuplicateQuiz (IDictionary quiz) {
+		long quizId = (long)quiz ["id"];
+		foreach (IDictionary item in mQuizList) {
+			int itemId = (int)item [QuizListDao.QUIZ_ID_FIELD];
+			if (quizId == itemId) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private bool CheckNotDuplicateTitle (string text) {

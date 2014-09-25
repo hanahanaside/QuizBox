@@ -4,6 +4,7 @@ using System.Collections;
 public class AddQuiz {
 	private int mPoint;
 	private int mQuizCount;
+	private int mQuizId;
 	private string mUrl;
 	private string mTitle;
 
@@ -40,6 +41,15 @@ public class AddQuiz {
 		}
 		get {
 			return mQuizCount;
+		}
+	}
+
+	public int QuizId{
+		set{
+			mQuizId = value;
+		}
+		get{
+			return mQuizId;
 		}
 	}
 }

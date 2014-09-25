@@ -80,7 +80,11 @@ public class PostQuizDialogController : MonoBehaviour {
 	}
 
 	public void OnCloseButtonClicked () {
+		#if UNITY_EDITOR
+		Application.LoadLevel("Top");
+		#else
 		backDialog.Show();
+		#endif
 	}
 
 	public void OnUsePolicyClicked () {
@@ -162,19 +166,12 @@ public class PostQuizDialogController : MonoBehaviour {
 
 	private void ShowSuccessDialog () {
 		AdManager.Instance.ShowRectangleAd ();
+		postSuccessDialog.SetActive(true);
 		PostCountData postCountData = PrefsManager.Instance.GetPostCountData ();
 		string title = "\u6295\u7a3f\u3057\u307e\u3057\u305f";
 		string message = "1\u30dd\u30a4\u30f3\u30c8GET!!" + " (\u672c\u65e5" + postCountData.PostCount + "pt\u76ee)";
-		#if UNITY_IPHONE
 		successLabel.text = title + "\n" + message;
-		postSuccessDialog.SetActive(true);
 		transform.parent.gameObject.SetActive(false);
-		#endif
-
-		#if UNITY_ANDROID
-		EtceteraAndroid.showAlert(title,message,"OK");
-		#endif
-
 	}
 
 	private void UpdatePostCountData () {

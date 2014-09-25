@@ -13,6 +13,7 @@ public class PrefsManager {
 	private const string POST_DATE_KEY = "postDateKey";
 	private const string POST_COUNT_KEY = "postCountKey";
 	private const string INSTALLED_DATE = "installedDate";
+	private const string LOGIN_DATE = "loginDate";
 	private static PrefsManager sInstance;
 
 	public static PrefsManager Instance {
@@ -91,6 +92,16 @@ public class PrefsManager {
 			return PlayerPrefs.GetString (INSTALLED_DATE);
 		}
 
+	}
+
+	public string LoginDate{
+		set{
+			PlayerPrefs.SetString (LOGIN_DATE,value);
+			PlayerPrefs.Save ();
+		}
+		get{
+			return PlayerPrefs.GetString (LOGIN_DATE);
+		}
 	}
 
 	public void SavePostCountData (PostCountData postCountData) {

@@ -10,6 +10,7 @@ public class CellTop : MonoBehaviour
 	private string mBoughtDate;
 
 	public void OnClick(){
+		Debug.Log ("click");
 		SelectedQuiz.instance.id = mId;
 		SelectedQuiz.instance.name = mName;
 		SelectedQuiz.instance.quizUrl = mQuizUrl;
