@@ -32,9 +32,9 @@ public class QuizListDao {
 		sb.Append (QUIZ_URL_FIELD + " = '" + quiz [QUIZ_URL_FIELD] + "',");
 		sb.Append (BOUGHT_DATE_FIELD + " = '" + quiz [BOUGHT_DATE_FIELD] + "' ");
 		sb.Append ("where " + ID_FIELD + " = " + quiz [ID_FIELD] + ";");
-		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString());
+		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString ());
 		sqliteQuery.Step ();
-		sqliteDB.Close();
+		sqliteDB.Close ();
 	}
 
 	public IList<IDictionary> GetQuizList () {
@@ -52,7 +52,7 @@ public class QuizListDao {
 			quiz.Add (TITLE_FIELD, title);
 			quiz.Add (QUIZ_URL_FIELD, quizUrl);
 			quiz.Add (BOUGHT_DATE_FIELD, boughtDate);
-			quiz.Add (QUIZ_ID_FIELD,quizId);
+			quiz.Add (QUIZ_ID_FIELD, quizId);
 			quizList.Add (quiz);
 		}
 		sqliteDB.Close ();
@@ -71,7 +71,7 @@ public class QuizListDao {
 		return titleList;
 	}
 
-	public void Insert (string title, string quizUrl,int quizId) {
+	public void Insert (string title, string quizUrl, int quizId) {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
 		sb.Append ("insert into quiz_list values(");
@@ -100,6 +100,30 @@ public class QuizListDao {
 		Debug.Log ("sql = " + sb.ToString ());
 		QuerySQL (sqliteDB, sb.ToString ());
 		Debug.Log ("finish");
+	}
+
+	public bool QuizIdFieldExist () {
+		try {            
+			SQLiteDB sqliteDB = OpenDatabase ();
+			string sql = "select * from quiz_list where id = 1;";
+			SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sql);
+			while (sqliteQuery.Step ()) {
+				sqliteQuery.GetInteger (QUIZ_ID_FIELD);
+			}
+		} catch (Exception e) {
+			Debug.Log ("Exception");
+			return false;
+		}
+		return true;
+	}
+
+	public void AddQuizIdField(){
+		SQLiteDB sqliteDB = OpenDatabase ();
+		string sql = "alter table quiz_list add column " + QUIZ_ID_FIELD + " integer";
+		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sql);
+		sqliteQuery.Step ();
+		sqliteQuery.Release ();
+		sqliteDB.Close ();
 	}
 
 	public IDictionary GetChallengeData (int id) {

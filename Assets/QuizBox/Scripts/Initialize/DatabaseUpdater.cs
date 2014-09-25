@@ -18,14 +18,18 @@ public class DatabaseUpdater {
 	}
 
 	public void UpdateDatabase(){
-		string bundleVersion = PlayerSettings.bundleVersion;
-		if(bundleVersion == "1.0"){
+		if(!QuizListDao.instance.QuizIdFieldExist ()){
 			UpdateToVersion1 ();
+			QuizListDao.instance.QuizIdFieldExist ();
+			updatedDatabaseEvent ();
+		}else {
 			updatedDatabaseEvent ();
 		}
+
 	}
 
 	private void UpdateToVersion1(){
-
+		Debug.Log ("Update to ver1");
+		QuizListDao.instance.AddQuizIdField ();
 	}
 }
