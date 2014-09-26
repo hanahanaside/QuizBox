@@ -112,17 +112,4 @@ public class AddQuizInitializer : MonoBehaviour {
 		}
 		return false;
 	}
-
-	private bool CheckNotDuplicateTitle (string text) {
-		foreach (string title in mTitleList) {
-			if (text.Contains (title)) {
-				return false;
-			}
-			if (text.Contains ("\u91d1\u9b42")) {
-				//check kinkon
-				return false;
-			}
-		}
-		return true;
-	}
 }

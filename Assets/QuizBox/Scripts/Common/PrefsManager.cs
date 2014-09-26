@@ -111,7 +111,7 @@ public class PrefsManager {
 			PlayerPrefs.Save ();
 		}
 		get{
-			return PlayerPrefs.GetInt (DATABASE_VERSION,1);
+			return PlayerPrefs.GetInt (DATABASE_VERSION,0);
 		}
 	}
 

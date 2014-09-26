@@ -54,8 +54,7 @@ public class APNsRegister : MonoBehaviour {
 		form.AddField ("os_version", osVersion);
 		form.AddField ("platform", platform);
 		form.AddField ("device_token", deviceToken);
-		WWW www = new WWW (TT5_URL, form);
-		StartCoroutine (SendDeviceToken (www));
+		StartCoroutine (SendDeviceToken (form));
 	}
 
 
@@ -66,9 +65,10 @@ public class APNsRegister : MonoBehaviour {
 	}
 	
 
-	private IEnumerator SendDeviceToken (WWW www)
+	private IEnumerator SendDeviceToken (WWWForm wwwForm)
 	{
 		Debug.Log ("SendDeviceToken");
+		WWW www = new WWW (TT5_URL, wwwForm);
 		yield return www;
 		
 		// check for errors

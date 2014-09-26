@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public class DatabaseCreator : MonoBehaviour {
 	public static event Action createdDatabaseEvent;
+	public DatabaseUpdater databaseUpdater;
 
 	private static string databaseFileName = "quiz_box.db";
 
@@ -40,7 +41,7 @@ public class DatabaseCreator : MonoBehaviour {
 			Debug.Log ("create Database");
 		}
 
-		DatabaseUpdater.Instance.UpdateDatabase();
+		databaseUpdater.UpdateDatabase();
 		#endif
 
 		#if UNITY_ANDROID 
@@ -77,6 +78,7 @@ public class DatabaseCreator : MonoBehaviour {
 	}
 
 	private void CheckRenameQuiz () {
+		Debug.Log ("check rename quiz");
 		DateTime dtNow = DateTime.Now;
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		if (string.IsNullOrEmpty (installedDate)) {
@@ -85,8 +87,8 @@ public class DatabaseCreator : MonoBehaviour {
 		}
 		DateTime dtInstalled = DateTime.Parse (installedDate);
 		TimeSpan timeSpan = dtNow - dtInstalled;
-		Debug.Log ("days = " + timeSpan.TotalDays);
-		if (timeSpan.TotalDays >= 3) {
+		Debug.Log ("days = " + timeSpan.Days);
+		if (timeSpan.Days >= 3) {
 			RenameToGintamaQuiz ();
 		} 
 	}

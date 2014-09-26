@@ -30,7 +30,8 @@ public class QuizListDao {
 		sb.Append ("update quiz_list set ");
 		sb.Append (TITLE_FIELD + " = '" + quiz [TITLE_FIELD] + "',");
 		sb.Append (QUIZ_URL_FIELD + " = '" + quiz [QUIZ_URL_FIELD] + "',");
-		sb.Append (BOUGHT_DATE_FIELD + " = '" + quiz [BOUGHT_DATE_FIELD] + "' ");
+		sb.Append (BOUGHT_DATE_FIELD + " = '" + quiz [BOUGHT_DATE_FIELD] + "', ");
+		sb.Append (QUIZ_ID_FIELD + " = " + quiz[QUIZ_ID_FIELD] + " ");
 		sb.Append ("where " + ID_FIELD + " = " + quiz [ID_FIELD] + ";");
 		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString ());
 		sqliteQuery.Step ();
@@ -119,13 +120,11 @@ public class QuizListDao {
 
 	public void AddQuizIdField(){
 		SQLiteDB sqliteDB = OpenDatabase ();
-		string sql = "alter table quiz_list add column " + QUIZ_ID_FIELD + " integer";
-		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sql);
-		sqliteQuery.Step ();
-		sqliteQuery.Release ();
-		sqliteDB.Close ();
+		string sql = "alter table quiz_list add column quiz_id integer default 0;";
+		Debug.Log ("sql = " +sql);
+		QuerySQL (sqliteDB,sql);
 	}
-
+		
 	public IDictionary GetChallengeData (int id) {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
