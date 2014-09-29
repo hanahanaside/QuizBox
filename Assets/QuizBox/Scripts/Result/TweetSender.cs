@@ -4,6 +4,7 @@ using System.Collections;
 
 public class TweetSender : MonoBehaviour {
 
+	public static string SHARE_FILE_NAME = "screenshot.png";
 	public string consumerKey;
 	public string consumerSecret;
 	private static TweetSender sInstance;
@@ -142,7 +143,7 @@ public class TweetSender : MonoBehaviour {
 		sb.Append("→http://tt5.us/quizbox #クイズボックス");
 
 		#if UNITY_IPHONE
-		string imagePath = Application.streamingAssetsPath + "/share_image.png";
+		string imagePath = Application.persistentDataPath + "/" + SHARE_FILE_NAME;
 		TwitterBinding.showTweetComposer(sb.ToString(),imagePath);
 #endif
 	

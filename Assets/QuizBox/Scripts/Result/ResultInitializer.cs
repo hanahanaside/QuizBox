@@ -19,7 +19,7 @@ public class ResultInitializer : MonoBehaviour {
 		string result = size + "問中" + score + "問正解!!";
 
 		HistoryData historyData = new HistoryData ();
-		historyData.Average = ((double)score / (double) size) * 100;
+		historyData.Average = ((double)score / (double)size) * 100;
 		historyData.result = result;
 		historyData.date = DateTime.Now.ToString ("yyyy/MM/dd (ddd) HH:mm:ss");
 		historyData.title = SelectedQuiz.instance.name;
@@ -58,8 +58,10 @@ public class ResultInitializer : MonoBehaviour {
 		} else if (mAverage < 33) {
 			spriteName = "04.0";
 		}
-		Debug.Log("spriteName = "+spriteName);
-		if(spriteName != ""){
+		Debug.Log ("spriteName = " + spriteName);
+		if (spriteName == "") {
+			CaptureScreenshot ();
+		}else {
 			UISpriteData spriteData = resultAtlas.GetSprite (spriteName);
 			UISprite sprite = medal.GetComponent<UISprite> ();
 			sprite.spriteName = spriteName;
@@ -74,6 +76,11 @@ public class ResultInitializer : MonoBehaviour {
 		medalEffect.transform.parent = uiRoot.transform;
 		medalEffect.transform.localScale = new Vector3 (1, 1, 1);
 		medalEffect.transform.localPosition = medal.transform.localPosition;
+		Invoke ("CaptureScreenshot", 1.0f);
+	}
+
+	private void CaptureScreenshot () {
+		Application.CaptureScreenshot (TweetSender.SHARE_FILE_NAME);
 	}
 
 	private IEnumerator OpenWallAd () {
