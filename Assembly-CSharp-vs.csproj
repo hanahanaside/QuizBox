@@ -189,6 +189,7 @@
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\ShortPointDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\AlertDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\HistoryData.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Common\NetworkErrorDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\OkDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\OnSaleChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\PrefsManager.cs" />
@@ -232,6 +233,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Splash\SplashController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Test\Test.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\QuizListManager.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Title\RemoveChallengeDataDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\RestartChallengeDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\SeriesButtonController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\SeriesDialogController.cs" />
@@ -250,6 +252,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\ProductListKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\QuizTopicInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\RecommendAppChecker.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\ReviewAppChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ReviewDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\SelectedQuiz.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\SettingDialogController.cs" />

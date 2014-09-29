@@ -55,7 +55,7 @@ public class ResultInitializer : MonoBehaviour {
 			spriteName = "02.silver";
 		} else if (mAverage >= 80) {
 			spriteName = "03.bronze";
-		} else if (mAverage <= 15) {
+		} else if (mAverage < 33) {
 			spriteName = "04.0";
 		}
 		Debug.Log("spriteName = "+spriteName);

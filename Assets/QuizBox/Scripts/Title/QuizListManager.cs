@@ -60,15 +60,6 @@ public class QuizListManager : MonoBehaviour {
 	}
 	
 	void Awake () {
-//		if(sInstance == null){
-//
-//			sInstance = this;
-//			quizList = new List<IDictionary> ();
-//			DontDestroyOnLoad (gameObject);
-//
-//
-//		}
-
 		if (!created) {
 			sInstance = this;
 			quizList = new List<IDictionary> ();
@@ -151,6 +142,16 @@ public class QuizListManager : MonoBehaviour {
 		mModeName = "チャレンジモード";
 		ResetCount ();
 		quizList = allQuizList;
+		System.Random rng = new System.Random();
+		int n = quizList.Count;
+		while (n > 1)
+		{
+			n--;
+			int k = rng.Next(n + 1);
+			IDictionary quiz = (IDictionary)quizList[k];
+			quizList[k] = quizList[n];
+			quizList[n] = quiz;
+		}
 	}
 
 	public void PlayChallenteModeResume (string jsonString, int questionCount, int correctCount) {

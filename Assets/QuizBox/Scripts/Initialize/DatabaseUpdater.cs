@@ -16,6 +16,7 @@ public class DatabaseUpdater : MonoBehaviour {
 
 		#if UNITY_ANDROID
 		EtceteraAndroidManager.alertButtonClickedEvent += alertButtonClickedEvent;
+		EtceteraAndroidManager.alertCancelledEvent += alertCancelledEvent;
 		#endif
 	}
 
@@ -26,11 +27,16 @@ public class DatabaseUpdater : MonoBehaviour {
 
 		#if UNITY_ANDROID
 		EtceteraAndroidManager.alertButtonClickedEvent -= alertButtonClickedEvent;
+		EtceteraAndroidManager.alertCancelledEvent -= alertCancelledEvent;
 		#endif
 	}
 
 	void alertButtonClickedEvent(string clickedButton){
 		Application.Quit ();
+	}
+
+	void alertCancelledEvent(){
+		ShowErrorDialog ();
 	}
 
 	public void UpdateDatabase () {
@@ -76,6 +82,10 @@ public class DatabaseUpdater : MonoBehaviour {
 		Debug.Log ("update quiz id");
 		IList jsonArray = (IList)Json.Deserialize (response);
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+		//銀魂クイズのquizIdを73にする
+		IDictionary gintamaQuiz = quizList[0];
+		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
+		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
 		foreach (IDictionary quiz in quizList) {
 			CheckIndexOfTitle (jsonArray, quiz);
 		}
@@ -86,7 +96,6 @@ public class DatabaseUpdater : MonoBehaviour {
 		Debug.Log ("quizTitle = " + quizTitle);
 		foreach (Dictionary<string,object> jsonObject in jsonArray) {
 			string jsonObjectTitle = (string)jsonObject ["title"];
-			Debug.Log ("json object title  = " + jsonObjectTitle);
 			if (jsonObjectTitle.IndexOf (quizTitle) >= 0) {
 				Debug.Log ("hit");
 				long quizId = (long)jsonObject ["id"];

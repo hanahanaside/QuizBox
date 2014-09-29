@@ -65,7 +65,7 @@ public class DatabaseCreator : MonoBehaviour {
 		yield return www;
 		File.WriteAllBytes (filePath, www.bytes);
 		QuizListDao.instance.InitBoughtDate();
-		CreatedDatabase();
+		databaseUpdater.UpdateDatabase();
 	}
 	#endif
 

@@ -79,9 +79,9 @@ public class PostQuizDialogController : MonoBehaviour {
 		EtceteraBinding.showActivityView();
 #endif
 		#if UNITY_ANDROID
-		string title = "\u901a\u4fe1\u4e2d";
-		string message = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
-		EtceteraAndroid.showProgressDialog(title,message);
+		string progressTitle = "\u901a\u4fe1\u4e2d";
+		string progressMessage = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
+		EtceteraAndroid.showProgressDialog(progressTitle,progressMessage);
 		#endif
 		yield return www;
 

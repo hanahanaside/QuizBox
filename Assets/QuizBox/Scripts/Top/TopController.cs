@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class TopController : MonoBehaviour {
@@ -16,14 +16,7 @@ public class TopController : MonoBehaviour {
 		SetActiveButtonFilter (0);
 		UpdateUserPointLabel ();
 	}
-
-//	void OnGUI () {
-//		if(GUI.Button(new Rect(0,0,80,20), "Delete DB")) {
-//			string filePath = Application.persistentDataPath + "/" + "quiz_box.db";
-//			System.IO.File.Delete(filePath);
-//		}
-//	}
-
+		
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.Quit ();

@@ -58,10 +58,8 @@ public class AddQuizInitializer : MonoBehaviour {
 
 		if (response == null) {
 			//error
-			string title = "\u901a\u4fe1\u306b\u5931\u6557\u3057\u307e\u3057\u305f";
-			string message = "\u30af\u30a4\u30ba\u3092\u53d6\u5f97\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f";
-			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
-			okDialog.Show (title, message);
+			NetworkErrorDialog dialog = new NetworkErrorDialog ();
+			dialog.Show ();
 		} else {
 			sAddQuizButtonList = (IList)Json.Deserialize (response);
 			CreateScrollView (sAddQuizButtonList);

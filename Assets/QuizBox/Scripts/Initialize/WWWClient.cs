@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 
 public class WWWClient {
-	
 	public delegate void RequestFinishedDelegate (string response);
 
 	public delegate void TimeOutDelegate ();
@@ -19,34 +18,35 @@ public class WWWClient {
 	private string mURL;
 	private bool mIsTimeOut;
 
-	public WWWClient (MonoBehaviour monoBehaviour, string url) {
+	public WWWClient (MonoBehaviour monoBehaviour, string url)
+	{
 		mMonoBehaviour = monoBehaviour;
 		mURL = url;
-		mHeader = new Dictionary<string, string>();
+		mHeader = new Dictionary<string, string> ();
 	}
-	
+
 	public RequestFinishedDelegate OnSuccess {
-		set{ mOnSuccess = value;}
+		set{ mOnSuccess = value; }
 	}
 
 	public RequestFinishedDelegate OnFail {
-		set{ mOnFail = value;}
+		set{ mOnFail = value; }
 	}
 
-	public TimeOutDelegate OnTimeOut{
-		set{mOnTimeOut = value;}
+	public TimeOutDelegate OnTimeOut {
+		set{ mOnTimeOut = value; }
 	}
 
-	public void AddJsonHeader(){
-		mHeader.Add("Content-Type","application/json");
+	public void AddJsonHeader () {
+		mHeader.Add ("Content-Type", "application/json");
 	}
-	
+
 	public void PostData (string json) {
 		mMonoBehaviour.StartCoroutine (PostCoroutine (json));
 	}
 
-	public void GetData(){
-		mMonoBehaviour.StartCoroutine (GetCoroutine());
+	public void GetData () {
+		mMonoBehaviour.StartCoroutine (GetCoroutine ());
 	}
 
 	private IEnumerator PostCoroutine (string json) {
@@ -61,25 +61,43 @@ public class WWWClient {
 		CheckResponse ();
 	}
 
-	private IEnumerator GetCoroutine(){
+	private IEnumerator GetCoroutine () {
 		mWWW = new WWW (mURL);
 		yield return mMonoBehaviour.StartCoroutine (CheckTimeout ());
 		CheckResponse ();
 	}
 
-	private void CheckResponse(){
+	private void CheckResponse () {
 		if (mIsTimeOut) {
-			Debug.Log ("TimeOut");
-			mOnTimeOut ();
-		} else	if (mWWW.error == null) {
-			Debug.Log ("www ok");
-			mOnSuccess (mWWW.text);
+			CallBackTimeOut ();
+		} else if (mWWW.error == null) {
+			CallBackSuccess ();
 		} else {
-			Debug.Log ("www error");
-			Debug.Log (mWWW.text);
-			mOnFail (mWWW.text);
+			CallBackFail ();
 		}
 		mWWW.Dispose ();
+	}
+
+	private void CallBackTimeOut () {
+		Debug.Log ("TimeOut");
+		if (mOnTimeOut != null) {
+			mOnTimeOut ();
+		}
+	}
+
+	private void CallBackSuccess () {
+		Debug.Log ("www ok");
+		if (mOnSuccess != null) {
+			mOnSuccess (mWWW.text);
+		}
+	}
+
+	private void CallBackFail () {
+		Debug.Log ("www error");
+		Debug.Log (mWWW.text);
+		if (mOnFail != null) {
+			mOnFail (mWWW.text);
+		}
 	}
 
 	private  IEnumerator CheckTimeout () {

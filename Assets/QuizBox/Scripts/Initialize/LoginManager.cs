@@ -18,20 +18,23 @@ public class LoginManager : MonoBehaviour {
 			DateTime dtNow = UNIX_EPOCH.AddSeconds ((long)unixTime).ToLocalTime ();
 			string loginDate = PrefsManager.Instance.LoginDate;
 			if (string.IsNullOrEmpty (loginDate)) {
-				PrefsManager.Instance.LoginDate = dtNow.ToString ();
+				ApplyBonus(dtNow);
 				return;
 			}
 			DateTime dtLogin = DateTime.Parse (loginDate);
 			TimeSpan ts = dtNow - dtLogin;
 			if (ts.Days >= 1) {
-				// login bonus
-				PrefsManager.Instance.AddUserPoint (5);
-				userPointLabel.text = PrefsManager.Instance.GetUserPoint() + "pt";
-				PrefsManager.Instance.LoginDate = dtNow.ToString ();
-				ShowLoginBonusDialog ();
+				ApplyBonus(dtNow);
 			}
 		};
 		wwwClient.GetData ();
+	}
+
+	private void ApplyBonus(DateTime dtNow){
+		PrefsManager.Instance.AddUserPoint (5);
+		userPointLabel.text = PrefsManager.Instance.GetUserPoint() + "pt";
+		PrefsManager.Instance.LoginDate = dtNow.ToString ();
+		ShowLoginBonusDialog ();
 	}
 
 	private void ShowLoginBonusDialog () {

@@ -32,7 +32,8 @@ public class TitleInitializer : MonoBehaviour {
 			sb.Append(SelectedQuiz.instance.boughtDate);
 			quizInfoLabel.text = sb.ToString();
 		} else {
-			titleDialogManager.GetComponent<TitleDialogManager> ().ShowErrorDialog ();
+			NetworkErrorDialog dialog = new NetworkErrorDialog ();
+			dialog.Show ();
 		}
 	}
 }
