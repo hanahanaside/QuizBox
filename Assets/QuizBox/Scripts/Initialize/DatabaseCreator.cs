@@ -7,15 +7,18 @@ using System.Collections.Generic;
 public class DatabaseCreator : MonoBehaviour {
 	public static event Action createdDatabaseEvent;
 	public DatabaseUpdater databaseUpdater;
+	public QuizRenamer quizRenamer;
 
 	private static string databaseFileName = "quiz_box.db";
 
 	void OnEnable(){
 		DatabaseUpdater.updatedDatabaseEvent += OnUpdated;
+		QuizRenamer.renamedQuizEvent += OnRenamed;
 	}
 
 	void OnDisable(){
 		DatabaseUpdater.updatedDatabaseEvent -= OnUpdated;
+		QuizRenamer.renamedQuizEvent -= OnRenamed;
 	}
 
 
@@ -24,6 +27,10 @@ public class DatabaseCreator : MonoBehaviour {
 	}
 
 	void OnUpdated(){
+		quizRenamer.RenameQuiz ();
+	}
+
+	void OnRenamed(){
 		CreatedDatabase ();
 	}
 
@@ -71,7 +78,9 @@ public class DatabaseCreator : MonoBehaviour {
 
 	private void CreatedDatabase () {
 		Debug.Log ("create finished");
+		#if !UNITY_EDITOR
 		CheckRenameQuiz();
+		#endif
 		if (createdDatabaseEvent != null) {
 			createdDatabaseEvent ();
 		}
