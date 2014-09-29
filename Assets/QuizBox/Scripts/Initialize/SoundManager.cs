@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 		SEsourceArray = new AudioSource[SEclipArray.Length];
 		for (int i = 0; i <SEsourceArray.Length; i++) {
-			SEsourceArray [i] = gameObject.AddComponent<AudioSource> ();
+			SEsourceArray [i] = gameObject.AddComponent<AudioSource> ();    
 			SEsourceArray [i].clip = SEclipArray [i];
 		}
 	}
