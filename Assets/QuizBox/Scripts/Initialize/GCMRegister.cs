@@ -39,12 +39,6 @@ public class GCMRegister : MonoBehaviour {
 		Debug.Log("Start Receiver");
 	}
 	
-	void OnApplicationPause(bool pauseState){
-		if(!pauseState){
-			ChceckRegistered();
-		}
-	}
-
 	private void ChceckRegistered(){
 		if (PlayerPrefs.GetInt("registered") == 0) {
 			GoogleCloudMessaging.register(senderId);

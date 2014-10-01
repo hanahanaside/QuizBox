@@ -11,8 +11,15 @@ public class ReviewAppChecker : MonoBehaviour {
 			return;
 		}
 		if (!PrefsManager.Instance.GetReviewed ()) {
-			ReviewDialog reviewDialog = Instantiate (reviewDialogPrefab) as ReviewDialog;
-			reviewDialog.Show ();
+			Debug.Log ("show review dialog");
+			StartCoroutine (ShowDialogCoroutine());
 		}
+	}
+
+	//コルーチンにしないと落ちる
+	private IEnumerator ShowDialogCoroutine(){
+		yield return new WaitForSeconds(2.0f);
+		ReviewDialog reviewDialog = Instantiate (reviewDialogPrefab) as ReviewDialog;
+		reviewDialog.Show ();
 	}
 }

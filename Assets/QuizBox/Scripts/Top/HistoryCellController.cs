@@ -14,7 +14,7 @@ public class HistoryCellController : MonoBehaviour {
 		Debug.Log ("pause = " + pauseSatatus);
 		if (!pauseSatatus && mTweeted) {
 			mTweeted = false;
-			PrefsManager.Instance.AddUserPoint (1);
+		//	PrefsManager.Instance.AddUserPoint (1);
 		}
 	}
 	#endif
@@ -48,14 +48,12 @@ public class HistoryCellController : MonoBehaviour {
 		sb.Append (mHistoryData.result+ "\n");
 		sb.Append("\u3053\u306e\u30af\u30a4\u30ba\u30a2\u30d7\u30ea\u9762\u767d\u3044\u304b\u3089\u3084\u3063\u3066\u307f\u3066\uff01"+ "\n");
 		sb.Append("→http://tt5.us/quizbox #クイズボックス");
-		string imagePath = Application.streamingAssetsPath + "/share_image.png";
 #if UNITY_IPHONE
-		TwitterBinding.showTweetComposer(sb.ToString(),imagePath);
+		TwitterBinding.showTweetComposer(sb.ToString());
 #endif
 
 		#if UNITY_ANDROID
-		string filePath = Application.persistentDataPath +  "/share_image.png";
-		SocialConnector.Share(sb.ToString(),"",filePath);
+		SocialConnector.Share(sb.ToString());
 		mTweeted = true;
 		#endif
 	}

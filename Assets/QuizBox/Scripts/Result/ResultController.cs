@@ -6,16 +6,21 @@ public class ResultController : MonoBehaviour {
 
 	public GameObject shareDialogPrefab;
 	public GameObject uiRoot;
+	private bool mEscapeClicked = false;
 
 	void Update () {
+		if(mEscapeClicked){
+			return;
+		}
 		if (Input.GetKey (KeyCode.Escape)) {
-			Application.LoadLevel ("Top");
+			mEscapeClicked = true;
+			OnTopClick ();
 		}
 	}
-	
+
 	public void OnRetryClick () {
 		Reset ();
-		QuizListManager.instance.Retry();
+		QuizListManager.instance.Retry ();
 		Application.LoadLevel ("Game");
 	}
 
@@ -26,10 +31,14 @@ public class ResultController : MonoBehaviour {
 	
 	}
 
-	public void OnShareButtonClicked(){
-		GameObject shareDialog = Instantiate(shareDialogPrefab) as GameObject;
+	public void OnShareButtonClicked () {
+		ShowShareDialog ();
+	}
+
+	private void ShowShareDialog(){
+		GameObject shareDialog = Instantiate (shareDialogPrefab) as GameObject;
 		shareDialog.transform.parent = uiRoot.transform;
-		shareDialog.transform.localScale = new Vector3(1,1,1);
+		shareDialog.transform.localScale = new Vector3 (1, 1, 1);
 	}
 
 	private void Reset () {

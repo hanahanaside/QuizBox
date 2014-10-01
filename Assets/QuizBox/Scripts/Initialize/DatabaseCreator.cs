@@ -37,6 +37,7 @@ public class DatabaseCreator : MonoBehaviour {
 	private void CreateDatabase () {
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
+
 		#if UNITY_EDITOR
 		File.Delete(filePath);
 		#endif
@@ -55,6 +56,7 @@ public class DatabaseCreator : MonoBehaviour {
 		#if UNITY_EDITOR
 		baseFilePath = "file://"+Path.Combine (Application.streamingAssetsPath, databaseFileName);
 		#endif
+		Debug.Log("file exists = " + File.Exists(filePath));
 		if(File.Exists(filePath)){
 			CreatedDatabase();
 		}else {
@@ -79,7 +81,12 @@ public class DatabaseCreator : MonoBehaviour {
 	private void CreatedDatabase () {
 		Debug.Log ("create finished");
 		#if !UNITY_EDITOR
-		CheckRenameQuiz();
+	//	CheckRenameQuiz();
+		DateTime dtNow = DateTime.Now;
+		string installedDate = PrefsManager.Instance.InstalledDate;
+		if (string.IsNullOrEmpty (installedDate)) {
+		PrefsManager.Instance.InstalledDate = dtNow.ToString ();
+		}
 		#endif
 		if (createdDatabaseEvent != null) {
 			createdDatabaseEvent ();

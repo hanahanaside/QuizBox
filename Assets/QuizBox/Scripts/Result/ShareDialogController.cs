@@ -8,9 +8,15 @@ public class ShareDialogController : MonoBehaviour {
 	#if UNITY_ANDROID
 	void OnApplicationPause (bool pauseSatatus) {
 		Debug.Log ("pause = " + pauseSatatus);
-		if (!pauseSatatus && mTweeted) {
+		if(pauseSatatus){
+			return;
+		}
+		if (mTweeted) {
 			mTweeted = false;
 			PrefsManager.Instance.AddUserPoint (1);
+			string title = "ツイートしました";
+			string message = "1ptゲット！";
+			EtceteraAndroid.showAlert (title,message,"OK");
 		}
 	}
 	#endif
@@ -32,4 +38,5 @@ public class ShareDialogController : MonoBehaviour {
 		TweetSender.Instance.SendTweet ();
 		mTweeted = true;
 	}
+		
 }

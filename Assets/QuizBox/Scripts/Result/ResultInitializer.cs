@@ -60,7 +60,7 @@ public class ResultInitializer : MonoBehaviour {
 		}
 		Debug.Log ("spriteName = " + spriteName);
 		if (spriteName == "") {
-			CaptureScreenshot ();
+			Invoke ("CaptureScreenshot", 1.0f);
 		}else {
 			UISpriteData spriteData = resultAtlas.GetSprite (spriteName);
 			UISprite sprite = medal.GetComponent<UISprite> ();

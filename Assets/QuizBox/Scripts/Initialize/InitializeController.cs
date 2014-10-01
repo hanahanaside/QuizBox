@@ -10,12 +10,14 @@ public class InitializeController : MonoBehaviour {
 	void OnDisable(){
 		DatabaseCreator.createdDatabaseEvent -= OnDatabaseCreated;
 	}
-	
-	void Start () {
 
+	void Awake(){
+		ConnectingDialog.Show ();
 	}
-
+		
 	void OnDatabaseCreated(){
+		Debug.Log ("OnDatabaseCreated");
+		ConnectingDialog.Hide ();
 		Application.LoadLevel("Splash");
 	}
 

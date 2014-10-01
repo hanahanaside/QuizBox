@@ -85,6 +85,8 @@ public class DatabaseUpdater : MonoBehaviour {
 		//銀魂クイズのquizIdを73にする
 		IDictionary gintamaQuiz = quizList[0];
 		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
+		//銀魂クイズと金魂クイズのどちらかの可能性があるので魂クイズにする
+		gintamaQuiz[QuizListDao.TITLE_FIELD] = "魂クイズ";
 		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
 		foreach (IDictionary quiz in quizList) {
 			CheckIndexOfTitle (jsonArray, quiz);
@@ -108,6 +110,7 @@ public class DatabaseUpdater : MonoBehaviour {
 	}
 
 	private void ShowErrorDialog(){
+		ConnectingDialog.Hide ();
 		string title = "通信エラー";
 		string message = "1度アプリを終了します";
 		#if UNITY_IPHONE
