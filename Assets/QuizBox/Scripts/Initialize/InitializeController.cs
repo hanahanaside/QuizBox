@@ -15,7 +15,7 @@ public class InitializeController : MonoBehaviour {
 
 	void Awake(){
 		ConnectingDialog.Show ();
-		TweenAlpha.Begin (backgroundObject,2.0f,1);
+		TweenAlpha.Begin (backgroundObject,3.0f,1);
 	}
 		
 	void OnDatabaseCreated(){
