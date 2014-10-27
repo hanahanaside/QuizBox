@@ -14,18 +14,22 @@ public class InitializeController : MonoBehaviour {
 	}
 
 	void Awake(){
-		ConnectingDialog.Show ();
-		TweenAlpha.Begin (backgroundObject,3.0f,1);
+		TweenAlpha.Begin (backgroundObject,2.0f,1);
 	}
 		
 	void OnDatabaseCreated(){
 		Debug.Log ("OnDatabaseCreated");
-		ConnectingDialog.Hide ();
-		TweenAlpha tweenAlpha = TweenAlpha.Begin (backgroundObject,2.0f,0);
-		EventDelegate.Set (tweenAlpha.onFinished,OnFadeoutAnimationFinished);
+		SoundManager.Instance.PlaySESound (SoundManager.HANAUTA_SOUND_ID);
+		Invoke ("StartFadeoutAnimation",3.0f);
 	}
 
 	private void OnFadeoutAnimationFinished(){
+		ImobileManager.Instance.ShowBannerAd ();
 		Application.LoadLevel ("Top");
+	}
+
+	private void StartFadeoutAnimation(){
+		TweenAlpha tweenAlpha = TweenAlpha.Begin (backgroundObject,2.0f,0);
+		EventDelegate.Set (tweenAlpha.onFinished,OnFadeoutAnimationFinished);
 	}
 }

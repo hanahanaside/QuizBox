@@ -41,7 +41,7 @@ public class ResultInitializer : MonoBehaviour {
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		DateTime dtInstalled = DateTime.Parse (installedDate);
 		TimeSpan timeSpan = dtNow - dtInstalled;
-		if (timeSpan.TotalDays >= 3) {
+		if (timeSpan.TotalDays >= 1) {
 			StartCoroutine (OpenWallAd ());
 		} 
 

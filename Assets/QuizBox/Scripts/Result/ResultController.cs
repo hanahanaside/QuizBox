@@ -26,8 +26,7 @@ public class ResultController : MonoBehaviour {
 
 	public void OnTopClick () {
 		Reset ();
-		QuizListManager.instance.ReleaseQuizList ();
-		Application.LoadLevel ("Top");
+		Application.LoadLevel ("Title");
 	
 	}
 
