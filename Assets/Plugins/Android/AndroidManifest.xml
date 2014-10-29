@@ -37,7 +37,7 @@
 		<activity android:name="com.amoad.amoadsdk.AMoAdSdkWallActivity" android:configChanges="orientation|keyboardHidden" android:screenOrientation="unspecified">
 			<!-- ↓↓↓ウォール広告用のMETAタグ設定↓↓↓ -->
 			<meta-data android:name="app_key" android:value="HORGV6VG3484JCEW" />
-			<meta-data android:name="debug" android:value="true" />
+			<meta-data android:name="debug" android:value="false" />
 			<meta-data android:name="conversion" android:value="true" />
 			<!-- ↑↑↑ウォール広告用のMETAタグ設定↑↑↑ -->
 		</activity>
