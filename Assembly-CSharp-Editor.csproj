@@ -52,9 +52,11 @@
      <Compile Include="Assets\NGUI\Scripts\Editor\ActiveAnimationEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\BMFontReader.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\ComponentSelector.cs" />
+     <Compile Include="Assets\NGUI\Scripts\Editor\EventDelegateDrawer.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\EventDelegateEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\FreeType.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\NGUIContextMenu.cs" />
+     <Compile Include="Assets\NGUI\Scripts\Editor\NGUIEditorExtensions.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\NGUIEditorTools.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\NGUIHandles.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\NGUIHelp.cs" />
@@ -82,6 +84,7 @@
      <Compile Include="Assets\NGUI\Scripts\Editor\UIAnchorEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIAtlasInspector.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIAtlasMaker.cs" />
+     <Compile Include="Assets\NGUI\Scripts\Editor\UIBasicSpriteEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIButtonColorEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIButtonEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIButtonKeysEditor.cs" />
@@ -108,12 +111,14 @@
      <Compile Include="Assets\NGUI\Scripts\Editor\UIPlayAnimationEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIPlayTweenEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIPopupListInspector.cs" />
+     <Compile Include="Assets\NGUI\Scripts\Editor\UIPrefabTool.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIProgressBarEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIRectEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIRootEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIScrollBarEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIScrollViewEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UISliderEditor.cs" />
+     <Compile Include="Assets\NGUI\Scripts\Editor\UISnapshotPointEditor.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UISpriteAnimationInspector.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UISpriteInspector.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\UIStretchEditor.cs" />
@@ -137,6 +142,8 @@
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo14.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\attrs.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 1.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (TextureClip).shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_item_background.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_search_box.xml" />
@@ -152,6 +159,7 @@
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-mdpi\dimens.xml" />
      <None Include="Assets\Plugins\EtceteraAndroid\Manifest.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_friendpickerfragment.xml" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (TextureClip).shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\drawables.xml" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Header.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-es\strings.xml" />
@@ -209,6 +217,7 @@
      <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
      <None Include="Assets\NGUI\Examples\Shaders\Refractive.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_placepickerfragment.xml" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text (TextureClip).shader" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Normal.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\colors.xml" />

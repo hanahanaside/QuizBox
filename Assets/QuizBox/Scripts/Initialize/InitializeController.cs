@@ -24,7 +24,6 @@ public class InitializeController : MonoBehaviour {
 	}
 
 	private void OnFadeoutAnimationFinished(){
-		ImobileManager.Instance.ShowBannerAd ();
 		Application.LoadLevel ("Top");
 	}
 

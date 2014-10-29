@@ -139,10 +139,12 @@
      <Compile Include="Assets\NGUI\Scripts\Internal\PropertyReference.cs" />
      <Compile Include="Assets\NGUI\Scripts\Internal\RealTime.cs" />
      <Compile Include="Assets\NGUI\Scripts\Internal\SpringPanel.cs" />
+     <Compile Include="Assets\NGUI\Scripts\Internal\UIBasicSprite.cs" />
      <Compile Include="Assets\NGUI\Scripts\Internal\UIDrawCall.cs" />
      <Compile Include="Assets\NGUI\Scripts\Internal\UIEventListener.cs" />
      <Compile Include="Assets\NGUI\Scripts\Internal\UIGeometry.cs" />
      <Compile Include="Assets\NGUI\Scripts\Internal\UIRect.cs" />
+     <Compile Include="Assets\NGUI\Scripts\Internal\UISnapshotPoint.cs" />
      <Compile Include="Assets\NGUI\Scripts\Internal\UIWidget.cs" />
      <Compile Include="Assets\NGUI\Scripts\Tweening\AnimatedAlpha.cs" />
      <Compile Include="Assets\NGUI\Scripts\Tweening\AnimatedColor.cs" />
@@ -370,6 +372,8 @@
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo14.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\attrs.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 1.shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (TextureClip).shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_item_background.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_search_box.xml" />
@@ -385,6 +389,7 @@
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-mdpi\dimens.xml" />
      <None Include="Assets\Plugins\EtceteraAndroid\Manifest.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_friendpickerfragment.xml" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (TextureClip).shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\drawables.xml" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Header.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-es\strings.xml" />
@@ -442,6 +447,7 @@
      <None Include="Assets\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
      <None Include="Assets\NGUI\Examples\Shaders\Refractive.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_placepickerfragment.xml" />
+     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text (TextureClip).shader" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth.shader" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Normal.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\colors.xml" />
