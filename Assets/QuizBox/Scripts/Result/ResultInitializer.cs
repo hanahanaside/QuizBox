@@ -89,7 +89,13 @@ public class ResultInitializer : MonoBehaviour {
 
 	private IEnumerator OpenWallAd () {
 		yield return new WaitForSeconds (3.0f);
-		APUnityPlugin.ShowAppliPromotionWall ();
+		var parameters = new APUnityPluginSetting();
+		parameters.setParam(APUnityPluginSetting.iOSAppkey, "KAQ2AGURBDTNY54F");
+		parameters.setParam(APUnityPluginSetting.onStatusArea, true);
+		parameters.setParam(APUnityPluginSetting.orientation, "UIInterfaceOrientationLandscapeLeft");
+		parameters.setParam(APUnityPluginSetting.isClose, true);
+		parameters.setParam(APUnityPluginSetting.AndroidAppKey, "HORGV6VG3484JCEW");
+		APUnityPlugin.ShowAppliPromotionWall(parameters);
 	}
 	
 }
