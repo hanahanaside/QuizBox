@@ -135,7 +135,6 @@
      <Compile Include="Assets\sqlitekit\Editor\SQLiteKitEditor.cs" />
      <Compile Include="Assets\sqlitekit\Editor\SQLiteKitEditorSettings.cs" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Depth Cutout.shader" />
-     <None Include="Assets\Plugins\Android\res\layout\amoadsdk_framelayout_webview_badge_inactive.xml" />
      <None Include="Assets\NGUI\ReadMe - 3.5.8.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
      <None Include="Assets\NGUI\Examples\Models\Orc\Orc Skin.shader" />
@@ -146,7 +145,6 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored (TextureClip).shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (Packed) (TextureClip).shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_item_background.xml" />
-     <None Include="Assets\Plugins\Android\res\layout\amoadsdk_framelayout_webview.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored 2.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_search_box.xml" />
      <None Include="Assets\NGUI\Examples\Shaders\Unlit - Masked Colored.shader" />
@@ -160,13 +158,11 @@
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-mdpi\dimens.xml" />
      <None Include="Assets\Plugins\EtceteraAndroid\Manifest.xml" />
-     <None Include="Assets\Plugins\Android\res\layout\amoadsdk_framelayout_webview_badge_44x44.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_friendpickerfragment.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (TextureClip).shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values\drawables.xml" />
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Header.txt" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-es\strings.xml" />
-     <None Include="Assets\Plugins\Android\res\layout\amoadsdk_popup_unity.xml" />
      <None Include="Assets\Plugins\SocialNetworkingAndroid\Manifest.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_top_button.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_list_row.xml" />
@@ -184,10 +180,8 @@
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_list_selector_background_transition.xml" />
      <None Include="Assets\SU3DJPFont\list.txt" />
-     <None Include="Assets\Plugins\Android\res\layout\amoadsdk_framelayout_webview_badge_22x22.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_usersettingsfragment_background_gradient.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\drawable\com_facebook_picker_list_selector.xml" />
-     <None Include="Assets\Plugins\Android\res\layout\amoadsdk_framelayout_webview_badge_none.xml" />
      <None Include="Assets\sqlitekit\license.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 1.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
@@ -213,7 +207,6 @@
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_title_bar_stub.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-hdpi\dimens.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-he\strings.xml" />
-     <None Include="Assets\Plugins\Android\res\layout\amoadsdk_framelayout_webview_badge_88x44.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\values-xhdpi\dimens.xml" />
      <None Include="Assets\Plugins\Android\Facebook-Plugin-Library\res\layout\com_facebook_picker_image.xml" />
      <None Include="Assets\Plugins\Android\readme.txt" />
