@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Runtime.InteropServices;
 
 public class APUnityPlugin {

@@ -173,7 +173,6 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UIOrthoCamera.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIPanel.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIRoot.cs" />
-     <Compile Include="Assets\NGUI\Scripts\UI\UISprite.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UISpriteAnimation.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UISpriteData.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIStretch.cs" />
