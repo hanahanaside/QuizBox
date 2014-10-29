@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <com.amoad.amoadsdk.view.APSDKAdView
+    android:id="@+id/ap_adview"
+    android:layout_width="240dp"
+    android:layout_height="240dp"
+    android:layout_gravity="top|left"
+    android:layout_marginLeft="50dp"
+    android:layout_marginTop="50dp"
+    ad_type="Trigger"
+    app_key="アプリケーション識別ID"
+    trigger_enable_new_indicator="true"
+    trigger_fail_image="trigger_fail_image.png"
+    trigger_key="Wall誘導枠ID（イメージ方式)" />
+    
+</FrameLayout>
