@@ -4,27 +4,21 @@ using System;
 
 public class Test : MonoBehaviour {
 
-	public string rectangleMediaId;
-	public string rectangleSpotId;
-	public string publisherId;
+	private float mTime;
+	private bool mPress;
 
-	public static string screenshotFilename = "someScreenshot.png";
-
-	void Start () {
-		IMobileSdkAdsUnityPlugin.registerInline (publisherId, rectangleMediaId, rectangleSpotId);
-		IMobileSdkAdsUnityPlugin.start (rectangleSpotId);
+	void OnPress(bool isDown){
+		Debug.Log ("press " + isDown);
+		mPress = isDown;
+		if(isDown){
+			mTime = 2.0f;
+		}
 	}
 
-	void OnEnable(){
-		Debug.Log ("enable");
+	void Update(){
+		if(mPress){
+			mTime -= Time.deltaTime;
+			Debug.Log ("time = " + mTime);
+		}
 	}
-
-	void OnDisable(){
-		Debug.Log ("disable");
-	}
-
-	void OnApplicationPause(bool pauseStatus){
-		Debug.Log ("pause "+pauseStatus);
-	}
-		
 }
