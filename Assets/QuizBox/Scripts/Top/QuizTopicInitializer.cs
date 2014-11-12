@@ -27,12 +27,15 @@ public class QuizTopicInitializer : MonoBehaviour {
 //		} 
 
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
-		foreach (IDictionary quiz in quizList) {
+		for(int i = 0;i<quizList.Count;i++){
+			IDictionary quiz = quizList[i];
 			GameObject cellObject = Instantiate (topCellPrefab) as GameObject;
 			grid.AddChild (cellObject.transform);
+			cellObject.transform.localPosition = new Vector3 (0,-(float)i,0);
 			cellObject.transform.localScale = new Vector2 (1f, 1f);
 			int id = (int)quiz [QuizListDao.ID_FIELD];
 			string name = (string)quiz [QuizListDao.TITLE_FIELD];
+			Debug.Log ("name " + name);
 			string quizUrl = (string)quiz [QuizListDao.QUIZ_URL_FIELD];
 			string boughtDate = (string)quiz [QuizListDao.BOUGHT_DATE_FIELD];
 			CellTop cellTop = cellObject.GetComponent<CellTop> ();
@@ -41,6 +44,7 @@ public class QuizTopicInitializer : MonoBehaviour {
 			cellTop.quizUrl = quizUrl;
 			cellTop.boughtDate = boughtDate;
 		}
+
 		scrollView.ResetPosition ();
 	}
 }
