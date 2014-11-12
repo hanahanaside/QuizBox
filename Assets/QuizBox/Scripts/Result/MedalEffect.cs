@@ -15,5 +15,11 @@ public class MedalEffect : MonoBehaviour {
 		for (int i = 0; i < trans.childCount; i++) {
 			trans.GetChild (i).gameObject.renderer.material.renderQueue = _RenderQueue;
 		}
+		Invoke ("DestroyObject",3.0f);
 	}
+
+	private void DestroyObject(){
+		Destroy (gameObject);
+	}
+		
 }
