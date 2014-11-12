@@ -19,11 +19,13 @@ public class QuizTopicInitializer : MonoBehaviour {
 		#if UNITY_IPHONE
 		unlockLimit = 1;
 		#endif
-		if (timeSpan.TotalDays >= unlockLimit) {
-			GameObject incentiveButtonObject = Instantiate (incentiveButtonPrefab) as GameObject;
-			grid.AddChild (incentiveButtonObject.transform);
-			incentiveButtonObject.transform.localScale = new Vector2 (1f,1f);
-		} 
+//		if (timeSpan.TotalDays >= unlockLimit) {
+//			GameObject incentiveButtonObject = Instantiate (incentiveButtonPrefab) as GameObject;
+//			grid.AddChild (incentiveButtonObject.transform);
+//			incentiveButtonObject.transform.localScale = new Vector2 (1f,1f);
+//			incentiveButtonObject.transform.localPosition = new Vector3 (0,0,0);
+//		} 
+
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
 		foreach (IDictionary quiz in quizList) {
 			GameObject cellObject = Instantiate (topCellPrefab) as GameObject;
