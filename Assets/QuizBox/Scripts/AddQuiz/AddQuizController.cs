@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using MiniJSON;
 using System.Collections;
 
@@ -49,16 +49,21 @@ public class AddQuizController : MonoBehaviour {
 	}
 
 	void OnClickAddQuiz (AddQuiz addQuiz) {
+		#if UNITY_EDITOR
+		mSelectedQuiz = addQuiz;
+		alertButtonClickedEvent("はい");
+		#else
 		int needPoint = addQuiz.point;
 		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		if (userPoint < needPoint) {
-			ShortPointDialog shortPointDialog = Instantiate (shortPointDialogPrefab) as ShortPointDialog;
-			shortPointDialog.Show ();
+		ShortPointDialog shortPointDialog = Instantiate (shortPointDialogPrefab) as ShortPointDialog;
+		shortPointDialog.Show ();
 		} else {
-			mSelectedQuiz = addQuiz; 
-			AddQuizDialog addQuizDialog = Instantiate (addQuizDialogPrefab)as AddQuizDialog;
-			addQuizDialog.Show (addQuiz, userPoint);
+		mSelectedQuiz = addQuiz; 
+		AddQuizDialog addQuizDialog = Instantiate (addQuizDialogPrefab)as AddQuizDialog;
+		addQuizDialog.Show (addQuiz, userPoint);
 		}
+		#endif
 	}
 
 	void alertButtonClickedEvent (string clickedButton) {

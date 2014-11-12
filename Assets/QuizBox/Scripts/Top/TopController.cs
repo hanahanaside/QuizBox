@@ -15,6 +15,7 @@ public class TopController : MonoBehaviour {
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
 		SetActiveButtonFilter (0);
 		UpdateUserPointLabel ();
+		ImobileManager.Instance.ShowBannerAd ();
 	}
 		
 	void Update () {
