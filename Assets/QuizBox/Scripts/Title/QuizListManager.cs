@@ -2,14 +2,14 @@
 using MiniJSON;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 
 public class QuizListManager : MonoBehaviour {
-	public event Action loadSucceedEvent;
-	public event Action loadFailedEvent;
+	public HttpClient httpClient;
+	public TitleInitializer titleInitializer;
 	private static QuizListManager sInstance;
 	private static IList allQuizList;
 	private static IList mSeriesList;
+	private bool created = false;
 	private static string sJsonString;
 	private string mModeName;
 	private int mQuestionCount;
@@ -58,46 +58,43 @@ public class QuizListManager : MonoBehaviour {
 			return mModeName;
 		}
 	}
-
+	
 	void Awake () {
-		sInstance = this;
-		DontDestroyOnLoad (gameObject);
+		if (!created) {
+			sInstance = this;
+			quizList = new List<IDictionary> ();
+			DontDestroyOnLoad (gameObject);
+			created = true;
+		}
 	}
 
 	public void InitQuizList () {
 		Debug.Log ("url = " + SelectedQuiz.instance.quizUrl);
-		if (allQuizList == null) {
-			WWWClient wwwClient = new WWWClient (this,SelectedQuiz.instance.quizUrl);
-			wwwClient.OnSuccess = (string response) => {
-				sJsonString = response;
-				sJsonString = sJsonString.Replace ("'", "");
-				IDictionary jsonObject = (IDictionary)Json.Deserialize (sJsonString);
-				allQuizList = (IList)jsonObject ["updated_quiz"];
-				mSeriesList = (IList)jsonObject ["series_orderd"];
-				Debug.Log ("count = " + allQuizList.Count);
-				loadSucceedEvent ();
-			};
-				
-			wwwClient.OnFail = (string response) => {
-				loadFailedEvent ();
-			};
+		if(allQuizList == null){
+			string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
+			#if UNITY_IOS
+			EtceteraBinding.showBezelActivityViewWithLabel(title);
+			#endif
+			
+			#if UNITY_ANDROID
+			string message = "\u554f\u984c\u3092\u53d6\u5f97\u3057\u3066\u3044\u307e\u3059";
+			EtceteraAndroid.showProgressDialog(title,message);
+			#endif
 
-			wwwClient.OnTimeOut = () => {
-				loadFailedEvent ();
-			};
-			wwwClient.GetData ();
-		} else {
-			loadSucceedEvent ();
+			HttpClient.responseEvent += ResponseCallback;
+			WWW www = new WWW (SelectedQuiz.instance.quizUrl);
+			StartCoroutine (httpClient.Excute (www));
+		}else {
+			titleInitializer.OnLoadFinished(true);
 		}
 	}
 
 	public void PlayQuickMode () {
 		mModeName = "クイックモード";
-		quizList = new List<IDictionary> ();
 		ResetCount ();
 		IList indexNumberList = new List<int> ();
-		while (indexNumberList.Count < 15) {
-			int number = UnityEngine.Random.Range (0, allQuizList.Count);
+		while (indexNumberList.Count <15) {
+			int number = Random.Range (0, allQuizList.Count);
 			if (CheckNotDuplicate (indexNumberList, number)) {
 				indexNumberList.Add (number);
 			}
@@ -118,7 +115,6 @@ public class QuizListManager : MonoBehaviour {
 	}
 
 	public void PlaySeriesMode (string selectedSeriesName) {
-		quizList = new List<IDictionary> ();
 		mModeName = selectedSeriesName;
 		ResetCount ();
 		IList allSeriesList = new List<IDictionary> ();
@@ -130,8 +126,8 @@ public class QuizListManager : MonoBehaviour {
 			}
 		}
 		IList indexNumberList = new List<int> ();
-		while (indexNumberList.Count < 15) {
-			int number = UnityEngine.Random.Range (0, allSeriesList.Count);
+		while (indexNumberList.Count <15) {
+			int number = Random.Range (0, allSeriesList.Count);
 			if (CheckNotDuplicate (indexNumberList, number)) {
 				indexNumberList.Add (number);
 			}
@@ -141,31 +137,58 @@ public class QuizListManager : MonoBehaviour {
 			quizList.Add (quiz);
 		}
 	}
-
+	
 	public void PlayChallengeMode () {
 		mModeName = "チャレンジモード";
 		ResetCount ();
 		quizList = allQuizList;
-		System.Random rng = new System.Random ();
+		System.Random rng = new System.Random();
 		int n = quizList.Count;
-		while (n > 1) {
+		while (n > 1)
+		{
 			n--;
-			int k = rng.Next (n + 1);
-			IDictionary quiz = (IDictionary)quizList [k];
-			quizList [k] = quizList [n];
-			quizList [n] = quiz;
+			int k = rng.Next(n + 1);
+			IDictionary quiz = (IDictionary)quizList[k];
+			quizList[k] = quizList[n];
+			quizList[n] = quiz;
 		}
 	}
 
 	public void PlayChallenteModeResume (string jsonString, int questionCount, int correctCount) {
 		Debug.Log ("resume");
+		Debug.Log ("jsonString = " + jsonString);
 		mModeName = "チャレンジモード";
 		mQuestionCount = questionCount;
 		mCorrectCount = correctCount;
 		IDictionary jsonObject = (IDictionary)Json.Deserialize (jsonString);
 		quizList = (IList)jsonObject ["updated_quiz"];
 	}
+
+	void ResponseCallback (string response) {
+		Debug.Log ("ResponseCallback");
+		HttpClient.responseEvent -= ResponseCallback;
+		#if UNITY_IOS
+		EtceteraBinding.hideActivityView();
+		#endif
 		
+		#if UNITY_ANDROID
+		EtceteraAndroid.hideProgressDialog();
+		#endif
+
+		if (string.IsNullOrEmpty(response)) {
+			//error
+			titleInitializer.OnLoadFinished (false);
+		} else {
+			sJsonString = response;
+			sJsonString = sJsonString.Replace ("'", "");
+			IDictionary jsonObject = (IDictionary)Json.Deserialize (sJsonString);
+			allQuizList = (IList)jsonObject ["updated_quiz"];
+			mSeriesList = (IList)jsonObject ["series_orderd"];
+			Debug.Log ("count = " + allQuizList.Count);
+			titleInitializer.OnLoadFinished (true);
+
+		}
+	}
 
 	public IList SeriesList {
 		get {
@@ -173,20 +196,21 @@ public class QuizListManager : MonoBehaviour {
 		}
 	}
 
-	public void ReleaseQuizList () {
+	public void ReleaseQuizList(){
 		allQuizList = null;
 	}
 
-	public void Retry () {
-		if (mModeName == "クイックモード") {
+	public void Retry(){
+		quizList = new List<IDictionary> ();
+		if(mModeName == "クイックモード"){
 			//quick mode
-			PlayQuickMode ();
-		} else if (mModeName == "チャレンジモード") {
+			PlayQuickMode();
+		}else if(mModeName == "チャレンジモード"){
 			//challenge mode
-			PlayChallengeMode ();
-		} else {
+			PlayChallengeMode();
+		}else {
 			//series mode
-			PlaySeriesMode (mModeName);
+			PlaySeriesMode(mModeName);
 		}
 
 	}

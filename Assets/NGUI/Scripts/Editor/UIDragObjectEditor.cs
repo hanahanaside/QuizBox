@@ -18,7 +18,6 @@ public class UIDragObjectEditor : Editor
 		NGUIEditorTools.SetLabelWidth(100f);
 
 		SerializedProperty sp = NGUIEditorTools.DrawProperty("Target", serializedObject, "target");
-		NGUIEditorTools.DrawProperty("Panel Region", serializedObject, "panelRegion");
 
 		EditorGUI.BeginDisabledGroup(sp.objectReferenceValue == null);
 		{

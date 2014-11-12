@@ -10,11 +10,11 @@
 		</activity>
 		<activity android:name="com.unity3d.player.UnityPlayerNativeActivity" android:launchMode="singleTask" android:label="@string/app_name" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen">
 			<meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+			<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 		</activity>
 		<activity configChanges="orientation|screenLayout|screenSize" android:name="com.facebook.LoginActivity">
 		</activity>
-		<activity android:name="com.prime31.GoogleIABProxyActivity" android:configChanges="orientation">
-		</activity>
+		<activity android:name="com.prime31.GoogleIABProxyActivity" android:configChanges="orientation"></activity>
 		<receiver android:name="com.prime31.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -23,28 +23,11 @@
 			</intent-filter>
 		</receiver>
 		<!-- ETCETERA START -->
-		<activity android:name="com.prime31.EtceteraProxyActivity" android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize">
-		</activity>
-		<activity android:name="com.prime31.WebViewActivity" android:configChanges="keyboardHidden|orientation|screenSize">
-		</activity>
-		<activity android:name="com.prime31.P31VideoPlayerActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
-		</activity>
-		<receiver android:name="com.prime31.AlarmManagerReceiver">
-		</receiver>
+		 <activity android:name="com.prime31.EtceteraProxyActivity" android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"></activity>
+		<activity android:name="com.prime31.WebViewActivity" android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+		<activity android:name="com.prime31.P31VideoPlayerActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize"></activity>
+		<receiver android:name="com.prime31.AlarmManagerReceiver"></receiver>
 		<!-- ETCETERA END -->
-		<!-- ↓↓↓ウォール広告を表示する Activity の設定です。↓↓↓ -->
-		<!-- ※ 下記設定は必須となります。 -->
-		<activity android:name="com.amoad.amoadsdk.AMoAdSdkWallActivity" android:configChanges="orientation|keyboardHidden" android:screenOrientation="unspecified">
-			<!-- ↓↓↓ウォール広告用のMETAタグ設定↓↓↓ -->
-			<meta-data android:name="app_key" android:value="HORGV6VG3484JCEW" />
-			<meta-data android:name="debug" android:value="false" />
-			<meta-data android:name="conversion" android:value="true" />
-			<!-- ↑↑↑ウォール広告用のMETAタグ設定↑↑↑ -->
-		</activity>
-		<!-- ↑↑↑ ウォール広告を表示したい場合の設定はココまで ↑↑↑ -->
-		<!--  ポップアップ用 Activity の設定 -->
-		<activity android:name="com.amoad.amoadsdk.AMoAdSdkPopUpForUnityActivity" android:theme="@android:style/Theme.Dialog" android:configChanges="orientation|keyboardHidden">
-		</activity>
 		<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="\ 324089397758597" />
 		<meta-data android:name="com.prime31.FacebookPlugin" android:value="UnityPlayerActivityProxy" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
@@ -59,5 +42,5 @@
 	<uses-permission android:name="android.permission.USE_CREDENTIALS" />
 	<permission android:name="com.app.quizbox.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 	<uses-permission android:name="com.app.quizbox.permission.C2D_MESSAGE" />
-	<uses-permission android:name="android.permission.GET_TASKS" />
+	<uses-permission android:name="android.permission.GET_TASKS"/>
 </manifest>

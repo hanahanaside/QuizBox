@@ -11,8 +11,7 @@ public class HistoryDataDao
 	private const string TITLE_FIELD = "title";
 	private const string MODE_FIELD = "mode";
 	private const string RESULT_FIELD = "result";
-	private const string DATE_FIELD = "date"; 
-	private const string FLAG_TWEET_FIELD = "flag_tweet";
+	private const string DATE_FIELD = "date";
 	private static HistoryDataDao sInstance;
 
 	public static HistoryDataDao instance{
@@ -33,17 +32,6 @@ public class HistoryDataDao
 		sqliteDB.Close ();
 	}
 
-	public void UpdateHistoryData(HistoryData historyData){
-		SQLiteDB sqliteDB = OpenDB ();
-		StringBuilder sb = new StringBuilder ();
-		sb.Append ("update " + TABLE_NAME + " ");
-		sb.Append ("set " + FLAG_TWEET_FIELD + " = " + historyData.flagTweet + " ");
-		sb.Append ("where " + ID_FIELD + " = " + historyData.id + ";");
-		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString());
-		sqliteQuery.Step();
-		sqliteDB.Close ();
-	}
-
 	public IList<HistoryData> QueryHistoryDataList ()
 	{
 		IList<HistoryData> historyDataList = new List<HistoryData> ();
@@ -58,7 +46,6 @@ public class HistoryDataDao
 			historyData.mode = sqliteQuery.GetString (MODE_FIELD);
 			historyData.result = sqliteQuery.GetString (RESULT_FIELD);
 			historyData.date = sqliteQuery.GetString (DATE_FIELD);
-			historyData.flagTweet = sqliteQuery.GetInteger (FLAG_TWEET_FIELD);
 			historyDataList.Add (historyData);
 		}
 		return historyDataList;
@@ -81,8 +68,7 @@ public class HistoryDataDao
 		sb.Append ("'" + historyData.title + "',");
 		sb.Append ("'" + historyData.mode + "',");
 		sb.Append ("'" + historyData.result + "',");
-		sb.Append ("'" + historyData.date + "',");
-		sb.Append (historyData.flagTweet);
+		sb.Append ("'" + historyData.date + "'");
 		sb.Append (");");
 		return sb.ToString ();
 	}

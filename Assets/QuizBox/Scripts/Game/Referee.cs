@@ -23,7 +23,7 @@ public class Referee : MonoBehaviour {
 	}
 
 	private void ShowAnswerDialog (string answer, bool isCorrect) {
-		ImobileManager.Instance.ShowRectangleAd ();
+		AdManager.Instance.ShowRectangleAd ();
 		answerDialog.SetActive (true);
 		answerLabel.text = "正解は「" + answer + "」";
 		string spriteName;
