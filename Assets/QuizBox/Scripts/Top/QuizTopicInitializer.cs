@@ -9,7 +9,7 @@ public class QuizTopicInitializer : MonoBehaviour {
 	public UIGrid grid;
 	public UIScrollView scrollView;
 	public GameObject incentiveButtonPrefab;
-	
+
 	void Start () {
 		DateTime dtNow = DateTime.Now;
 		string installedDate = PrefsManager.Instance.InstalledDate;
@@ -27,13 +27,13 @@ public class QuizTopicInitializer : MonoBehaviour {
 //		} 
 
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
-		for(int i = 0;i<quizList.Count;i++){
-			IDictionary quiz = quizList[i];
+		for (int i = 0; i < quizList.Count; i++) {
+			IDictionary quiz = quizList [i];
 			GameObject cellObject = Instantiate (topCellPrefab) as GameObject;
 			grid.AddChild (cellObject.transform);
-			cellObject.transform.localPosition = new Vector3 (0,-(float)i,0);
 			cellObject.transform.localScale = new Vector2 (1f, 1f);
 			int id = (int)quiz [QuizListDao.ID_FIELD];
+			int orderNumber = (int)quiz [QuizListDao.ORDER_NUMBER_FIELD];
 			string name = (string)quiz [QuizListDao.TITLE_FIELD];
 			Debug.Log ("name " + name);
 			string quizUrl = (string)quiz [QuizListDao.QUIZ_URL_FIELD];
@@ -43,6 +43,7 @@ public class QuizTopicInitializer : MonoBehaviour {
 			cellTop.name = name;
 			cellTop.quizUrl = quizUrl;
 			cellTop.boughtDate = boughtDate;
+			cellObject.transform.localPosition = new Vector3 (0, -(float)orderNumber, 0);
 		}
 
 		scrollView.ResetPosition ();
