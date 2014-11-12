@@ -255,7 +255,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\PostQuizDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PrivacyPolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ProductListKeeper.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\Top\QuizTopicInitializer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\QuizTopicDialogManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\RecommendAppChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ReviewAppChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ReviewDialog.cs" />

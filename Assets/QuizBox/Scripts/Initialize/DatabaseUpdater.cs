@@ -44,24 +44,63 @@ public class DatabaseUpdater : MonoBehaviour {
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
 		switch(databaseVersion){
 		case 0:
-			UpdateToVersion1 ();
-			return;
+			//quiz id カラムを追加
+			AddQuizIdField ();
+			//order numberカラムを追加
+			AddOrderNumberField ();
+			//クイズIDをアップデート
+			UpdateQuizIdField ();
+			//order numberをアップデート
+			UpdateOrderNumberField ();
+			break;
+		case 1:
+			//order numberカラムを追加
+			AddOrderNumberField ();
+			//order numberをアップデート
+			UpdateOrderNumberField ();
+			PrefsManager.Instance.DatabaseVersion = 2;
+			updatedDatabaseEvent ();
+			break;
+		case 2:
+			//やることなし
+			updatedDatabaseEvent ();
+			break;
 		}
-		updatedDatabaseEvent ();
 	}
 
-	private void UpdateToVersion1 () {
-		Debug.Log ("Update to ver1");
+	private void AddQuizIdField(){
+		Debug.Log ("クイズIDカラムを追加");
 		try{
 			QuizListDao.instance.AddQuizIdField ();
 		}catch(Exception e){
 			Debug.Log ("error " + e);
 		}
+	}
+
+	private void AddOrderNumberField(){
+		Debug.Log ("Order Number カラムを追加");
+		try{
+			QuizListDao.instance.AddOrderNumberField();
+		}catch(Exception e){
+			Debug.Log ("error " + e);
+		}
+	}
+
+	private void UpdateOrderNumberField(){
+		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+		foreach(IDictionary quiz in quizList){
+			quiz [QuizListDao.ORDER_NUMBER] = quiz [QuizListDao.ID_FIELD];
+			QuizListDao.instance.UpdateQuiz (quiz);
+		}
+	}
+
+	private void UpdateQuizIdField () {
+		Debug.Log ("Update Quiz Id Field");
 
 		WWWClient wwwClient = new WWWClient (this, JSON_URL);
 		wwwClient.OnSuccess = (string response) => {
 			UpdateQuizId (response);
-			PrefsManager.Instance.DatabaseVersion = 1;
+			PrefsManager.Instance.DatabaseVersion = 2;
 			updatedDatabaseEvent ();
 		};
 		wwwClient.OnFail = (string response) => {
