@@ -31,35 +31,30 @@ public class DatabaseUpdater : MonoBehaviour {
 		#endif
 	}
 
-	void alertButtonClickedEvent (string clickedButton) {
+	void alertButtonClickedEvent(string clickedButton){
 		Application.Quit ();
 	}
 
-	void alertCancelledEvent () {
+	void alertCancelledEvent(){
 		ShowErrorDialog ();
 	}
 
 	public void UpdateDatabase () {
 		Debug.Log ("update database");
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
-		switch (databaseVersion) {
+		switch(databaseVersion){
 		case 0:
 			UpdateToVersion1 ();
-			break;
-		case 1:
-			UpdateToVersion2 ();
-			break;
-		case 2:
-			updatedDatabaseEvent ();
-			break;
+			return;
 		}
+		updatedDatabaseEvent ();
 	}
 
 	private void UpdateToVersion1 () {
 		Debug.Log ("Update to ver1");
-		try {
+		try{
 			QuizListDao.instance.AddQuizIdField ();
-		} catch (Exception e) {
+		}catch(Exception e){
 			Debug.Log ("error " + e);
 		}
 
@@ -67,10 +62,10 @@ public class DatabaseUpdater : MonoBehaviour {
 		wwwClient.OnSuccess = (string response) => {
 			UpdateQuizId (response);
 			PrefsManager.Instance.DatabaseVersion = 1;
-			UpdateDatabase();
+			updatedDatabaseEvent ();
 		};
 		wwwClient.OnFail = (string response) => {
-			Debug.Log ("onFail");
+			Debug.Log("onFail");
 			#if !UNITY_EDITOR
 			ShowErrorDialog();
 			#endif
@@ -88,7 +83,7 @@ public class DatabaseUpdater : MonoBehaviour {
 		IList jsonArray = (IList)Json.Deserialize (response);
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
 		//銀魂クイズのquizIdを73にする
-		IDictionary gintamaQuiz = quizList [0];
+		IDictionary gintamaQuiz = quizList[0];
 		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
 		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
 		foreach (IDictionary quiz in quizList) {
@@ -96,16 +91,9 @@ public class DatabaseUpdater : MonoBehaviour {
 		}
 	}
 
-	private void UpdateToVersion2 () {
-		Debug.Log ("Update to ver2");
-		QuizListDao.instance.AddOrderNumberField (); 
-		PrefsManager.Instance.DatabaseVersion = 2;
-		UpdateDatabase ();
-	}
-
 	//名前で検索して、対応するクイズIDを挿入する
 	private void CheckIndexOfTitle (IList jsonArray, IDictionary quiz) {
-		string quizTitle = (string)quiz [QuizListDao.TITLE_FIELD];
+		string quizTitle = (string)quiz[QuizListDao.TITLE_FIELD];
 		Debug.Log ("quizTitle = " + quizTitle);
 		foreach (Dictionary<string,object> jsonObject in jsonArray) {
 			string jsonObjectTitle = (string)jsonObject ["title"];
@@ -120,12 +108,12 @@ public class DatabaseUpdater : MonoBehaviour {
 		}
 	}
 
-	private void ShowErrorDialog () {
+	private void ShowErrorDialog(){
 		string title = "通信エラー";
 		string message = "1度アプリを終了します";
 		#if UNITY_IPHONE
-		string[] buttons = { "OK" };
-		EtceteraBinding.showAlertWithTitleMessageAndButtons (title, message, buttons);
+		string[] buttons = {"OK"};
+		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
 		#endif
 
 		#if UNITY_ANDROID
