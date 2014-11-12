@@ -44,63 +44,24 @@ public class DatabaseUpdater : MonoBehaviour {
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
 		switch(databaseVersion){
 		case 0:
-			//quiz id カラムを追加
-			AddQuizIdField ();
-			//order numberカラムを追加
-			AddOrderNumberField ();
-			//クイズIDをアップデート
-			UpdateQuizIdField ();
-			//order numberをアップデート
-			UpdateOrderNumberField ();
-			break;
-		case 1:
-			//order numberカラムを追加
-			AddOrderNumberField ();
-			//order numberをアップデート
-			UpdateOrderNumberField ();
-			PrefsManager.Instance.DatabaseVersion = 2;
-			updatedDatabaseEvent ();
-			break;
-		case 2:
-			//やることなし
-			updatedDatabaseEvent ();
-			break;
+			UpdateToVersion1 ();
+			return;
 		}
+		updatedDatabaseEvent ();
 	}
 
-	private void AddQuizIdField(){
-		Debug.Log ("クイズIDカラムを追加");
+	private void UpdateToVersion1 () {
+		Debug.Log ("Update to ver1");
 		try{
 			QuizListDao.instance.AddQuizIdField ();
 		}catch(Exception e){
 			Debug.Log ("error " + e);
 		}
-	}
-
-	private void AddOrderNumberField(){
-		Debug.Log ("Order Number カラムを追加");
-		try{
-			QuizListDao.instance.AddOrderNumberField();
-		}catch(Exception e){
-			Debug.Log ("error " + e);
-		}
-	}
-
-	private void UpdateOrderNumberField(){
-		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
-		foreach(IDictionary quiz in quizList){
-			quiz [QuizListDao.ORDER_NUMBER] = quiz [QuizListDao.ID_FIELD];
-			QuizListDao.instance.UpdateQuiz (quiz);
-		}
-	}
-
-	private void UpdateQuizIdField () {
-		Debug.Log ("Update Quiz Id Field");
 
 		WWWClient wwwClient = new WWWClient (this, JSON_URL);
 		wwwClient.OnSuccess = (string response) => {
 			UpdateQuizId (response);
-			PrefsManager.Instance.DatabaseVersion = 2;
+			PrefsManager.Instance.DatabaseVersion = 1;
 			updatedDatabaseEvent ();
 		};
 		wwwClient.OnFail = (string response) => {
@@ -124,13 +85,14 @@ public class DatabaseUpdater : MonoBehaviour {
 		//銀魂クイズのquizIdを73にする
 		IDictionary gintamaQuiz = quizList[0];
 		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
+		//銀魂クイズと金魂クイズのどちらかの可能性があるので魂クイズにする
+		gintamaQuiz[QuizListDao.TITLE_FIELD] = "魂クイズ";
 		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
 		foreach (IDictionary quiz in quizList) {
 			CheckIndexOfTitle (jsonArray, quiz);
 		}
 	}
 
-	//名前で検索して、対応するクイズIDを挿入する
 	private void CheckIndexOfTitle (IList jsonArray, IDictionary quiz) {
 		string quizTitle = (string)quiz[QuizListDao.TITLE_FIELD];
 		Debug.Log ("quizTitle = " + quizTitle);
@@ -148,6 +110,7 @@ public class DatabaseUpdater : MonoBehaviour {
 	}
 
 	private void ShowErrorDialog(){
+		ConnectingDialog.Hide ();
 		string title = "通信エラー";
 		string message = "1度アプリを終了します";
 		#if UNITY_IPHONE

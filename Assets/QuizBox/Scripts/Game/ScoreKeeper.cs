@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScoreKeeper : MonoBehaviour {
+public class ScoreKeeper : MonoBehaviour
+{
 
 	private static ScoreKeeper sInstance;
 
 	public int score{ get; set; }
+
+	private bool created = false;
 
 	public static ScoreKeeper instance {
 		get {
@@ -13,9 +16,13 @@ public class ScoreKeeper : MonoBehaviour {
 		}
 	}
 
-	void Awake () {
-		sInstance = this;
-		DontDestroyOnLoad (gameObject);
-	//	score = QuizListManager.instance.correctCount;
+	void Awake ()
+	{
+		if (!created) {
+			sInstance = this;
+			DontDestroyOnLoad (gameObject);
+			created = true;
+		}
+		score = QuizListManager.instance.correctCount;
 	}
 }

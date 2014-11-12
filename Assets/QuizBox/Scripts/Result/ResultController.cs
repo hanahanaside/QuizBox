@@ -19,16 +19,15 @@ public class ResultController : MonoBehaviour {
 	}
 
 	public void OnRetryClick () {
-		DestroyEffect ();
 		Reset ();
 		QuizListManager.instance.Retry ();
 		Application.LoadLevel ("Game");
 	}
 
 	public void OnTopClick () {
-		DestroyEffect ();
 		Reset ();
-		Application.LoadLevel ("Title");
+		QuizListManager.instance.ReleaseQuizList ();
+		Application.LoadLevel ("Top");
 	
 	}
 
@@ -46,7 +45,4 @@ public class ResultController : MonoBehaviour {
 		ScoreKeeper.instance.score = 0;
 	}
 
-	private void DestroyEffect(){
-		Destroy (GameObject.FindWithTag ("Effect"));
-	}
 }

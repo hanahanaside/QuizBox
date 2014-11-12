@@ -4,8 +4,7 @@ using System.Collections;
 public class HistoryData
 {
 
-	private int mId; 
-	private int mFlagTweet;
+	private int mId;
 	private double mAverage;
 	private string mTitle;
 	private string mMode;
@@ -66,12 +65,5 @@ public class HistoryData
 		}
 	}
 
-	public int flagTweet{
-		get{
-			return mFlagTweet;
-		}
-		set{
-			mFlagTweet = value;
-		}
-	}
+
 }

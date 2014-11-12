@@ -4,21 +4,11 @@ using System;
 
 public class Test : MonoBehaviour {
 
-	private float mTime;
-	private bool mPress;
+	public static string screenshotFilename = "someScreenshot.png";
 
-	void OnPress(bool isDown){
-		Debug.Log ("press " + isDown);
-		mPress = isDown;
-		if(isDown){
-			mTime = 2.0f;
-		}
+	void Start(){
+		Debug.Log (DateTime.Now.ToString());
 	}
 
-	void Update(){
-		if(mPress){
-			mTime -= Time.deltaTime;
-			Debug.Log ("time = " + mTime);
-		}
-	}
+
 }

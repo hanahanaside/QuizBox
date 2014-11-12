@@ -10,37 +10,41 @@ public class APNsRegister : MonoBehaviour {
 
 	#if UNITY_IPHONE
 	
-	void OnEnable () {
+	void OnEnable ()
+	{
 		EtceteraManager.remoteRegistrationSucceededEvent += remoteRegistrationSucceeded;
 		EtceteraManager.remoteRegistrationFailedEvent += remoteRegistrationFailed;
 	}
-
-	void OnDisable () {
+	
+	void OnDisable ()
+	{
 		EtceteraManager.remoteRegistrationSucceededEvent -= remoteRegistrationSucceeded;
 		EtceteraManager.remoteRegistrationFailedEvent -= remoteRegistrationFailed;
 	}
 
-	void Start () {
-		#if !UNITY_EDITOR
+	void Start ()
+	{
 		if (!PrefsManager.Instance.isRegistered ()) {
 			Debug.Log ("登録開始");
-			DontDestroyOnLoad (gameObject);
+			DontDestroyOnLoad(gameObject);
 			RegisterForRemoteNotifcations ();
-		} else {
+		}else {
 			Debug.Log ("登録済み");
 		} 
-		#endif
+
 	}
 
-	void remoteRegistrationFailed (string error) {
+	void remoteRegistrationFailed (string error)
+	{
 		Debug.Log ("remoteRegistrationFailed : " + error);
 	}
-
-	void remoteRegistrationSucceeded (string deviceToken) {
+	
+	void remoteRegistrationSucceeded (string deviceToken)
+	{
 		Debug.Log ("remoteRegistrationSucceeded : " + deviceToken);
 		
 		string osVersion = SystemInfo.operatingSystem.Replace ("iPhone OS ", "");
-		string platform = iPhone.generation.ToString ();
+		string platform = iPhone.generation.ToString();
 		Debug.Log ("osVersion = " + osVersion);
 		Debug.Log ("platform = " + platform);
 		Debug.Log ("projectId = " + projectId);
@@ -54,13 +58,15 @@ public class APNsRegister : MonoBehaviour {
 	}
 
 
-	private void RegisterForRemoteNotifcations () {
-		//	NotificationServices.RegisterForRemoteNotificationTypes (RemoteNotificationType.Alert | RemoteNotificationType.Badge | RemoteNotificationType.Sound);
+	private void RegisterForRemoteNotifcations ()
+	{
+	//	NotificationServices.RegisterForRemoteNotificationTypes (RemoteNotificationType.Alert | RemoteNotificationType.Badge | RemoteNotificationType.Sound);
 		EtceteraBinding.registerForRemoteNotifcations (P31RemoteNotificationType.Alert | P31RemoteNotificationType.Badge | P31RemoteNotificationType.Sound);
 	}
+	
 
-
-	private IEnumerator SendDeviceToken (WWWForm wwwForm) {
+	private IEnumerator SendDeviceToken (WWWForm wwwForm)
+	{
 		Debug.Log ("SendDeviceToken");
 		WWW www = new WWW (TT5_URL, wwwForm);
 		yield return www;
@@ -72,8 +78,7 @@ public class APNsRegister : MonoBehaviour {
 		} else {
 			Debug.Log ("WWW Error: " + www.error);
 		}
-		Destroy (gameObject);
 	}
 	
-	#endif
+#endif
 }

@@ -28,12 +28,6 @@ public class UIDragObject : MonoBehaviour
 	public Transform target;
 
 	/// <summary>
-	/// Panel that will be used for constraining the target.
-	/// </summary>
-
-	public UIPanel panelRegion;
-
-	/// <summary>
 	/// Scale value applied to the drag delta. Set X or Y to 0 to disallow dragging in that direction.
 	/// </summary>
 
@@ -78,6 +72,7 @@ public class UIDragObject : MonoBehaviour
 	Plane mPlane;
 	Vector3 mTargetPos;
 	Vector3 mLastPos;
+	UIPanel mPanel;
 	Vector3 mMomentum = Vector3.zero;
 	Vector3 mScroll = Vector3.zero;
 	Bounds mBounds;
@@ -112,8 +107,8 @@ public class UIDragObject : MonoBehaviour
 
 	void FindPanel ()
 	{
-		panelRegion = (target != null) ? UIPanel.Find(target.transform.parent) : null;
-		if (panelRegion == null) restrictWithinPanel = false;
+		mPanel = (target != null) ? UIPanel.Find(target.transform.parent) : null;
+		if (mPanel == null) restrictWithinPanel = false;
 	}
 
 	/// <summary>
@@ -124,7 +119,7 @@ public class UIDragObject : MonoBehaviour
 	{
 		if (contentRect)
 		{
-			Transform t = panelRegion.cachedTransform;
+			Transform t = mPanel.cachedTransform;
 			Matrix4x4 toLocal = t.worldToLocalMatrix;
 			Vector3[] corners = contentRect.worldCorners;
 			for (int i = 0; i < 4; ++i) corners[i] = toLocal.MultiplyPoint3x4(corners[i]);
@@ -133,7 +128,7 @@ public class UIDragObject : MonoBehaviour
 		}
 		else
 		{
-			mBounds = NGUIMath.CalculateRelativeWidgetBounds(panelRegion.cachedTransform, target);
+			mBounds = NGUIMath.CalculateRelativeWidgetBounds(mPanel.cachedTransform, target);
 		}
 	}
 
@@ -155,7 +150,7 @@ public class UIDragObject : MonoBehaviour
 					mStarted = false;
 					CancelMovement();
 
-					if (restrictWithinPanel && panelRegion == null) FindPanel();
+					if (restrictWithinPanel && mPanel == null) FindPanel();
 					if (restrictWithinPanel) UpdateBounds();
 
 					// Disable the spring movement
@@ -163,7 +158,7 @@ public class UIDragObject : MonoBehaviour
 
 					// Create the plane to drag along
 					Transform trans = UICamera.currentCamera.transform;
-					mPlane = new Plane((panelRegion != null ? panelRegion.cachedTransform.rotation : trans.rotation) * Vector3.back, UICamera.lastWorldPosition);
+					mPlane = new Plane((mPanel != null ? mPanel.cachedTransform.rotation : trans.rotation) * Vector3.back, UICamera.lastHit.point);
 				}
 			}
 			else if (mPressed && mTouchID == UICamera.currentTouchID)
@@ -172,7 +167,7 @@ public class UIDragObject : MonoBehaviour
 				
 				if (restrictWithinPanel && dragEffect == DragEffect.MomentumAndSpring)
 				{
-					if (panelRegion.ConstrainTargetToBounds(target, ref mBounds, false))
+					if (mPanel.ConstrainTargetToBounds(target, ref mBounds, false))
 						CancelMovement();
 				}
 			}
@@ -225,7 +220,7 @@ public class UIDragObject : MonoBehaviour
 					mBounds.center = mBounds.center + (target.localPosition - before);
 
 					// Constrain the UI to the bounds, and if done so, immediately eliminate the momentum
-					if (dragEffect != DragEffect.MomentumAndSpring && panelRegion.ConstrainTargetToBounds(target, ref mBounds, true))
+					if (dragEffect != DragEffect.MomentumAndSpring && mPanel.ConstrainTargetToBounds(target, ref mBounds, true))
 						CancelMovement();
 				}
 			}
@@ -238,7 +233,7 @@ public class UIDragObject : MonoBehaviour
 
 	void Move (Vector3 worldDelta)
 	{
-		if (panelRegion != null)
+		if (mPanel != null)
 		{
 			mTargetPos += worldDelta;
 			target.position = mTargetPos;
@@ -248,7 +243,7 @@ public class UIDragObject : MonoBehaviour
 			after.y = Mathf.Round(after.y);
 			target.localPosition = after;
 
-			UIScrollView ds = panelRegion.GetComponent<UIScrollView>();
+			UIScrollView ds = mPanel.GetComponent<UIScrollView>();
 			if (ds != null) ds.UpdateScrollbars(true);
 		}
 		else target.position += worldDelta;
@@ -275,15 +270,15 @@ public class UIDragObject : MonoBehaviour
 			if (mMomentum.magnitude < 0.0001f) return;
 
 			// Apply the momentum
-			if (panelRegion == null) FindPanel();
+			if (mPanel == null) FindPanel();
 
 			Move(NGUIMath.SpringDampen(ref mMomentum, 9f, delta));
 
-			if (restrictWithinPanel && panelRegion != null)
+			if (restrictWithinPanel && mPanel != null)
 			{
 				UpdateBounds();
 
-				if (panelRegion.ConstrainTargetToBounds(target, ref mBounds, dragEffect == DragEffect.None))
+				if (mPanel.ConstrainTargetToBounds(target, ref mBounds, dragEffect == DragEffect.None))
 				{
 					CancelMovement();
 				}

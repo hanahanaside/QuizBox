@@ -9,7 +9,7 @@ public class LoginManager : MonoBehaviour {
 	private static readonly string URL = "https://ntp-a1.nict.go.jp/cgi-bin/json";
 	public UILabel userPointLabel;
 
-	void Awake () {
+	void Start () {
 		Debug.Log ("check login");
 		WWWClient wwwClient = new WWWClient (this, URL);
 		wwwClient.OnSuccess = (string response) => {
