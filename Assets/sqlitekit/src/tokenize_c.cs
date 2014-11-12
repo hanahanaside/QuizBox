@@ -1,4 +1,4 @@
-﻿#define SQLITE_ASCII
+#define SQLITE_ASCII
 #define SQLITE_DISABLE_LFS
 #define SQLITE_ENABLE_OVERSIZE_CELL_CHECK
 #define SQLITE_MUTEX_OMIT
@@ -149,8 +149,7 @@ namespace Community.CsharpSqlite
     static int sqlite3GetToken( string z, int iOffset, ref int tokenType )
     {
       int i;
-
-	char c = '\0'; //￥を半角して下さい 
+      byte c = 0;
       switch ( z[iOffset + 0] )
       {
         case ' ':
@@ -175,7 +174,7 @@ namespace Community.CsharpSqlite
             if ( z.Length > iOffset + 1 && z[iOffset + 1] == '-' )
             {
               /* IMP: R-15891-05542 -- syntax diagram for comments */
-              for ( i = 2; z.Length > iOffset + i && ( c = z[iOffset + i] ) != 0 && c != '\n'; i++ )
+              for ( i = 2; z.Length > iOffset + i && ( c = (byte)z[iOffset + i] ) != 0 && c != '\n'; i++ )
               {
               }
               tokenType = TK_SPACE;   /* IMP: R-22934-25134 */
@@ -217,12 +216,12 @@ namespace Community.CsharpSqlite
               return 1;
             }
             /* IMP: R-15891-05542 -- syntax diagram for comments */
-            for ( i = 3, c = z[iOffset + 2]; iOffset + i < z.Length && ( c != '*' || ( z[iOffset + i] != '/' ) && ( c != 0 ) ); i++ )
+            for ( i = 3, c = (byte)z[iOffset + 2]; iOffset + i < z.Length && ( c != '*' || ( z[iOffset + i] != '/' ) && ( c != 0 ) ); i++ )
             {
-              c = z[iOffset + i];
+              c = (byte)z[iOffset + i];
             }
             if ( iOffset + i == z.Length )
-              c = '\0';
+              c = 0;
             if ( c != 0 )
               i++;
             tokenType = TK_SPACE; /* IMP: R-22934-25134 */
@@ -240,7 +239,7 @@ namespace Community.CsharpSqlite
           }
         case '<':
           {
-            if ( ( c = z[iOffset + 1] ) == '=' )
+            if ( ( c = (byte)z[iOffset + 1] ) == '=' )
             {
               tokenType = TK_LE;
               return 2;
@@ -263,7 +262,7 @@ namespace Community.CsharpSqlite
           }
         case '>':
           {
-            if ( z.Length > iOffset + 1 && ( c = z[iOffset + 1] ) == '=' )
+            if ( z.Length > iOffset + 1 && ( c = (byte)z[iOffset + 1] ) == '=' )
             {
               tokenType = TK_GE;
               return 2;
@@ -328,7 +327,7 @@ namespace Community.CsharpSqlite
             testcase( delim == '`' );
             testcase( delim == '\'' );
             testcase( delim == '"' );
-            for ( i = 1; ( iOffset + i ) < z.Length && ( c = z[iOffset + i] ) != 0; i++ )
+            for ( i = 1; ( iOffset + i ) < z.Length && ( c = (byte)z[iOffset + i] ) != 0; i++ )
             {
               if ( c == delim )
               {
@@ -425,7 +424,7 @@ namespace Community.CsharpSqlite
               tokenType = TK_FLOAT;
             }
 #endif
-            while ( iOffset + i < z.Length && IdChar( z[iOffset + i] ) )
+            while ( iOffset + i < z.Length && IdChar( (byte)z[iOffset + i] ) )
             {
               tokenType = TK_ILLEGAL;
               i++;
@@ -435,7 +434,7 @@ namespace Community.CsharpSqlite
 
         case '[':
           {
-            for ( i = 1, c = z[iOffset + 0]; c != ']' && ( iOffset + i ) < z.Length && ( c = z[iOffset + i] ) != 0; i++ )
+            for ( i = 1, c = (byte)z[iOffset + 0]; c != ']' && ( iOffset + i ) < z.Length && ( c = (byte)z[iOffset + i] ) != 0; i++ )
             {
             }
             tokenType = c == ']' ? TK_ID : TK_ILLEGAL;
@@ -476,7 +475,7 @@ namespace Community.CsharpSqlite
             testcase( z[iOffset + 0] == '@' );
             testcase( z[iOffset + 0] == ':' );
             tokenType = TK_VARIABLE;
-            for ( i = 1; z.Length > iOffset + i && ( c = z[iOffset + i] ) != 0; i++ )
+            for ( i = 1; z.Length > iOffset + i && ( c = (byte)z[iOffset + i] ) != 0; i++ )
             {
               if ( IdChar( c ) )
               {
@@ -488,7 +487,7 @@ namespace Community.CsharpSqlite
                 do
                 {
                   i++;
-                } while ( ( iOffset + i ) < z.Length && ( c = z[iOffset + i] ) != 0 && !sqlite3Isspace( c ) && c != ')' );
+                } while ( ( iOffset + i ) < z.Length && ( c = (byte)z[iOffset + i] ) != 0 && !sqlite3Isspace( c ) && c != ')' );
                 if ( c == ')' )
                 {
                   i++;
@@ -543,11 +542,11 @@ namespace Community.CsharpSqlite
 #endif
         default:
           {
-            if ( !IdChar( z[iOffset] ) )
+            if ( !IdChar( (byte)z[iOffset] ) )
             {
               break;
             }
-            for ( i = 1; i < z.Length - iOffset && IdChar( z[iOffset + i] ); i++ )
+            for ( i = 1; i < z.Length - iOffset && IdChar( (byte)z[iOffset + i] ); i++ )
             {
             }
             tokenType = keywordCode( z, iOffset, i );

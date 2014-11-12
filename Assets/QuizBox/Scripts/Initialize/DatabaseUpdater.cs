@@ -45,11 +45,9 @@ public class DatabaseUpdater : MonoBehaviour {
 		switch(databaseVersion){
 		case 0:
 			UpdateToVersion1 ();
-			break;
-		case 1:
-			updatedDatabaseEvent ();
-			break;
+			return;
 		}
+		updatedDatabaseEvent ();
 	}
 
 	private void UpdateToVersion1 () {

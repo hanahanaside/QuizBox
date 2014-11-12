@@ -85,9 +85,7 @@ public class QuizListDao {
 		sb.Append ("'" + DateTime.Now.ToString ("yyyy/MM/dd") + "',");
 		sb.Append (quizId);
 		sb.Append (");");
-		Debug.Log ("sql = " + sb.ToString());
 		QuerySQL (sqliteDB, sb.ToString ());
-
 	}
 
 	public void UpdateChallengeData (string jsonString, int quizCount, int correctCount, int id) {
