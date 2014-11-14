@@ -16,12 +16,9 @@ public class PostQuizDialogController : MonoBehaviour {
 	public UIInput answerInput;
 	public UIInput mistake1Input;
 	public UIInput mistake2Input;
-	public GameObject usePolicyDialogPrefab;
-	public GameObject uiRoot;
-	public BackDialog backDialog;
+	public GameObject usePolicyDialog;
 	public GameObject postSuccessDialog;
 	public UILabel successLabel;
-	public PostCountDataKeeper postCountDataKeeper;
 
 	void Start () {
 		TouchScreenKeyboard.hideInput = true;
@@ -60,17 +57,12 @@ public class PostQuizDialogController : MonoBehaviour {
 	}
 		
 	public void OnCloseButtonClicked () {
-		#if UNITY_EDITOR
-		Application.LoadLevel("Top");
-		#else
-		backDialog.Show();
-		#endif
+		ImobileManager.Instance.HideRectangleAd ();
+		Destroy (transform.parent.gameObject);
 	}
 
 	public void OnUsePolicyClicked () {
-		GameObject usePolicyDialog = Instantiate (usePolicyDialogPrefab) as GameObject;
-		usePolicyDialog.transform.parent = uiRoot.transform;
-		usePolicyDialog.transform.localScale = new Vector3 (1, 1, 1);
+		usePolicyDialog.SetActive (true);
 	}
 
 	private IEnumerator PostData (WWW www) {
@@ -116,7 +108,7 @@ public class PostQuizDialogController : MonoBehaviour {
 		bool result = (bool)dictionary ["result"];
 		Debug.Log ("result = " + result);
 		if (result) {
-			postCountDataKeeper.UpdatePostCountData ();
+			PostCountDataKeeper.Instance.UpdatePostCountData ();
 			ShowSuccessDialog ();
 			ResetInputLabel ();
 		} else {
@@ -154,7 +146,7 @@ public class PostQuizDialogController : MonoBehaviour {
 
 	private void ShowSuccessDialog () {
 		ImobileManager.Instance.ShowRectangleAd ();
-		postSuccessDialog.SetActive(true);
+		postSuccessDialog.SetActive (true);
 		PostCountData postCountData = PrefsManager.Instance.GetPostCountData ();
 		string title = "\u6295\u7a3f\u3057\u307e\u3057\u305f";
 		string message = "";
@@ -164,6 +156,5 @@ public class PostQuizDialogController : MonoBehaviour {
 			message = "1\u65e5\u306b\u7372\u5f97\u3067\u304d\u308bpt\u306f10pt\u307e\u3067\u3067\u3059";
 		}
 		successLabel.text = title + "\n" + message;
-		transform.parent.gameObject.SetActive(false);
 	}
 }
