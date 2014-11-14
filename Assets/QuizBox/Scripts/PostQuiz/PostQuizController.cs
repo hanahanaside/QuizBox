@@ -14,7 +14,7 @@ public class PostQuizController : MonoBehaviour {
 	}
 
 	public void OnCloseSuccessDialogClick(){
-		AdManager.Instance.HideRectangleAd ();
+		ImobileManager.Instance.HideRectangleAd ();
 		postSuccessDialog.SetActive (false);
 		postQuizDialog.SetActive (true);
 	}
