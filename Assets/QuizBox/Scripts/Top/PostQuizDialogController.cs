@@ -153,7 +153,7 @@ public class PostQuizDialogController : MonoBehaviour {
 	}
 
 	private void ShowSuccessDialog () {
-		AdManager.Instance.ShowRectangleAd ();
+		ImobileManager.Instance.ShowRectangleAd ();
 		postSuccessDialog.SetActive(true);
 		PostCountData postCountData = PrefsManager.Instance.GetPostCountData ();
 		string title = "\u6295\u7a3f\u3057\u307e\u3057\u305f";

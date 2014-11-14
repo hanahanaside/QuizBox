@@ -8,7 +8,7 @@ public class WWWClient {
 
 	public delegate void TimeOutDelegate ();
 
-	private const float TIME_OUT = 10.0f;
+	private const float TIME_OUT_INTERVAL = 10.0f;
 	private RequestFinishedDelegate mOnSuccess;
 	private RequestFinishedDelegate mOnFail;
 	private TimeOutDelegate mOnTimeOut;
@@ -103,7 +103,7 @@ public class WWWClient {
 	private  IEnumerator CheckTimeout () {
 		float startRequestTime = Time.time;
 		while (!mWWW.isDone) {
-			if (Time.time - startRequestTime < TIME_OUT)
+			if (Time.time - startRequestTime < TIME_OUT_INTERVAL)
 				yield return null;
 			else {
 				//タイムアウト

@@ -31,6 +31,7 @@ public class TitleController : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
+			QuizListManager.instance.ReleaseQuizList();
 			Application.LoadLevel ("Top");
 		}
 	}
