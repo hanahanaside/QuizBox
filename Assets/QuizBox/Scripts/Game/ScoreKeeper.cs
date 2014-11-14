@@ -9,6 +9,9 @@ public class ScoreKeeper : MonoBehaviour {
 
 	public static ScoreKeeper instance {
 		get {
+			if(sInstance == null){
+				sInstance = new ScoreKeeper ();
+			}
 			return sInstance;
 		}
 	}

@@ -14,6 +14,7 @@ public class ResultInitializer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		SoundManager.Instance.PlayBGM (SoundManager.BGM_RESULT);
 		int score = ScoreKeeper.instance.score;
 		int size = QuizListManager.instance.quizList.Count;
 		string result = size + "問中" + score + "問正解!!";

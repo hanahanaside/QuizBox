@@ -19,6 +19,9 @@ public class QuizListManager : MonoBehaviour {
 
 	public static QuizListManager instance {
 		get {
+			if(sInstance == null){
+				sInstance = new QuizListManager ();
+			}
 			return sInstance;
 		}
 	}
