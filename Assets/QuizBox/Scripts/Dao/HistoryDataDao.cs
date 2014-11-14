@@ -64,8 +64,7 @@ public class HistoryDataDao {
 		sb.Append ("'" + historyData.title + "',");
 		sb.Append ("'" + historyData.mode + "',");
 		sb.Append ("'" + historyData.result + "',");
-		sb.Append ("'" + historyData.date + "',");
-		sb.Append (historyData.flagTweet);
+		sb.Append ("'" + historyData.date + "'");
 		sb.Append (");");
 		return sb.ToString ();
 	}
