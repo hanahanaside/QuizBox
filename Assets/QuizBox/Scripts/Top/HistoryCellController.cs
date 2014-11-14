@@ -33,8 +33,6 @@ public class HistoryCellController : MonoBehaviour {
 			PrefsManager.Instance.AddUserPoint(1);
 			TopController.Instance.UpdateUserPointLabel ();
 			tweetButton.SetActive (false);
-			mHistoryData.flagTweet = 1;
-			HistoryDataDao.instance.UpdateHistoryData (mHistoryData);
 			ShowCompleteDialog ();
 		}
 	}
