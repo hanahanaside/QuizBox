@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class IABManager : MonoBehaviour {
-	public string encodePublicKey = "";
 	public string[] skuArray;
-
 	#if UNITY_ANDROID
+	private const string ENCODE_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnJQKrNPiuR3RDojGvgE1ln/6OkhA60hp28gUZ7jwlE0uPfTr6NpYVHXM5kuvYldxOSiJjAT2HXKKHmLzpuqHJLcgQco/qs1Xq3QQtndueM4jxsG2H4Uyq6/upS04p/56hoTD4lob6CVZyDJcwPoM4x/CW6DXUWpV+3Y1gxUhEVRPg3F5aeQRBBybLTngCLV6VZ0KnBNa4oB4v2H/1pgNlKfCTqv2GNIK7Cr8ZibF07caH0pz7zkCrISmdPghvdzxBR+/ltRLs4U/6kE5A1azOtlnG0XqsnGGjCuhsungzEvB1e//pe8/dLRnfVCRY7AkdeYwdENNu/UuGyHDYLqdWwIDAQAB";
 
 	private static IABManager sInstance;
 
@@ -39,9 +38,13 @@ public class IABManager : MonoBehaviour {
 	void Awake () {
 		sInstance = this;
 		DontDestroyOnLoad (gameObject);
-		GoogleIAB.init (encodePublicKey);
+		GoogleIAB.init (ENCODE_PUBLIC_KEY);
 	}
-		
+
+	void Start () {
+
+	}
+
 	void purchaseFailedEvent (string error) {
 		Debug.Log ("purchaseFailedEvent: " + error);
 	}

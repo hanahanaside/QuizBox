@@ -15,7 +15,6 @@ public class PrefsManager {
 	private const string INSTALLED_DATE = "installedDate";
 	private const string LOGIN_DATE = "loginDate";
 	private const string DATABASE_VERSION = "databaseVersion";
-	private const string PAUSE_INCENTIVE_INTERVAL_DATE = "pauseIncentiveIntervalDate";
 	private static PrefsManager sInstance;
 
 	public static PrefsManager Instance {
@@ -146,14 +145,5 @@ public class PrefsManager {
 		postCountData.PostDate = postDate;
 		Debug.Log ("return");
 		return postCountData;
-	}
-
-	public string PauseIncentiveIntervalDate{
-		set{
-			PlayerPrefs.SetString (PAUSE_INCENTIVE_INTERVAL_DATE,value);
-		}
-		get{
-			return PlayerPrefs.GetString (PAUSE_INCENTIVE_INTERVAL_DATE,"");
-		}
 	}
 }
