@@ -32,32 +32,26 @@ public class QuizListDao {
 		sb.Append (TITLE_FIELD + " = '" + quiz [TITLE_FIELD] + "',");
 		sb.Append (QUIZ_URL_FIELD + " = '" + quiz [QUIZ_URL_FIELD] + "',");
 		sb.Append (BOUGHT_DATE_FIELD + " = '" + quiz [BOUGHT_DATE_FIELD] + "', ");
-		sb.Append (QUIZ_ID_FIELD + " = " + quiz [QUIZ_ID_FIELD] + ", ");
-		sb.Append (ORDER_NUMBER + " = " + quiz [ORDER_NUMBER] + " ");
+		sb.Append (QUIZ_ID_FIELD + " = " + quiz [QUIZ_ID_FIELD] + " ");
+	//	sb.Append (ORDER_NUMBER + " = " + quiz [ORDER_NUMBER] + " ");
 		sb.Append ("where " + ID_FIELD + " = " + quiz [ID_FIELD] + ";");
+		Debug.Log ("sql = " + sb.ToString());
 		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString ());
 		sqliteQuery.Step ();
 		sqliteDB.Close ();
 	}
 
-	public List<IDictionary> GetQuizList () {
+	public List<Quiz> GetQuizList () {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, "select * from quiz_list;");
 		List<IDictionary> quizList = new List<IDictionary> ();
 		while (sqliteQuery.Step ()) {
-			int id = sqliteQuery.GetInteger (ID_FIELD);
-			string title = sqliteQuery.GetString (TITLE_FIELD);
-			string quizUrl = sqliteQuery.GetString (QUIZ_URL_FIELD);
-			string boughtDate = sqliteQuery.GetString (BOUGHT_DATE_FIELD);
-			int quizId = sqliteQuery.GetInteger (QUIZ_ID_FIELD);
-			int orderNumber = sqliteQuery.GetInteger (ORDER_NUMBER);
-			IDictionary quiz = new Dictionary<object,object> ();
-			quiz.Add (ID_FIELD, id);
-			quiz.Add (TITLE_FIELD, title);
-			quiz.Add (QUIZ_URL_FIELD, quizUrl);
-			quiz.Add (BOUGHT_DATE_FIELD, boughtDate);
-			quiz.Add (QUIZ_ID_FIELD, quizId);
-			quiz.Add (ORDER_NUMBER, orderNumber);
+			Quiz quiz = new Quiz ();
+			quiz.Id = sqliteQuery.GetInteger (ID_FIELD);
+			quiz.Title = sqliteQuery.GetString (TITLE_FIELD);
+			quiz.QuizUrl = sqliteQuery.GetString (QUIZ_URL_FIELD);
+			quiz.BoughtDate = sqliteQuery.GetString (BOUGHT_DATE_FIELD);
+			quiz.QuizId = sqliteQuery.GetInteger (QUIZ_ID_FIELD);
 			quizList.Add (quiz);
 		}
 		sqliteDB.Close ();
@@ -97,20 +91,38 @@ public class QuizListDao {
 		QuerySQL (sqliteDB, sb.ToString ());
 	}
 
-	public void Insert(IDictionary quiz){
+	public void Insert(Quiz quiz){
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
 		sb.Append ("insert into quiz_list values(");
 		sb.Append ("null ,");//id
-		sb.Append ("'" + quiz[QuizListDao.TITLE_FIELD] + "',");//title
-		sb.Append ("'" + quiz[QuizListDao.QUIZ_URL_FIELD] + "',");//quiz url
-		sb.Append ("'" + quiz[QuizListDao.CHALLENGE_QUIZ_DATA_FIELD] + "'" + " ,");//challenge data
-		sb.Append (quiz[QuizListDao.CHALLENGE_QUIZ_COUNT] + " ,");//challenge count
-		sb.Append (quiz[QuizListDao.CHALLENGE_QUIZ_CORRECT] + " ,");//challenge correct
-		sb.Append ("'" + quiz[QuizListDao.BOUGHT_DATE_FIELD] + "',");//bought date
-		sb.Append (quiz[QuizListDao.QUIZ_ID_FIELD] + ",");//quiz id
-		sb.Append ("" + quiz[QuizListDao.ORDER_NUMBER]);//order number
+		sb.Append ("'" + quiz.Title + "',");//title
+		sb.Append ("'" + quiz.QuizUrl + "',");//quiz url
+
+	
+	//		sb.Append ("'" + quiz[QuizListDao.CHALLENGE_QUIZ_DATA_FIELD] + "'" + " ,");//challenge data
+		sb.Append ("'a'" + " ,");//challenge data
+	//	sb.Append (quiz[QuizListDao.CHALLENGE_QUIZ_COUNT] + " ,");//challenge count
+	//	sb.Append (quiz[QuizListDao.CHALLENGE_QUIZ_CORRECT] + " ,");//challenge correct
+
+		sb.Append ( quiz.ChallengeQuizCount + " ,");//challenge count
+		sb.Append ( quiz.ChallengeQuizCorrect+ " ,");//challenge correct
+		sb.Append ("'" + quiz.BoughtDate + "',");//bought date
+		sb.Append (quiz.QuizId);//quiz id
+	//	sb.Append ("" + quiz[QuizListDao.ORDER_NUMBER]);//order number
 		sb.Append (");");
+//		sb.Append ("insert into quiz_list values(");
+//		sb.Append ("null ,");//id
+//		sb.Append ("'" + "title" + "',");//title
+//		sb.Append ("'" + "quizUrl" + "',");//quiz url
+//		sb.Append ("'null' ,");
+//		sb.Append ("0 ,");
+//		sb.Append ("0 ,");
+//		sb.Append ("'" + DateTime.Now.ToString ("yyyy/MM/dd") + "',");
+//		sb.Append (0 + ",");
+//		sb.Append ("" + 0);//order number
+//		sb.Append (");");
+
 		QuerySQL (sqliteDB, sb.ToString ());
 	}
 
@@ -184,9 +196,10 @@ public class QuizListDao {
 	}
 
 	private void QuerySQL (SQLiteDB sqliteDB, string sql) {
+		Debug.Log ("sql = " + sql);
 		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sql);
 		sqliteQuery.Step ();
 		sqliteDB.Close ();
-		Debug.Log ("sql = " + sql);
+
 	}
 }

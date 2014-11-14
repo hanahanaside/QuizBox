@@ -43,25 +43,21 @@ public class DatabaseUpdater : MonoBehaviour {
 	public void UpdateDatabase () {
 		Debug.Log ("update database");
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
+		Debug.Log ("current version = " + databaseVersion);
 		switch(databaseVersion){
 		case 0:
-			//quiz id カラムを追加
-			AddQuizIdField ();
-			//order numberカラムを追加
-			AddOrderNumberField ();
 			//クイズIDをアップデート
 			UpdateQuizIdField ();
 			//order numberをアップデート
 			UpdateOrderNumberField ();
+			//DBバージョンを2にする
+			PrefsManager.Instance.DatabaseVersion = 2;
 			break;
 		case 1:
-			//order numberカラムを追加
-			AddOrderNumberField ();
-			//order numberをアップデート
-			UpdateOrderNumberField ();
-			//テーブルを作り直し
+			//テーブルデータを一時的に避難させる
 			IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
 			List<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+			//テーブルを再構築する
 			string baseFilePath = Application.streamingAssetsPath + "/" + "quiz_box.db";
 			string filePath = Application.persistentDataPath + "/" + "quiz_box.db";
 			File.Delete (filePath);
@@ -70,8 +66,11 @@ public class DatabaseUpdater : MonoBehaviour {
 				HistoryDataDao.instance.InsertHistoryData (historyData);
 			}
 			foreach(IDictionary quiz in quizList){
-
+				QuizListDao.instance.Insert (quiz);
 			}
+			//order numberをアップデート
+			UpdateOrderNumberField ();
+			//DBバージョンを2にする
 			PrefsManager.Instance.DatabaseVersion = 2;
 			updatedDatabaseEvent ();
 			break;
@@ -136,9 +135,9 @@ public class DatabaseUpdater : MonoBehaviour {
 		IList jsonArray = (IList)Json.Deserialize (response);
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
 		//銀魂クイズのquizIdを73にする
-		IDictionary gintamaQuiz = quizList[0];
-		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
-		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
+	//	IDictionary gintamaQuiz = quizList[0];
+	//	gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
+	//	QuizListDao.instance.UpdateQuiz (gintamaQuiz);
 		foreach (IDictionary quiz in quizList) {
 			CheckIndexOfTitle (jsonArray, quiz);
 		}

@@ -28,7 +28,7 @@ public class QuizTopicDialogManager : MonoBehaviour {
 
 		List<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
 		//order number順にソート
-		quizList.Sort (CompareByOrderNumber);
+	//	quizList.Sort (CompareByOrderNumber);
 
 		for (int i = 0; i < quizList.Count; i++) {
 			IDictionary quiz = quizList [i];
@@ -37,10 +37,10 @@ public class QuizTopicDialogManager : MonoBehaviour {
 			cellObject.transform.localScale = new Vector2 (1f, 1f);
 			int id = (int)quiz [QuizListDao.ID_FIELD];
 			Debug.Log ("id" + id);
-			int orderNumber = (int)quiz [QuizListDao.ORDER_NUMBER];
+//			int orderNumber = (int)quiz [QuizListDao.ORDER_NUMBER];
 			string name = (string)quiz [QuizListDao.TITLE_FIELD];
 			Debug.Log ("name " + name);
-			Debug.Log ("order number " + orderNumber);
+//			Debug.Log ("order number " + orderNumber);
 			string quizUrl = (string)quiz [QuizListDao.QUIZ_URL_FIELD];
 			string boughtDate = (string)quiz [QuizListDao.BOUGHT_DATE_FIELD];
 			CellTop cellTop = cellObject.GetComponent<CellTop> ();
