@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using MiniJSON;
 using System.Collections.Generic;
+using System.IO;
 
 public class DatabaseUpdater : MonoBehaviour {
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
@@ -58,6 +59,19 @@ public class DatabaseUpdater : MonoBehaviour {
 			AddOrderNumberField ();
 			//order numberをアップデート
 			UpdateOrderNumberField ();
+			//テーブルを作り直し
+			IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
+			List<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+			string baseFilePath = Application.streamingAssetsPath + "/" + "quiz_box.db";
+			string filePath = Application.persistentDataPath + "/" + "quiz_box.db";
+			File.Delete (filePath);
+			File.Copy (baseFilePath, filePath); 
+			foreach(HistoryData historyData in historyDataList){
+				HistoryDataDao.instance.InsertHistoryData (historyData);
+			}
+			foreach(IDictionary quiz in quizList){
+
+			}
 			PrefsManager.Instance.DatabaseVersion = 2;
 			updatedDatabaseEvent ();
 			break;

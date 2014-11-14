@@ -97,6 +97,24 @@ public class QuizListDao {
 		QuerySQL (sqliteDB, sb.ToString ());
 	}
 
+	public void Insert(IDictionary quiz){
+		SQLiteDB sqliteDB = OpenDatabase ();
+		StringBuilder sb = new StringBuilder ();
+		sb.Append ("insert into quiz_list values(");
+		sb.Append ("null ,");//id
+		sb.Append ("'" + quiz[QuizListDao.TITLE_FIELD] + "',");//title
+		sb.Append ("'" + quiz[QuizListDao.QUIZ_URL_FIELD] + "',");//quiz url
+		sb.Append ("'" + quiz[QuizListDao.CHALLENGE_QUIZ_DATA_FIELD] + "'" + " ,");//challenge data
+		sb.Append (quiz[QuizListDao.CHALLENGE_QUIZ_COUNT] + " ,");//challenge count
+		sb.Append (quiz[QuizListDao.CHALLENGE_QUIZ_CORRECT] + " ,");//challenge correct
+		sb.Append ("'" + quiz[QuizListDao.BOUGHT_DATE_FIELD] + "',");//bought date
+		sb.Append (quiz[QuizListDao.QUIZ_ID_FIELD] + ",");//quiz id
+		sb.Append ("" + quiz[QuizListDao.ORDER_NUMBER]);//order number
+		sb.Append (");");
+		QuerySQL (sqliteDB, sb.ToString ());
+	}
+
+
 	public void UpdateChallengeData (string jsonString, int quizCount, int correctCount, int id) {
 		Debug.Log ("Update");
 		SQLiteDB sqliteDB = OpenDatabase ();
