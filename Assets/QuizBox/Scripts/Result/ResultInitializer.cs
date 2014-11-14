@@ -41,11 +41,7 @@ public class ResultInitializer : MonoBehaviour {
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		DateTime dtInstalled = DateTime.Parse (installedDate);
 		TimeSpan timeSpan = dtNow - dtInstalled;
-		int unlockDaySpan = 0;
-		#if UNITY_IPHONE
-		unlockDaySpan = 1;
-		#endif
-		if (timeSpan.TotalDays >= unlockDaySpan) {
+		if (timeSpan.TotalDays >= 3) {
 			StartCoroutine (OpenWallAd ());
 		} 
 
@@ -89,13 +85,7 @@ public class ResultInitializer : MonoBehaviour {
 
 	private IEnumerator OpenWallAd () {
 		yield return new WaitForSeconds (3.0f);
-		var parameters = new APUnityPluginSetting();
-		parameters.setParam(APUnityPluginSetting.iOSAppkey, "KAQ2AGURBDTNY54F");
-		parameters.setParam(APUnityPluginSetting.onStatusArea, true);
-		parameters.setParam(APUnityPluginSetting.orientation, "UIInterfaceOrientationLandscapeLeft");
-		parameters.setParam(APUnityPluginSetting.isClose, true);
-		parameters.setParam(APUnityPluginSetting.AndroidAppKey, "HORGV6VG3484JCEW");
-		APUnityPlugin.ShowAppliPromotionWall(parameters);
+		APUnityPlugin.ShowAppliPromotionWall ();
 	}
 	
 }

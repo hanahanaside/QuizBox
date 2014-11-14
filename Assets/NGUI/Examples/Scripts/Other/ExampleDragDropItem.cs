@@ -30,7 +30,7 @@ public class ExampleDragDropItem : UIDragDropItem
 				child.transform.localScale = dds.transform.localScale;
 
 				Transform trans = child.transform;
-				trans.position = UICamera.lastWorldPosition;
+				trans.position = UICamera.lastHit.point;
 
 				if (dds.rotatePlacedObject)
 				{

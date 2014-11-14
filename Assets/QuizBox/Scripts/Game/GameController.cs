@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using MiniJSON;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 	public GameObject quizSetter;
 	public QuizKeeper quizKeeper;
+	public ScoreKeeper scoreKeeper;
 	public Referee referee;
 	public UILabel titleLabel;
 	public UILabel[] buttonLabelArray;
@@ -83,16 +84,16 @@ public class GameController : MonoBehaviour {
 
 	private void AlertButtonClickedEvent (string clickedButton) {
 		Debug.Log (clickedButton);
-		if (clickedButton == "終了する") {
+		if (clickedButton == "\u7d42\u4e86\u3059\u308b") {
 			Application.LoadLevel ("Title");
 		}
-		if (clickedButton == "セーブして終了") {
+		if (clickedButton == "\u30bb\u30fc\u30d6\u3057\u3066\u7d42\u4e86") {
 			//save
 			Debug.Log ("save");
 			string jsonString = QuizListManager.instance.jsonString;
 			int id = SelectedQuiz.instance.id;
 			int quizCount = quizKeeper.questionNumber;
-			int correctCount = ScoreKeeper.instance.score;
+			int correctCount = scoreKeeper.score;
 			QuizListDao.instance.UpdateChallengeData (jsonString, quizCount, correctCount, id);
 			Application.LoadLevel ("Title");
 		}
