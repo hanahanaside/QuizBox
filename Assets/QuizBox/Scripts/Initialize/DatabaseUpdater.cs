@@ -3,7 +3,6 @@ using System.Collections;
 using System;
 using MiniJSON;
 using System.Collections.Generic;
-using System.IO;
 
 public class DatabaseUpdater : MonoBehaviour {
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
@@ -43,77 +42,26 @@ public class DatabaseUpdater : MonoBehaviour {
 	public void UpdateDatabase () {
 		Debug.Log ("update database");
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
-		Debug.Log ("current version = " + databaseVersion);
 		switch(databaseVersion){
 		case 0:
-			//クイズIDをアップデート
-			UpdateQuizIdField ();
-			//order numberをアップデート
-			UpdateOrderNumberField ();
-			//DBバージョンを2にする
-			PrefsManager.Instance.DatabaseVersion = 2;
-			break;
-		case 1:
-			//テーブルデータを一時的に避難させる
-			IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
-			List<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
-			//テーブルを再構築する
-			string baseFilePath = Application.streamingAssetsPath + "/" + "quiz_box.db";
-			string filePath = Application.persistentDataPath + "/" + "quiz_box.db";
-			File.Delete (filePath);
-			File.Copy (baseFilePath, filePath); 
-			foreach(HistoryData historyData in historyDataList){
-				HistoryDataDao.instance.InsertHistoryData (historyData);
-			}
-			foreach(IDictionary quiz in quizList){
-				QuizListDao.instance.Insert (quiz);
-			}
-			//order numberをアップデート
-			UpdateOrderNumberField ();
-			//DBバージョンを2にする
-			PrefsManager.Instance.DatabaseVersion = 2;
-			updatedDatabaseEvent ();
-			break;
-		case 2:
-			//やることなし
-			updatedDatabaseEvent ();
-			break;
+			UpdateToVersion1 ();
+			return;
 		}
+		updatedDatabaseEvent ();
 	}
 
-	private void AddQuizIdField(){
-		Debug.Log ("クイズIDカラムを追加");
+	private void UpdateToVersion1 () {
+		Debug.Log ("Update to ver1");
 		try{
 			QuizListDao.instance.AddQuizIdField ();
 		}catch(Exception e){
 			Debug.Log ("error " + e);
 		}
-	}
-
-	private void AddOrderNumberField(){
-		Debug.Log ("Order Number カラムを追加");
-		try{
-			QuizListDao.instance.AddOrderNumberField();
-		}catch(Exception e){
-			Debug.Log ("error " + e);
-		}
-	}
-
-	private void UpdateOrderNumberField(){
-		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
-		foreach(IDictionary quiz in quizList){
-			quiz [QuizListDao.ORDER_NUMBER] = quiz [QuizListDao.ID_FIELD];
-			QuizListDao.instance.UpdateQuiz (quiz);
-		}
-	}
-
-	private void UpdateQuizIdField () {
-		Debug.Log ("Update Quiz Id Field");
 
 		WWWClient wwwClient = new WWWClient (this, JSON_URL);
 		wwwClient.OnSuccess = (string response) => {
 			UpdateQuizId (response);
-			PrefsManager.Instance.DatabaseVersion = 2;
+			PrefsManager.Instance.DatabaseVersion = 1;
 			updatedDatabaseEvent ();
 		};
 		wwwClient.OnFail = (string response) => {
@@ -135,9 +83,9 @@ public class DatabaseUpdater : MonoBehaviour {
 		IList jsonArray = (IList)Json.Deserialize (response);
 		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
 		//銀魂クイズのquizIdを73にする
-	//	IDictionary gintamaQuiz = quizList[0];
-	//	gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
-	//	QuizListDao.instance.UpdateQuiz (gintamaQuiz);
+		IDictionary gintamaQuiz = quizList[0];
+		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
+		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
 		foreach (IDictionary quiz in quizList) {
 			CheckIndexOfTitle (jsonArray, quiz);
 		}
