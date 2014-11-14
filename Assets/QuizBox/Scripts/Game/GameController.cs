@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour {
 
 	void Start () {
 		titleLabel.text = SelectedQuiz.instance.name;
+		SoundManager.Instance.PlayBGM (SoundManager.BGM_QUIZ);
 	}
 
 	void Update () {
@@ -70,6 +71,7 @@ public class GameController : MonoBehaviour {
 
 	public void OnBackButtonClick () {
 		#if UNITY_EDITOR
+		SoundManager.Instance.PlayBGM(SoundManager.BGM_MAIN);
 		Application.LoadLevel ("Title");
 		#else
 		if (QuizListManager.instance.quizList.Count == QuizListManager.instance.allQuizListCount) {
@@ -84,6 +86,7 @@ public class GameController : MonoBehaviour {
 	private void AlertButtonClickedEvent (string clickedButton) {
 		Debug.Log (clickedButton);
 		if (clickedButton == "終了する") {
+			SoundManager.Instance.PlayBGM(SoundManager.BGM_MAIN);
 			Application.LoadLevel ("Title");
 		}
 		if (clickedButton == "セーブして終了") {
@@ -94,6 +97,7 @@ public class GameController : MonoBehaviour {
 			int quizCount = quizKeeper.questionNumber;
 			int correctCount = ScoreKeeper.instance.score;
 			QuizListDao.instance.UpdateChallengeData (jsonString, quizCount, correctCount, id);
+			SoundManager.Instance.PlayBGM(SoundManager.BGM_MAIN);
 			Application.LoadLevel ("Title");
 		}
 		#if UNITY_ANDROID

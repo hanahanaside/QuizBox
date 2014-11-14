@@ -12,6 +12,7 @@ public class TopController : MonoBehaviour {
 
 	void Start () {
 		sInstance = this;
+		SoundManager.Instance.PlayBGM (SoundManager.BGM_MAIN);
 		ShowDialog (Instantiate (dialogArray [0])as GameObject);
 		SetActiveButtonFilter (0);
 		UpdateUserPointLabel ();
