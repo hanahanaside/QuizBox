@@ -30,7 +30,7 @@ public class HistoryDataDao {
 		sqliteQuery.Step ();
 		sqliteDB.Close ();
 	}
-
+		
 	public IList<HistoryData> QueryHistoryDataList () {
 		IList<HistoryData> historyDataList = new List<HistoryData> ();
 		SQLiteDB sqliteDB = OpenDB ();
