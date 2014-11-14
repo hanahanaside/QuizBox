@@ -198,7 +198,6 @@
      <Compile Include="Assets\QuizBox\Scripts\Common\RecommendAppDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Dao\HistoryDataDao.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Dao\QuizListDao.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\Debug\GameDebugger.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\AnswerDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\CheckFinishQuizDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\CheckSaveQuizDialog.cs" />

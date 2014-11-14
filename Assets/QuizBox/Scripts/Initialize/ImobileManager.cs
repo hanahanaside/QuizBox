@@ -92,9 +92,6 @@ public class ImobileManager : MonoBehaviour {
 
 	public static ImobileManager Instance {
 		get {
-			if(sInstance == null){
-				sInstance = new ImobileManager ();
-			}
 			return sInstance;
 		}
 	}
