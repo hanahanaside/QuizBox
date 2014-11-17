@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using MiniJSON;
 
 public class LoginManager : MonoBehaviour {
-	private static readonly DateTime UNIX_EPOCH = new DateTime (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-	private static readonly string URL = "https://ntp-a1.nict.go.jp/cgi-bin/json";
+
 	public UILabel userPointLabel;
 
+	#if !UNITY_EDITOR
+	private static readonly DateTime UNIX_EPOCH = new DateTime (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+	private static readonly string URL = "https://ntp-a1.nict.go.jp/cgi-bin/json";
+
+
 	void Awake () {
+
 		Debug.Log ("check login");
 		WWWClient wwwClient = new WWWClient (this, URL);
 		wwwClient.OnSuccess = (string response) => {
@@ -28,15 +33,14 @@ public class LoginManager : MonoBehaviour {
 			}
 		};
 		wwwClient.GetData ();
+		
 	}
 
 	private void ApplyBonus(DateTime dtNow){
 		PrefsManager.Instance.AddUserPoint (5);
 		userPointLabel.text = PrefsManager.Instance.GetUserPoint() + "pt";
 		PrefsManager.Instance.LoginDate = dtNow.ToString ();
-		#if !UNITY_EDITOR
 		ShowLoginBonusDialog ();
-		#endif
 	}
 
 	private void ShowLoginBonusDialog () {
@@ -50,4 +54,5 @@ public class LoginManager : MonoBehaviour {
 		EtceteraAndroid.showAlert (title,message,"OK");
 		#endif
 	}
+	#endif
 }

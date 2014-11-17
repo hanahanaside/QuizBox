@@ -3,6 +3,15 @@ using System.Collections;
 
 public class TopController : MonoBehaviour {
 
+	enum Dialog
+	{
+		QuizTopic,
+		AddQuiz,
+		History,
+		Setting,
+		AddPoint}
+	;
+
 	public GameObject uiRoot;
 	public UILabel userPointLabel;
 	public GameObject[] dialogArray;
@@ -12,12 +21,12 @@ public class TopController : MonoBehaviour {
 
 	void Start () {
 		sInstance = this;
-		ShowDialog (Instantiate (dialogArray [0])as GameObject);
-		SetActiveButtonFilter (0);
+		ShowDialog (Dialog.QuizTopic);
+		SetActiveButtonFilter (Dialog.QuizTopic);
 		UpdateUserPointLabel ();
 		ImobileManager.Instance.ShowBannerAd ();
 	}
-		
+
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.Quit ();
@@ -29,42 +38,37 @@ public class TopController : MonoBehaviour {
 			return sInstance;
 		}
 	}
-				
+
 	public void OnTopClicked () {
-		OnButtonClicked ();
-		SetActiveButtonFilter (0);
-		ShowDialog (Instantiate (dialogArray [0])as GameObject);
+		mCurrentDialog.SetActive (false);
+		SetActiveButtonFilter (Dialog.QuizTopic);
+		ShowDialog (Dialog.QuizTopic);
 	}
 
 	public void OnAddPointClicked () {
-
-		if(GameObject.FindGameObjectWithTag("AddPointDialog") == null){
-			GameObject addPointDialog = Instantiate (dialogArray [1])as GameObject;
-			addPointDialog.transform.parent = uiRoot.transform;
-			addPointDialog.transform.localScale = new Vector3 (1, 1, 1);
-		}
+		dialogArray [(int)Dialog.AddPoint].SetActive (true);
 	}
 
 	public void OnPostQuizClicked () {
-		Application.LoadLevel("PostQuiz");
+		Application.LoadLevel ("PostQuiz");
 	}
 
 	public void OnResultClicked () {
-		OnButtonClicked ();
-		SetActiveButtonFilter (3);
-		ShowDialog (Instantiate (dialogArray [3])as GameObject);
+		mCurrentDialog.SetActive (false);
+		SetActiveButtonFilter (Dialog.History);
+		ShowDialog (Dialog.History);
 	}
 
 	public void OnSettingClicked () {
-		OnButtonClicked ();
-		SetActiveButtonFilter (4);
-		ShowDialog (Instantiate (dialogArray [4])as GameObject);
+		mCurrentDialog.SetActive (false);
+		SetActiveButtonFilter (Dialog.Setting);
+		ShowDialog (Dialog.Setting);
 	}
 
 	public void OnAddQuizClicked () {
-		OnButtonClicked ();
-		SetActiveButtonFilter (1);
-		ShowDialog (Instantiate (dialogArray [5])as GameObject);
+		mCurrentDialog.SetActive (false);
+		SetActiveButtonFilter (Dialog.AddQuiz);
+		ShowDialog (Dialog.AddQuiz);
 	}
 
 	public void UpdateUserPointLabel () {
@@ -72,18 +76,16 @@ public class TopController : MonoBehaviour {
 		userPointLabel.text = userPoint + "pt";
 	}
 
-	private void OnButtonClicked () {
-		Destroy (mCurrentDialog);
+	private void ShowDialog (Dialog dialog) {
+		Debug.Log ("show dialog " + ((int)dialog));
+		GameObject currentDialog = dialogArray[(int)dialog];
+		currentDialog.SetActive (true);
+		mCurrentDialog = currentDialog;
 	}
 
-	private void ShowDialog (GameObject dialog) {
-		dialog.transform.parent = uiRoot.transform;
-		dialog.transform.localScale = new Vector3 (1f, 1f, 1f);
-		mCurrentDialog = dialog;
-	}
-
-	private void SetActiveButtonFilter(int buttonId){
-		foreach(UISprite buttonFilter in buttonFilterArray){
+	private void SetActiveButtonFilter (Dialog dialog) {
+		int buttonId = (int)dialog;
+		foreach (UISprite buttonFilter in buttonFilterArray) {
 			buttonFilter.enabled = true;
 		}
 		buttonFilterArray [buttonId].enabled = false;

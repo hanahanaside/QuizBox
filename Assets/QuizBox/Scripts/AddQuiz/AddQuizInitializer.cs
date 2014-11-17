@@ -10,7 +10,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	public OkDialog okDialogPrefab;
 	public UIScrollView scrollView;
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
-	private static IList sAddQuizButtonList = null;
+	private IList mAddQuizButtonList = null;
 	private List<Quiz> mQuizList;
 
 	void OnEnable () {
@@ -24,13 +24,9 @@ public class AddQuizInitializer : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		Debug.Log ("start");
 		ShowProgressDialog ();
 		mQuizList = QuizListDao.instance.GetQuizList ();
-		if (sAddQuizButtonList != null) {
-			CreateScrollView (sAddQuizButtonList);
-			return;
-		}
-
 		WWW www = new WWW (JSON_URL);
 		StartCoroutine (httpClient.Excute (www));
 	}
@@ -43,8 +39,8 @@ public class AddQuizInitializer : MonoBehaviour {
 			NetworkErrorDialog dialog = new NetworkErrorDialog ();
 			dialog.Show ();
 		} else {
-			sAddQuizButtonList = (IList)Json.Deserialize (response);
-			CreateScrollView (sAddQuizButtonList);
+			mAddQuizButtonList = (IList)Json.Deserialize (response);
+			CreateScrollView (mAddQuizButtonList);
 		}
 	}
 
