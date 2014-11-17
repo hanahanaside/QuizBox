@@ -11,7 +11,6 @@ public class AddQuizInitializer : MonoBehaviour {
 	public UIScrollView scrollView;
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 	private static IList sAddQuizButtonList = null;
-	private List<string> mTitleList;
 	private IList<IDictionary> mQuizList;
 
 	void OnEnable () {
@@ -25,7 +24,6 @@ public class AddQuizInitializer : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		mTitleList = QuizListDao.instance.GetTitleList ();
 		mQuizList = QuizListDao.instance.GetQuizList ();
 		if (sAddQuizButtonList != null) {
 			CreateScrollView (sAddQuizButtonList);

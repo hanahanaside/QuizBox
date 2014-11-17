@@ -71,69 +71,14 @@ public class DatabaseUpdater : MonoBehaviour {
 			}
 			PrefsManager.Instance.DatabaseVersion = 2;
 			break;
+		case 2:
+			//オーダーナンバーを追加
+			break;
 		}
 
 		updatedDatabaseEvent ();
 	}
-
-	private void UpdateToVersion1 () {
-		Debug.Log ("Update to ver1");
-		try {
-			QuizListDao.instance.AddQuizIdField ();
-		} catch (Exception e) {
-			Debug.Log ("error " + e);
-		}
-
-		WWWClient wwwClient = new WWWClient (this, JSON_URL);
-		wwwClient.OnSuccess = (string response) => {
-			UpdateQuizId (response);
-			PrefsManager.Instance.DatabaseVersion = 1;
-			updatedDatabaseEvent ();
-		};
-		wwwClient.OnFail = (string response) => {
-			Debug.Log ("onFail");
-			#if !UNITY_EDITOR
-			ShowErrorDialog();
-			#endif
-		};
-		wwwClient.OnTimeOut = () => {
-			#if !UNITY_EDITOR
-			ShowErrorDialog();
-			#endif
-		};
-		wwwClient.GetData ();
-	}
-
-	private void UpdateQuizId (string response) {
-		Debug.Log ("update quiz id");
-		IList jsonArray = (IList)Json.Deserialize (response);
-		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
-		//銀魂クイズのquizIdを73にする
-		IDictionary gintamaQuiz = quizList [0];
-		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
-		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
-		foreach (IDictionary quiz in quizList) {
-			CheckIndexOfTitle (jsonArray, quiz);
-		}
-	}
-
-	//名前で検索して、対応するクイズIDを挿入する
-	private void CheckIndexOfTitle (IList jsonArray, IDictionary quiz) {
-		string quizTitle = (string)quiz [QuizListDao.TITLE_FIELD];
-		Debug.Log ("quizTitle = " + quizTitle);
-		foreach (Dictionary<string,object> jsonObject in jsonArray) {
-			string jsonObjectTitle = (string)jsonObject ["title"];
-			if (jsonObjectTitle.IndexOf (quizTitle) >= 0) {
-				Debug.Log ("hit");
-				long quizId = (long)jsonObject ["id"];
-				Debug.Log ("id = " + quizId);
-				quiz [QuizListDao.QUIZ_ID_FIELD] = (int)quizId;
-				QuizListDao.instance.UpdateQuiz (quiz);
-				break;
-			}
-		}
-	}
-
+		
 	private void ShowErrorDialog () {
 		string title = "通信エラー";
 		string message = "1度アプリを終了します";

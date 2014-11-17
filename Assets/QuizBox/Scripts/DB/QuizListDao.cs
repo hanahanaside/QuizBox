@@ -59,19 +59,7 @@ public class QuizListDao {
 		sqliteDB.Close ();
 		return quizList;
 	}
-
-	public List<string> GetTitleList () {
-		SQLiteDB sqliteDB = OpenDatabase ();
-		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, "select title from quiz_list;");
-		List<string> titleList = new List<string> ();
-		while (sqliteQuery.Step ()) {
-			string title = sqliteQuery.GetString (TITLE_FIELD);
-			titleList.Add (title);
-		}
-		sqliteDB.Close ();
-		return titleList;
-	}
-
+		
 	public void Insert (string title, string quizUrl, int quizId) {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
@@ -90,15 +78,15 @@ public class QuizListDao {
 
 	public void Insert (IDictionary quiz) {
 
-		if(quiz [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD] == null){
+		if (quiz [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD] == null) {
 			quiz [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD] = "null";
 		}
 
-		if(quiz [QuizListDao.CHALLENGE_QUIZ_COUNT] == null){
+		if (quiz [QuizListDao.CHALLENGE_QUIZ_COUNT] == null) {
 			quiz [QuizListDao.CHALLENGE_QUIZ_COUNT] = 0;
 		}
 
-		if(quiz [QuizListDao.CHALLENGE_QUIZ_CORRECT] == null){
+		if (quiz [QuizListDao.CHALLENGE_QUIZ_CORRECT] == null) {
 			quiz [QuizListDao.CHALLENGE_QUIZ_CORRECT] = 0;
 		}
 
@@ -140,28 +128,6 @@ public class QuizListDao {
 		Debug.Log ("finish");
 	}
 
-	public bool QuizIdFieldExist () {
-		try {            
-			SQLiteDB sqliteDB = OpenDatabase ();
-			string sql = "select * from quiz_list where id = 1;";
-			SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sql);
-			while (sqliteQuery.Step ()) {
-				sqliteQuery.GetInteger (QUIZ_ID_FIELD);
-			}
-		} catch (Exception e) {
-			Debug.Log ("Exception");
-			return false;
-		}
-		return true;
-	}
-
-	public void AddQuizIdField () {
-		SQLiteDB sqliteDB = OpenDatabase ();
-		string sql = "alter table quiz_list add column quiz_id integer default 0;";
-		Debug.Log ("sql = " + sql);
-		QuerySQL (sqliteDB, sql);
-	}
-
 	public IDictionary GetChallengeData (int id) {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
@@ -188,14 +154,7 @@ public class QuizListDao {
 		sb.Append ("update quiz_list set " + CHALLENGE_QUIZ_DATA_FIELD + " = null where id = " + id);
 		QuerySQL (sqliteDB, sb.ToString ());
 	}
-
-	public void InitBoughtDate () {
-		SQLiteDB sqliteDB = OpenDatabase ();
-		StringBuilder sb = new StringBuilder ();
-		sb.Append ("update quiz_list set " + BOUGHT_DATE_FIELD + " = '" + DateTime.Now.ToString ("yyyy/MM/dd") + "'");
-		QuerySQL (sqliteDB, sb.ToString ());
-	}
-
+		
 	private SQLiteDB OpenDatabase () {
 		SQLiteDB sqliteDB = new SQLiteDB ();
 		string fileName = Application.persistentDataPath + "/quiz_box.db";

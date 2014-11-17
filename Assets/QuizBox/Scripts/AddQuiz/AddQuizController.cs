@@ -7,7 +7,6 @@ public class AddQuizController : MonoBehaviour {
 	public AddQuizDialog addQuizDialogPrefab;
 	public ShortPointDialog shortPointDialogPrefab;
 	public OkDialog okDialogPrefab;
-	private GameObject uiRoot;
 	private AddQuiz mSelectedQuiz;
 
 	void OnEnable () {
@@ -32,10 +31,6 @@ public class AddQuizController : MonoBehaviour {
 #if UNITY_ANDROID
 		EtceteraAndroidManager.alertButtonClickedEvent -= alertButtonClickedEvent;
 #endif
-	}
-
-	void Start () {
-		uiRoot = transform.parent.gameObject.transform.parent.gameObject;
 	}
 
 	void Update () {

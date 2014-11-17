@@ -35,7 +35,7 @@ public class QuizTopicInitializer : MonoBehaviour {
 			string boughtDate = (string)quiz [QuizListDao.BOUGHT_DATE_FIELD];
 			CellTop cellTop = cellObject.GetComponent<CellTop> ();
 			cellTop.id = id;
-			cellTop.name = name;
+			cellTop.Name = name;
 			cellTop.quizUrl = quizUrl;
 			cellTop.boughtDate = boughtDate;
 		}
