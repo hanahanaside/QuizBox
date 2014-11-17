@@ -11,7 +11,8 @@ public class AddQuizInitializer : MonoBehaviour {
 	public UIScrollView scrollView;
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 	private static IList sAddQuizButtonList = null;
-	private List<Quiz> mQuizList;
+	private List<string> mTitleList;
+	private IList<IDictionary> mQuizList;
 
 	void OnEnable () {
 		Debug.Log ("enable");
@@ -24,6 +25,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		mTitleList = QuizListDao.instance.GetTitleList ();
 		mQuizList = QuizListDao.instance.GetQuizList ();
 		if (sAddQuizButtonList != null) {
 			CreateScrollView (sAddQuizButtonList);
@@ -98,11 +100,11 @@ public class AddQuizInitializer : MonoBehaviour {
 		addQuizButtonObject.BroadcastMessage ("Init", addQuiz);
 	}
 
-	private bool CheckDuplicateQuiz (IDictionary jsonObject) {
-		long jsonObjectId = (long)jsonObject ["id"];
-		foreach (Quiz quiz in mQuizList) {
-			int quizId = quiz.QuizId;
-			if (jsonObjectId == quizId) {
+	private bool CheckDuplicateQuiz (IDictionary quiz) {
+		long quizId = (long)quiz ["id"];
+		foreach (IDictionary item in mQuizList) {
+			int itemId = (int)item [QuizListDao.QUIZ_ID_FIELD];
+			if (quizId == itemId) {
 				return true;
 			}
 		}
