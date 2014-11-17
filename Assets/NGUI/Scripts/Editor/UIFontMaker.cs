@@ -405,7 +405,7 @@ public class UIFontMaker : EditorWindow
 		else
 		{
 			uiFont = go.GetComponent<UIFont>();
-			fontName = go.Name;
+			fontName = go.name;
 		}
 
 		if (create == Create.Dynamic)
@@ -457,7 +457,7 @@ public class UIFontMaker : EditorWindow
 			}
 			else
 			{
-				uiFont.spriteName = NGUISettings.fontTexture.Name;
+				uiFont.spriteName = NGUISettings.fontTexture.name;
 				uiFont.atlas = NGUISettings.atlas;
 			}
 			NGUISettings.fontSize = uiFont.defaultSize;
@@ -475,7 +475,7 @@ public class UIFontMaker : EditorWindow
 				NGUISettings.charsToInclude, 1, out bmFont, out tex))
 			{
 				uiFont.bmFont = bmFont;
-				tex.Name = fontName;
+				tex.name = fontName;
 
 				if (NGUISettings.atlas != null)
 				{
@@ -577,7 +577,7 @@ public class UIFontMaker : EditorWindow
 		}
 		else
 		{
-			font.spriteName = NGUISettings.fontTexture.Name;
+			font.spriteName = NGUISettings.fontTexture.name;
 			font.atlas = NGUISettings.atlas;
 		}
 		NGUISettings.fontSize = font.defaultSize;

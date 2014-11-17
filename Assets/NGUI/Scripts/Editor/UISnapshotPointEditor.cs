@@ -68,8 +68,8 @@ public class UISnapshotPointEditor : Editor
 			{
 				UISnapshotPoint snapshot = target as UISnapshotPoint;
 
-				if (snapshot.isOrthographic) target.Name = "NGUI Snapshot Point " + snapshot.orthoSize;
-				else target.Name = "NGUI Snapshot Point " + snapshot.nearClip + " " + snapshot.farClip + " " + snapshot.fieldOfView;
+				if (snapshot.isOrthographic) target.name = "NGUI Snapshot Point " + snapshot.orthoSize;
+				else target.name = "NGUI Snapshot Point " + snapshot.nearClip + " " + snapshot.farClip + " " + snapshot.fieldOfView;
 
 				UIPrefabTool.instance.RegenerateTexture(prefab, snapshot);
 				UIPrefabTool.instance.Repaint();

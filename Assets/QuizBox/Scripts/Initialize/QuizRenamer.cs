@@ -28,20 +28,20 @@ public class QuizRenamer : MonoBehaviour {
 
 	private void RenameQuiz (string json) {
 		IList jsonArray = (IList)Json.Deserialize (json);
-		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
-		foreach (Quiz quiz in quizList) {
+		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+		foreach (IDictionary quiz in quizList) {
 			RenameQuiz (jsonArray, quiz);
 		}
 	}
 
-	private void RenameQuiz (IList jsonArray, Quiz quiz) {
+	private void RenameQuiz (IList jsonArray, IDictionary quiz) {
 		Debug.Log ("Rename Quiz");
-		int quizId = quiz.QuizId;
+		int quizId = (int)quiz [QuizListDao.QUIZ_ID_FIELD];
 		foreach (Dictionary<string,object> jsonObject in jsonArray) {
 			long jsonId = (long)jsonObject ["id"];
 			if (quizId == jsonId) {
-				Debug.Log ("Renamed " + quiz.Title + " to " + jsonObject[QuizListDao.TITLE_FIELD]);
-				quiz.Title = (string)jsonObject [QuizListDao.TITLE_FIELD];
+				Debug.Log ("Renamed " + quiz [QuizListDao.TITLE_FIELD] + " to " + jsonObject[QuizListDao.TITLE_FIELD]);
+				quiz [QuizListDao.TITLE_FIELD] = (string)jsonObject [QuizListDao.TITLE_FIELD];
 				QuizListDao.instance.UpdateQuiz (quiz);
 				break;
 			}

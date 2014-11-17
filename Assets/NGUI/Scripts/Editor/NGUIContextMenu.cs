@@ -516,7 +516,7 @@ public static class NGUIContextMenu
 		UIPanel panel = NGUISettings.AddPanel(go);
 		panel.clipping = UIDrawCall.Clipping.SoftClip;
 		panel.gameObject.AddComponent<UIScrollView>();
-		panel.Name = "Scroll View";
+		panel.name = "Scroll View";
 		Selection.activeGameObject = panel.gameObject;
 	}
 

@@ -277,11 +277,11 @@ public class UICreateWidgetWizard : EditorWindow
 		{
 			int depth = NGUITools.CalculateNextDepth(go);
 			go = NGUITools.AddChild(go);
-			go.Name = "Button";
+			go.name = "Button";
 
 			UISprite bg = NGUITools.AddWidget<UISprite>(go);
 			bg.type = UISprite.Type.Sliced;
-			bg.Name = "Background";
+			bg.name = "Background";
 			bg.depth = depth;
 			bg.atlas = NGUISettings.atlas;
 			bg.spriteName = mButton;
@@ -293,7 +293,7 @@ public class UICreateWidgetWizard : EditorWindow
 			{
 				UILabel lbl = NGUITools.AddWidget<UILabel>(go);
 				lbl.ambigiousFont = NGUISettings.ambigiousFont;
-				lbl.text = go.Name;
+				lbl.text = go.name;
 				lbl.AssumeNaturalSize();
 			}
 
@@ -328,12 +328,12 @@ public class UICreateWidgetWizard : EditorWindow
 		{
 			int depth = NGUITools.CalculateNextDepth(go);
 			go = NGUITools.AddChild(go);
-			go.Name = "Image Button";
+			go.name = "Image Button";
 
 			UISpriteData sp = NGUISettings.atlas.GetSprite(mImage0);
 			UISprite sprite = NGUITools.AddWidget<UISprite>(go);
 			sprite.type = sp.hasBorder ? UISprite.Type.Sliced : UISprite.Type.Simple;
-			sprite.Name = "Background";
+			sprite.name = "Background";
 			sprite.depth = depth;
 			sprite.atlas = NGUISettings.atlas;
 			sprite.spriteName = mImage0;
@@ -345,7 +345,7 @@ public class UICreateWidgetWizard : EditorWindow
 			{
 				UILabel lbl = NGUITools.AddWidget<UILabel>(go);
 				lbl.ambigiousFont = NGUISettings.ambigiousFont;
-				lbl.text = go.Name;
+				lbl.text = go.name;
 				lbl.AssumeNaturalSize();
 			}
 
@@ -386,11 +386,11 @@ public class UICreateWidgetWizard : EditorWindow
 		{
 			int depth = NGUITools.CalculateNextDepth(go);
 			go = NGUITools.AddChild(go);
-			go.Name = "Toggle";
+			go.name = "Toggle";
 
 			UISprite bg = NGUITools.AddWidget<UISprite>(go);
 			bg.type = UISprite.Type.Sliced;
-			bg.Name = "Background";
+			bg.name = "Background";
 			bg.depth = depth;
 			bg.atlas = NGUISettings.atlas;
 			bg.spriteName = mCheckBG;
@@ -399,7 +399,7 @@ public class UICreateWidgetWizard : EditorWindow
 			bg.MakePixelPerfect();
 
 			UISprite fg = NGUITools.AddWidget<UISprite>(go);
-			fg.Name = "Checkmark";
+			fg.name = "Checkmark";
 			fg.atlas = NGUISettings.atlas;
 			fg.spriteName = mCheck;
 			fg.MakePixelPerfect();
@@ -408,7 +408,7 @@ public class UICreateWidgetWizard : EditorWindow
 			{
 				UILabel lbl = NGUITools.AddWidget<UILabel>(go);
 				lbl.ambigiousFont = NGUISettings.ambigiousFont;
-				lbl.text = go.Name;
+				lbl.text = go.name;
 				lbl.pivot = UIWidget.Pivot.Left;
 				lbl.transform.localPosition = new Vector3(16f, 0f, 0f);
 				lbl.AssumeNaturalSize();
@@ -460,11 +460,11 @@ public class UICreateWidgetWizard : EditorWindow
 		{
 			int depth = NGUITools.CalculateNextDepth(go);
 			go = NGUITools.AddChild(go);
-			go.Name = "Scroll Bar";
+			go.name = "Scroll Bar";
 
 			UISprite bg = NGUITools.AddWidget<UISprite>(go);
 			bg.type = UISprite.Type.Sliced;
-			bg.Name = "Background";
+			bg.name = "Background";
 			bg.depth = depth;
 			bg.atlas = NGUISettings.atlas;
 			bg.spriteName = mScrollBG;
@@ -476,7 +476,7 @@ public class UICreateWidgetWizard : EditorWindow
 
 			UISprite fg = NGUITools.AddWidget<UISprite>(go);
 			fg.type = UISprite.Type.Sliced;
-			fg.Name = "Foreground";
+			fg.name = "Foreground";
 			fg.atlas = NGUISettings.atlas;
 			fg.spriteName = mScrollFG;
 
@@ -521,14 +521,14 @@ public class UICreateWidgetWizard : EditorWindow
 		{
 			int depth = NGUITools.CalculateNextDepth(go);
 			go = NGUITools.AddChild(go);
-			go.Name = slider ? "Slider" : "Progress Bar";
+			go.name = slider ? "Slider" : "Progress Bar";
 
 			// Background sprite
 			UISpriteData bgs = NGUISettings.atlas.GetSprite(mSliderBG);
 			UISprite back = (UISprite)NGUITools.AddWidget<UISprite>(go);
 
 			back.type = bgs.hasBorder ? UISprite.Type.Sliced : UISprite.Type.Simple;
-			back.Name = "Background";
+			back.name = "Background";
 			back.depth = depth;
 			back.pivot = UIWidget.Pivot.Left;
 			back.atlas = NGUISettings.atlas;
@@ -542,7 +542,7 @@ public class UICreateWidgetWizard : EditorWindow
 			UISpriteData fgs = NGUISettings.atlas.GetSprite(mSliderFG);
 			UISprite front = NGUITools.AddWidget<UISprite>(go);
 			front.type = fgs.hasBorder ? UISprite.Type.Sliced : UISprite.Type.Simple;
-			front.Name = "Foreground";
+			front.name = "Foreground";
 			front.pivot = UIWidget.Pivot.Left;
 			front.atlas = NGUISettings.atlas;
 			front.spriteName = mSliderFG;
@@ -565,7 +565,7 @@ public class UICreateWidgetWizard : EditorWindow
 				UISprite thb = NGUITools.AddWidget<UISprite>(go);
 
 				thb.type = tbs.hasBorder ? UISprite.Type.Sliced : UISprite.Type.Simple;
-				thb.Name = "Thumb";
+				thb.name = "Thumb";
 				thb.atlas = NGUISettings.atlas;
 				thb.spriteName = mSliderTB;
 				thb.width = 20;
@@ -605,12 +605,12 @@ public class UICreateWidgetWizard : EditorWindow
 		{
 			int depth = NGUITools.CalculateNextDepth(go);
 			go = NGUITools.AddChild(go);
-			go.Name = "Input";
+			go.name = "Input";
 			int padding = 3;
 
 			UISprite bg = NGUITools.AddWidget<UISprite>(go);
 			bg.type = UISprite.Type.Sliced;
-			bg.Name = "Background";
+			bg.name = "Background";
 			bg.depth = depth;
 			bg.atlas = NGUISettings.atlas;
 			bg.spriteName = mInputBG;
@@ -661,7 +661,7 @@ public class UICreateWidgetWizard : EditorWindow
 		{
 			int depth = NGUITools.CalculateNextDepth(go);
 			go = NGUITools.AddChild(go);
-			go.Name = isDropDown ? "Popup List" : "Popup Menu";
+			go.name = isDropDown ? "Popup List" : "Popup Menu";
 
 			UISpriteData sphl = NGUISettings.atlas.GetSprite(mListHL);
 			UISpriteData spfg = NGUISettings.atlas.GetSprite(mListFG);
@@ -684,7 +684,7 @@ public class UICreateWidgetWizard : EditorWindow
 			lbl.ambigiousFont = NGUISettings.ambigiousFont;
 			lbl.fontSize = NGUISettings.fontSize;
 			lbl.fontStyle = NGUISettings.fontStyle;
-			lbl.text = go.Name;
+			lbl.text = go.name;
 			lbl.pivot = UIWidget.Pivot.Left;
 			lbl.cachedTransform.localPosition = new Vector3(fgPadding.x, 0f, 0f);
 			lbl.AssumeNaturalSize();

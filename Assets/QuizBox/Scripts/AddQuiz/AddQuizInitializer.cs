@@ -12,7 +12,7 @@ public class AddQuizInitializer : MonoBehaviour {
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 	private static IList sAddQuizButtonList = null;
 	private List<string> mTitleList;
-	private List<Quiz> mQuizList;
+	private IList<IDictionary> mQuizList;
 
 	void OnEnable () {
 		Debug.Log ("enable");

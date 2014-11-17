@@ -99,7 +99,7 @@ public class ComponentSelector : ScriptableWizard
 				for (int i = 0; i < comp.mObjects.Length; ++i)
 				{
 					Object obj = comp.mObjects[i];
-					if (obj.Name == "Arial") continue;
+					if (obj.name == "Arial") continue;
 					string path = AssetDatabase.GetAssetPath(obj);
 					if (string.IsNullOrEmpty(path)) comp.mObjects[i] = null;
 				}
@@ -110,7 +110,7 @@ public class ComponentSelector : ScriptableWizard
 				{
 					if (a == null) return (b == null) ? 0 : 1;
 					if (b == null) return -1;
-					return a.Name.CompareTo(b.Name);
+					return a.name.CompareTo(b.name);
 				});
 		}
 	}
@@ -166,7 +166,7 @@ public class ComponentSelector : ScriptableWizard
 					if (t != null && !list.Contains(t)) list.Add(t);
 				}
 			}
-			list.Sort(delegate(Object a, Object b) { return a.Name.CompareTo(b.Name); });
+			list.Sort(delegate(Object a, Object b) { return a.name.CompareTo(b.name); });
 			mObjects = list.ToArray();
 		}
 		EditorUtility.ClearProgressBar();
@@ -265,7 +265,7 @@ public class ComponentSelector : ScriptableWizard
 			else if (comp != null && EditorUtility.IsPersistent(comp.gameObject))
 				GUI.contentColor = new Color(0.6f, 0.8f, 1f);
 
-			retVal |= GUILayout.Button(obj.Name, "AS TextArea", GUILayout.Width(160f), GUILayout.Height(20f));
+			retVal |= GUILayout.Button(obj.name, "AS TextArea", GUILayout.Width(160f), GUILayout.Height(20f));
 			retVal |= GUILayout.Button(path.Replace("Assets/", ""), "AS TextArea", GUILayout.Height(20f));
 			GUI.contentColor = Color.white;
 

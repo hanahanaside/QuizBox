@@ -22,13 +22,13 @@ public class ResultInitializer : MonoBehaviour {
 		historyData.Average = ((double)score / (double)size) * 100;
 		historyData.result = result;
 		historyData.date = DateTime.Now.ToString ("yyyy/MM/dd (ddd) HH:mm:ss");
-		historyData.title = SelectedQuiz.instance.Name;
+		historyData.title = SelectedQuiz.instance.name;
 		historyData.mode = QuizListManager.instance.modeName;
 	
 		HistoryDataDao.instance.InsertHistoryData (historyData);
 
 		mAverage = ((double)score / (double)size) * 100;
-		resultLabelArray [0].GetComponent<UILabel> ().text = SelectedQuiz.instance.Name;
+		resultLabelArray [0].GetComponent<UILabel> ().text = SelectedQuiz.instance.name;
 		resultLabelArray [1].GetComponent<UILabel> ().text = QuizListManager.instance.modeName;
 		resultLabelArray [2].GetComponent<UILabel> ().text = result;
 		resultLabelArray [3].GetComponent<UILabel> ().text = "\u6b63\u89e3\u7387 : " + Math.Round (mAverage) + "%";

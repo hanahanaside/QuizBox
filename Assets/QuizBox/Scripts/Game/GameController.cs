@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Start () {
-		titleLabel.text = SelectedQuiz.instance.Name;
+		titleLabel.text = SelectedQuiz.instance.name;
 	}
 
 	void Update () {

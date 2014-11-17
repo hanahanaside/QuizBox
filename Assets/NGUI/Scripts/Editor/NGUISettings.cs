@@ -426,7 +426,7 @@ public class NGUISettings
 	static public UIWidget AddWidget (GameObject go)
 	{
 		UIWidget w = NGUITools.AddWidget<UIWidget>(go);
-		w.Name = "Container";
+		w.name = "Container";
 		w.pivot = pivot;
 		w.width = 100;
 		w.height = 100;
@@ -440,7 +440,7 @@ public class NGUISettings
 	static public UITexture AddTexture (GameObject go)
 	{
 		UITexture w = NGUITools.AddWidget<UITexture>(go);
-		w.Name = "Texture";
+		w.name = "Texture";
 		w.pivot = pivot;
 		w.mainTexture = texture;
 		w.width = 100;
@@ -455,7 +455,7 @@ public class NGUISettings
 	static public UI2DSprite Add2DSprite (GameObject go)
 	{
 		UI2DSprite w = NGUITools.AddWidget<UI2DSprite>(go);
-		w.Name = "2D Sprite";
+		w.name = "2D Sprite";
 		w.pivot = pivot;
 		w.sprite2D = sprite2D;
 		w.width = 100;
@@ -470,7 +470,7 @@ public class NGUISettings
 	static public UISprite AddSprite (GameObject go)
 	{
 		UISprite w = NGUITools.AddWidget<UISprite>(go);
-		w.Name = "Sprite";
+		w.name = "Sprite";
 		w.atlas = atlas;
 		w.spriteName = selectedSprite;
 
@@ -495,7 +495,7 @@ public class NGUISettings
 	static public UILabel AddLabel (GameObject go)
 	{
 		UILabel w = NGUITools.AddWidget<UILabel>(go);
-		w.Name = "Label";
+		w.name = "Label";
 		w.ambigiousFont = ambigiousFont;
 		w.text = "New Label";
 		w.pivot = pivot;

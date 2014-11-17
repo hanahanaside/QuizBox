@@ -173,7 +173,7 @@ static public class NGUIMenu
 		UIPanel panel = NGUISettings.AddPanel(SelectedRoot());
 		if (panel == null) panel = NGUIEditorTools.SelectedRoot(true).GetComponent<UIPanel>();
 		panel.clipping = UIDrawCall.Clipping.SoftClip;
-		panel.Name = "Scroll View";
+		panel.name = "Scroll View";
 		panel.gameObject.AddComponent<UIScrollView>();
 		Selection.activeGameObject = panel.gameObject;
 	}

@@ -53,7 +53,7 @@ public class NGUIJson
 
 		if (decodedHash == null)
 		{
-			Debug.LogWarning("Unable to parse Json file: " + asset.Name);
+			Debug.LogWarning("Unable to parse Json file: " + asset.name);
 		}
 		else LoadSpriteData(atlas, decodedHash);
 

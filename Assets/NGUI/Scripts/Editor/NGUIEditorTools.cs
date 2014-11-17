@@ -81,7 +81,7 @@ public static class NGUIEditorTools
 	static Texture2D CreateDummyTex ()
 	{
 		Texture2D tex = new Texture2D(1, 1);
-		tex.Name = "[Generated] Dummy Texture";
+		tex.name = "[Generated] Dummy Texture";
 		tex.hideFlags = HideFlags.DontSave;
 		tex.filterMode = FilterMode.Point;
 		tex.SetPixel(0, 0, Color.white);
@@ -96,7 +96,7 @@ public static class NGUIEditorTools
 	static Texture2D CreateCheckerTex (Color c0, Color c1)
 	{
 		Texture2D tex = new Texture2D(16, 16);
-		tex.Name = "[Generated] Checker Texture";
+		tex.name = "[Generated] Checker Texture";
 		tex.hideFlags = HideFlags.DontSave;
 
 		for (int y = 0; y < 8; ++y) for (int x = 0; x < 8; ++x) tex.SetPixel(x, y, c1);
@@ -116,7 +116,7 @@ public static class NGUIEditorTools
 	static Texture2D CreateGradientTex ()
 	{
 		Texture2D tex = new Texture2D(1, 16);
-		tex.Name = "[Generated] Gradient Texture";
+		tex.name = "[Generated] Gradient Texture";
 		tex.hideFlags = HideFlags.DontSave;
 
 		Color c0 = new Color(1f, 1f, 1f, 0f);
@@ -547,7 +547,7 @@ public static class NGUIEditorTools
 
 		// No texture to use -- figure out a name using the atlas
 		path = AssetDatabase.GetAssetPath(atlas.GetInstanceID());
-		path = string.IsNullOrEmpty(path) ? "Assets/" + atlas.Name + ".png" : path.Replace(".prefab", ".png");
+		path = string.IsNullOrEmpty(path) ? "Assets/" + atlas.name + ".png" : path.Replace(".prefab", ".png");
 		return path;
 	}
 
@@ -1817,12 +1817,12 @@ public static class NGUIEditorTools
 
 				if (uiTexture != null && uiTexture.mainTexture != null)
 				{
-					UISpriteData atlasSprite = atlas.GetSprite(uiTexture.mainTexture.Name);
+					UISpriteData atlasSprite = atlas.GetSprite(uiTexture.mainTexture.name);
 
 					if (atlasSprite != null)
 					{
 						SerializedObject ob = ReplaceClass(uiTexture, spriteID);
-						ob.FindProperty("mSpriteName").stringValue = uiTexture.mainTexture.Name;
+						ob.FindProperty("mSpriteName").stringValue = uiTexture.mainTexture.name;
 						ob.FindProperty("mAtlas").objectReferenceValue = NGUISettings.atlas;
 						ob.ApplyModifiedProperties();
 					}
@@ -1879,7 +1879,7 @@ public static class NGUIEditorTools
 					entries.Add(null);
 					divider = true;
 				}
-				entries.Add(new MenuEntry(panel.Name + " (panel)", panel.gameObject));
+				entries.Add(new MenuEntry(panel.name + " (panel)", panel.gameObject));
 			}
 
 			UIWidgetContainer wc = NGUITools.FindInParents<UIWidgetContainer>(w.cachedGameObject);
@@ -1897,11 +1897,11 @@ public static class NGUIEditorTools
 						entries.Add(null);
 						divider = true;
 					}
-					entries.Add(new MenuEntry(wc.Name + " (container)", wc.gameObject));
+					entries.Add(new MenuEntry(wc.name + " (container)", wc.gameObject));
 				}
 			}
 
-			string name = (i + 1 == widgets.Count) ? (w.Name + " (top-most)") : w.Name;
+			string name = (i + 1 == widgets.Count) ? (w.name + " (top-most)") : w.name;
 			entries.Add(new MenuEntry(name, w.gameObject));
 			divider = false;
 		}

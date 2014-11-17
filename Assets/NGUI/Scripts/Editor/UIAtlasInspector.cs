@@ -320,7 +320,7 @@ public class UIAtlasInspector : Editor
 					GUILayout.Space(3f);
 					GUI.backgroundColor = Color.green;
 
-					if (GUILayout.Button("<< Return to " + NGUIEditorTools.previousSelection.Name))
+					if (GUILayout.Button("<< Return to " + NGUIEditorTools.previousSelection.name))
 					{
 						NGUIEditorTools.SelectPrevious();
 					}
@@ -399,7 +399,7 @@ public class UIAtlasInspector : Editor
 			++se.borderBottom;
 
 			se.tex = new Texture2D(w2, h2);
-			se.tex.Name = sprite.name;
+			se.tex.name = sprite.name;
 			se.tex.SetPixels32(c2);
 			se.tex.Apply();
 			se.temporaryTexture = true;
@@ -460,7 +460,7 @@ public class UIAtlasInspector : Editor
 			++se.borderBottom;
 
 			se.tex = new Texture2D(w2, h2);
-			se.tex.Name = sprite.name;
+			se.tex.name = sprite.name;
 			se.tex.SetPixels32(c2);
 			se.tex.Apply();
 			se.temporaryTexture = true;
@@ -521,7 +521,7 @@ public class UIAtlasInspector : Editor
 			++se.borderBottom;
 
 			se.tex = new Texture2D(w2, h2);
-			se.tex.Name = sprite.name;
+			se.tex.name = sprite.name;
 			se.tex.SetPixels32(c2);
 			se.tex.Apply();
 			se.temporaryTexture = true;
@@ -582,7 +582,7 @@ public class UIAtlasInspector : Editor
 			if (se.temporaryTexture) DestroyImmediate(se.tex);
 
 			se.tex = new Texture2D(w2, h2);
-			se.tex.Name = sprite.name;
+			se.tex.name = sprite.name;
 			se.tex.SetPixels32(c2);
 			se.tex.Apply();
 			se.temporaryTexture = true;
@@ -635,7 +635,7 @@ public class UIAtlasInspector : Editor
 			}
 
 			se.tex = new Texture2D(w2, h2);
-			se.tex.Name = sprite.name;
+			se.tex.name = sprite.name;
 			se.tex.SetPixels32(c2);
 			se.tex.Apply();
 			se.temporaryTexture = true;
@@ -688,7 +688,7 @@ public class UIAtlasInspector : Editor
 			}
 
 			se.tex = new Texture2D(w2, h2);
-			se.tex.Name = sprite.name;
+			se.tex.name = sprite.name;
 			se.tex.SetPixels32(c2);
 			se.tex.Apply();
 			se.temporaryTexture = true;

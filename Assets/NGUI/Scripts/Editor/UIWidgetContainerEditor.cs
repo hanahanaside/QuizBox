@@ -196,7 +196,7 @@ public class UIWidgetContainerEditor : Editor
 							// Wait until the mouse moves by more than a few pixels
 							if (!mIsDragging && dragStarted)
 							{
-								NGUIEditorTools.RegisterUndo("Move " + t.Name, t);
+								NGUIEditorTools.RegisterUndo("Move " + t.name, t);
 								mStartPos = t.position;
 								mIsDragging = true;
 							}

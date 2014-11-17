@@ -227,7 +227,7 @@ public class UICameraTool : EditorWindow
 		}
 		else
 		{
-			camName = cam.Name + (cam.orthographic ? " (2D)" : " (3D)");
+			camName = cam.name + (cam.orthographic ? " (2D)" : " (3D)");
 			camLayer = LayerMask.LayerToName(cam.gameObject.layer);
 		}
 

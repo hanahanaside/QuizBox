@@ -99,7 +99,7 @@ public class UIDrawCallViewer : EditorWindow
 			++dcCount;
 			string name = key + " of " + dcs.size;
 			if (!dc.isActive) name = name + " (HIDDEN)";
-			else if (!highlight) name = name + " (" + dc.manager.Name + ")";
+			else if (!highlight) name = name + " (" + dc.manager.name + ")";
 
 			if (NGUIEditorTools.DrawHeader(name, key))
 			{
@@ -138,7 +138,7 @@ public class UIDrawCallViewer : EditorWindow
 						if (w.drawCall == dc)
 						{
 							string path = NGUITools.GetHierarchy(w.cachedGameObject);
-							list[++count] = count + ". " + (string.Equals(path, myPath) ? w.Name : path.Replace(remove, ""));
+							list[++count] = count + ". " + (string.Equals(path, myPath) ? w.name : path.Replace(remove, ""));
 						}
 					}
 				}

@@ -58,13 +58,13 @@ public class NGUISelectionTools
 
 			// Create our new GameObject
 			GameObject newGameObject = new GameObject();
-			newGameObject.Name = "GameObject";
+			newGameObject.name = "GameObject";
 
 			// If there is a selected object in the scene then make the new object its child.
 			if (Selection.activeTransform != null)
 			{
 				newGameObject.transform.parent = Selection.activeTransform;
-				newGameObject.Name = "Child";
+				newGameObject.name = "Child";
 
 				// Place the new GameObject at the same position as the parent.
 				newGameObject.transform.localPosition = Vector3.zero;
