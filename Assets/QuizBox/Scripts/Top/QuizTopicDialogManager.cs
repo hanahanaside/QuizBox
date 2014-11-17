@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class QuizTopicInitializer : MonoBehaviour {
+public class QuizTopicDialogManager : MonoBehaviour {
 
 	public GameObject topCellPrefab;
 	public UIGrid grid;
