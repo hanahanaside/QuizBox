@@ -50,10 +50,10 @@ public class TitleController : MonoBehaviour {
 	public void OnChallengeModeClicked () {
 		Debug.Log ("OnChallengeModeClicked");
 		int id = SelectedQuiz.instance.id;
-		IDictionary challengeQuizDictionary = QuizListDao.instance.GetChallengeData (id);
+		IDictionary challengeQuizDictionary = QuizListDao.instance.GetChallengeDataById (id);
 		Debug.Log ("count = " + challengeQuizDictionary.Count);
 		string jsonString = (string)challengeQuizDictionary [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD];
-		if (jsonString == "null") {
+		if (jsonString == "null" || string.IsNullOrEmpty(jsonString)) {
 			StartChallengeDialog.Show ();
 		} else {
 			int questionCount = (int)challengeQuizDictionary [QuizListDao.CHALLENGE_QUIZ_COUNT];
@@ -61,7 +61,6 @@ public class TitleController : MonoBehaviour {
 			QuizListManager.instance.PlayChallenteModeResume (jsonString, questionCount, correctCount);
 			RestartChallengeDialog.Show ();
 		}
-
 	}
 
 	public void OnBackClicked () {

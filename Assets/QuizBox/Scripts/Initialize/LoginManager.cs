@@ -34,18 +34,19 @@ public class LoginManager : MonoBehaviour {
 		PrefsManager.Instance.AddUserPoint (5);
 		userPointLabel.text = PrefsManager.Instance.GetUserPoint() + "pt";
 		PrefsManager.Instance.LoginDate = dtNow.ToString ();
+		#if !UNITY_EDITOR
 		ShowLoginBonusDialog ();
+		#endif
 	}
 
 	private void ShowLoginBonusDialog () {
 		string title = "ログインボーナス";
 		string message = "5ptゲット!!";
-		#if UNITY_EDITOR
-
-		#elif UNITY_IPHONE
+		#if UNITY_IPHONE
 		string[] buttons = {"OK"};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
-		#elif UNITY_ANDROID
+		#endif
+		#if UNITY_ANDROID
 		EtceteraAndroid.showAlert (title,message,"OK");
 		#endif
 	}

@@ -14,7 +14,6 @@ public class ResultInitializer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SoundManager.Instance.PlayBGM (SoundManager.BGM_RESULT);
 		int score = ScoreKeeper.instance.score;
 		int size = QuizListManager.instance.quizList.Count;
 		string result = size + "問中" + score + "問正解!!";
@@ -23,13 +22,13 @@ public class ResultInitializer : MonoBehaviour {
 		historyData.Average = ((double)score / (double)size) * 100;
 		historyData.result = result;
 		historyData.date = DateTime.Now.ToString ("yyyy/MM/dd (ddd) HH:mm:ss");
-		historyData.title = SelectedQuiz.instance.name;
+		historyData.title = SelectedQuiz.instance.Name;
 		historyData.mode = QuizListManager.instance.modeName;
 	
 		HistoryDataDao.instance.InsertHistoryData (historyData);
 
 		mAverage = ((double)score / (double)size) * 100;
-		resultLabelArray [0].GetComponent<UILabel> ().text = SelectedQuiz.instance.name;
+		resultLabelArray [0].GetComponent<UILabel> ().text = SelectedQuiz.instance.Name;
 		resultLabelArray [1].GetComponent<UILabel> ().text = QuizListManager.instance.modeName;
 		resultLabelArray [2].GetComponent<UILabel> ().text = result;
 		resultLabelArray [3].GetComponent<UILabel> ().text = "\u6b63\u89e3\u7387 : " + Math.Round (mAverage) + "%";

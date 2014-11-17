@@ -8,7 +8,9 @@ public class HistoryCellController : MonoBehaviour {
 	public UISprite medalSprite;
 	public GameObject tweetButton;
 	private HistoryData mHistoryData;
+	#if UNITY_ANDROID
 	private bool mTweeted = false;
+	#endif 
 
 	#if UNITY_ANDROID
 	void OnApplicationPause (bool pauseSatatus) {
@@ -32,7 +34,7 @@ public class HistoryCellController : MonoBehaviour {
 		if (didSucceed) {
 			PrefsManager.Instance.AddUserPoint(1);
 			TopController.Instance.UpdateUserPointLabel ();
-			tweetButton.SetActive (false);
+			tweetButton.SetActive (false);		
 			ShowCompleteDialog ();
 		}
 	}
