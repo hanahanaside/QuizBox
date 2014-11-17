@@ -39,7 +39,7 @@ public class UIPanelTool : EditorWindow
 		{
 			if (a.panel.depth < b.panel.depth) return -1;
 			if (a.panel.depth > b.panel.depth) return 1;
-			int val = string.Compare(a.panel.name, b.panel.name);
+			int val = string.Compare(a.panel.Name, b.panel.Name);
 			if (val != 0) return val;
 			return (a.panel.GetInstanceID() < b.panel.GetInstanceID()) ? -1 : 1;
 		}
@@ -185,7 +185,7 @@ public class UIPanelTool : EditorWindow
 
 		if (ent != null)
 		{
-			panelName = ent.panel.name;
+			panelName = ent.panel.Name;
 			layer = LayerMask.LayerToName(ent.panel.gameObject.layer);
 			depth = ent.panel.depth.ToString();
 			widgetCount = ent.widgets.Count.ToString();

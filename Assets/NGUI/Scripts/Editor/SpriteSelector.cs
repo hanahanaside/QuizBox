@@ -44,7 +44,7 @@ public class SpriteSelector : ScriptableWizard
 		{
 			UIAtlas atlas = NGUISettings.atlas;
 			bool close = false;
-			GUILayout.Label(atlas.name + " Sprites", "LODLevelNotifyText");
+			GUILayout.Label(atlas.Name + " Sprites", "LODLevelNotifyText");
 			NGUIEditorTools.DrawSeparator();
 
 			GUILayout.BeginHorizontal();

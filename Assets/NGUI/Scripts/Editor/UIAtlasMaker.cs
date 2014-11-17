@@ -41,7 +41,7 @@ public class UIAtlasMaker : EditorWindow
 			temporaryTexture = true;
 
 			tex = new Texture2D(newWidth, newHeight);
-			tex.name = name;
+			tex.Name = name;
 			tex.SetPixels32(newPixels);
 			tex.Apply();
 
@@ -114,7 +114,7 @@ public class UIAtlasMaker : EditorWindow
 			foreach (Object o in objects)
 			{
 				Texture tex = o as Texture;
-				if (tex == null || tex.name == "Font Texture") continue;
+				if (tex == null || tex.Name == "Font Texture") continue;
 				if (NGUISettings.atlas == null || NGUISettings.atlas.texture != tex) textures.Add(tex);
 			}
 		}
@@ -223,7 +223,7 @@ public class UIAtlasMaker : EditorWindow
 		if (textures.Count > 0)
 		{
 			List<string> texNames = new List<string>();
-			foreach (Texture tex in textures) texNames.Add(tex.name);
+			foreach (Texture tex in textures) texNames.Add(tex.Name);
 			texNames.Sort();
 			foreach (string tex in texNames) spriteList.Add(tex, 2);
 		}
@@ -282,7 +282,7 @@ public class UIAtlasMaker : EditorWindow
 				SpriteEntry sprite = new SpriteEntry();
 				sprite.SetRect(0, 0, oldTex.width, oldTex.height);
 				sprite.tex = oldTex;
-				sprite.name = oldTex.name;
+				sprite.name = oldTex.Name;
 				sprite.temporaryTexture = false;
 				list.Add(sprite);
 				continue;
@@ -340,7 +340,7 @@ public class UIAtlasMaker : EditorWindow
 				if (!NGUISettings.atlasPMA && (newWidth == oldWidth && newHeight == oldHeight))
 				{
 					sprite.tex = oldTex;
-					sprite.name = oldTex.name;
+					sprite.name = oldTex.Name;
 					sprite.temporaryTexture = false;
 				}
 				else
@@ -360,7 +360,7 @@ public class UIAtlasMaker : EditorWindow
 					}
 
 					// Create a new texture
-					sprite.name = oldTex.name;
+					sprite.name = oldTex.Name;
 					sprite.SetTexture(newPixels, newWidth, newHeight);
 
 					// Remember the padding offset
@@ -777,7 +777,7 @@ public class UIAtlasMaker : EditorWindow
 				if (mat != null)
 				{
 					if (GUILayout.Button("Material", GUILayout.Width(76f))) Selection.activeObject = mat;
-					GUILayout.Label(" " + mat.name);
+					GUILayout.Label(" " + mat.Name);
 				}
 				else
 				{
@@ -830,12 +830,12 @@ public class UIAtlasMaker : EditorWindow
 
 				if (shader != null)
 				{
-					if (shader.name == "Unlit/Transparent Colored")
+					if (shader.Name == "Unlit/Transparent Colored")
 					{
 						NGUISettings.atlasPMA = false;
 						fixedShader = true;
 					}
-					else if (shader.name == "Unlit/Premultiplied Colored")
+					else if (shader.Name == "Unlit/Premultiplied Colored")
 					{
 						NGUISettings.atlasPMA = true;
 						fixedShader = true;

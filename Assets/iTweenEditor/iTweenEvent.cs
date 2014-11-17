@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2012 David Koontz
+﻿// Copyright (c) 2009-2012 David Koontz
 // Please direct any bugs/comments/suggestions to david@koontzfamily.org
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy

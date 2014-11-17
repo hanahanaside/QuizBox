@@ -646,7 +646,7 @@ public class UIFontInspector : Editor
 		else
 		{
 			// Update the atlas
-			final.name = mFont.spriteName;
+			final.Name = mFont.spriteName;
 			bool val = NGUISettings.atlasTrimming;
 			NGUISettings.atlasTrimming = false;
 			UIAtlasMaker.AddOrUpdate(mFont.atlas, final);

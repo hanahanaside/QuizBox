@@ -165,7 +165,7 @@ public class UIPrefabTool : EditorWindow
 				NGUISettings.currentPath, go.name + ".prefab", "prefab");
 #else
 			string path = EditorUtility.SaveFilePanelInProject("Save a prefab",
-				go.name + ".prefab", "prefab", "Save prefab as...", NGUISettings.currentPath);
+				go.Name + ".prefab", "prefab", "Save prefab as...", NGUISettings.currentPath);
 #endif	
 			if (string.IsNullOrEmpty(path)) return;
 			NGUISettings.currentPath = System.IO.Path.GetDirectoryName(path);
@@ -264,7 +264,7 @@ public class UIPrefabTool : EditorWindow
 
 				if (string.IsNullOrEmpty(guid))
 				{
-					Debug.LogWarning("Unable to save " + mItems[i].prefab.name);
+					Debug.LogWarning("Unable to save " + mItems[i].prefab.Name);
 				}
 				else
 				{
@@ -412,7 +412,7 @@ public class UIPrefabTool : EditorWindow
 		else if (!UnityEditorInternal.InternalEditorUtility.HasPro())
 		{
 			// Render textures only work in Unity Pro
-			string path = "Assets/NGUI/Editor/Preview/" + item.prefab.name + ".png";
+			string path = "Assets/NGUI/Editor/Preview/" + item.prefab.Name + ".png";
 			item.tex = File.Exists(path) ? (Texture2D)Resources.LoadAssetAtPath(path, typeof(Texture2D)) : null;
 			item.dynamicTex = false;
 			return;
@@ -602,7 +602,7 @@ public class UIPrefabTool : EditorWindow
 			return;
 		}
 
-		string str = snapshot.name.Replace("NGUI Snapshot Point", "");
+		string str = snapshot.Name.Replace("NGUI Snapshot Point", "");
 		string[] parts = str.Split(new char[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
 
 		if (parts.Length == 3)
@@ -638,7 +638,7 @@ public class UIPrefabTool : EditorWindow
 
 	static Transform FindChild (Transform t, string startsWith)
 	{
-		if (t.name.StartsWith(startsWith)) return t;
+		if (t.Name.StartsWith(startsWith)) return t;
 
 		for (int i = 0, imax = t.childCount; i < imax; ++i)
 		{
@@ -859,7 +859,7 @@ public class UIPrefabTool : EditorWindow
 			if (mItems[i] != selection)
 			{
 				if (string.IsNullOrEmpty(searchFilter) ||
-					mItems[i].prefab.name.IndexOf(searchFilter, System.StringComparison.CurrentCultureIgnoreCase) != -1)
+					mItems[i].prefab.Name.IndexOf(searchFilter, System.StringComparison.CurrentCultureIgnoreCase) != -1)
 						indices.Add(i);
 			}
 			++i;
@@ -917,7 +917,7 @@ public class UIPrefabTool : EditorWindow
 				rect.yMax -= 1f; // Button seems to be mis-shaped. It's height is larger than its width by a single pixel.
 
 				if (!isDragging && (mMode == Mode.CompactMode || (ent == null || ent.tex != null)))
-					mContent.tooltip = (ent != null) ? ent.prefab.name : "Click to add";
+					mContent.tooltip = (ent != null) ? ent.prefab.Name : "Click to add";
 				else mContent.tooltip = "";
 
 				//if (ent == selection)
@@ -954,7 +954,7 @@ public class UIPrefabTool : EditorWindow
 					}
 				}
 
-				string caption = (ent == null) ? "" : ent.prefab.name.Replace("Control - ", "");
+				string caption = (ent == null) ? "" : ent.prefab.Name.Replace("Control - ", "");
 
 				if (ent != null)
 				{
