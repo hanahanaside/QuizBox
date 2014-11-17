@@ -51,33 +51,49 @@ public class DatabaseUpdater : MonoBehaviour {
 			kinkonQuiz.QuizUrl = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
 			kinkonQuiz.QuizId = 73;
 			kinkonQuiz.BoughtDate = DateTime.Now.ToString ();
+			kinkonQuiz.OrderNumber = 1;
 			QuizListDao.instance.Insert (kinkonQuiz);
 			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		case 1:
 			//ヒストリーデータを再構築(tweet_flagを削除)ver1.9
-			IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
-			List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
-			string databaseFileName = "quiz_box.db";
-			string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
-			string filePath = Application.persistentDataPath + "/" + databaseFileName;
-			File.Delete (filePath);
-			File.Copy (baseFilePath, filePath); 
-			foreach (HistoryData historyData in historyDataList) {
-				HistoryDataDao.instance.InsertHistoryData (historyData);
-			}
-			foreach (Quiz quiz in quizList) {
-				QuizListDao.instance.Insert (quiz);
-			}
-			PrefsManager.Instance.DatabaseVersion = 2;
+			RemakeDatabase ();
+			InitOrderNumber ();
+			PrefsManager.Instance.DatabaseVersion = 3;
 			UpdateDatabase ();
 			break;
 		case 2:
 			//オーダーナンバーを追加 ver2.0
+			RemakeDatabase ();
+			InitOrderNumber ();
 			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		}
 		updatedDatabaseEvent ();
+	}
+
+	private void InitOrderNumber(){
+		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
+		foreach(Quiz quiz in quizList){
+			quiz.OrderNumber = quiz.Id;
+			QuizListDao.instance.UpdateOrderNumber (quiz);
+		}
+	}
+
+	private void RemakeDatabase(){
+		IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
+		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
+		string databaseFileName = "quiz_box.db";
+		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
+		string filePath = Application.persistentDataPath + "/" + databaseFileName;
+		File.Delete (filePath);
+		File.Copy (baseFilePath, filePath); 
+		foreach (HistoryData historyData in historyDataList) {
+			HistoryDataDao.instance.InsertHistoryData (historyData);
+		}
+		foreach (Quiz quiz in quizList) {
+			QuizListDao.instance.Insert (quiz);
+		}
 	}
 		
 	private void ShowErrorDialog () {

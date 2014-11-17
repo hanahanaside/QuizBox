@@ -36,6 +36,17 @@ public class QuizListDao {
 		sqliteDB.Close ();
 	}
 
+	public void UpdateOrderNumber(Quiz quiz){
+		SQLiteDB sqliteDB = OpenDatabase ();
+		StringBuilder sb = new StringBuilder ();
+		sb.Append ("update quiz_list set ");
+		sb.Append (ORDER_NUMBER_FIELD + " = " + quiz.OrderNumber +" ");
+		sb.Append ("where " + ID_FIELD + " = " + quiz.Id + ";");
+		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString ());
+		sqliteQuery.Step ();
+		sqliteDB.Close ();
+	}
+
 	public List<Quiz> GetQuizList () {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, "select * from quiz_list;");
