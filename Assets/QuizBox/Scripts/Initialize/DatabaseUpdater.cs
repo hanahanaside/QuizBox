@@ -46,18 +46,18 @@ public class DatabaseUpdater : MonoBehaviour {
 		switch (databaseVersion) {
 		case 0:
 			//金魂クイズをインサート
-			IDictionary kinkonQuiz = new Dictionary<string,object> ();
-			kinkonQuiz [QuizListDao.TITLE_FIELD] = "金魂クイズ";
-			kinkonQuiz [QuizListDao.QUIZ_URL_FIELD] = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
-			kinkonQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
-			kinkonQuiz [QuizListDao.BOUGHT_DATE_FIELD] = DateTime.Now.ToString ();
+			Quiz kinkonQuiz = new Quiz ();
+			kinkonQuiz.Title = "金魂クイズ";
+			kinkonQuiz.QuizUrl = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
+			kinkonQuiz.QuizId = 73;
+			kinkonQuiz.BoughtDate = DateTime.Now.ToString ();
 			QuizListDao.instance.Insert (kinkonQuiz);
-			PrefsManager.Instance.DatabaseVersion = 2;
+			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		case 1:
-			//ヒストリーデータを再構築
+			//ヒストリーデータを再構築(tweet_flagを削除)
 			IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
-			IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+			List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
 			string databaseFileName = "quiz_box.db";
 			string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 			string filePath = Application.persistentDataPath + "/" + databaseFileName;
@@ -66,16 +66,16 @@ public class DatabaseUpdater : MonoBehaviour {
 			foreach (HistoryData historyData in historyDataList) {
 				HistoryDataDao.instance.InsertHistoryData (historyData);
 			}
-			foreach (IDictionary quiz in quizList) {
+			foreach (Quiz quiz in quizList) {
 				QuizListDao.instance.Insert (quiz);
 			}
 			PrefsManager.Instance.DatabaseVersion = 2;
 			break;
 		case 2:
 			//オーダーナンバーを追加
+			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		}
-
 		updatedDatabaseEvent ();
 	}
 		

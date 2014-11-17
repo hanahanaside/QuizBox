@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using MiniJSON;
 using System.Collections;
+using System;
 
 public class AddQuizController : MonoBehaviour {
 
@@ -63,9 +64,14 @@ public class AddQuizController : MonoBehaviour {
 
 	void alertButtonClickedEvent (string clickedButton) {
 		Debug.Log ("alertButtonClickedEvent: " + clickedButton);
-		if (clickedButton == "\u306f\u3044") {
-			//add quiz
-			QuizListDao.instance.Insert (mSelectedQuiz.title, mSelectedQuiz.url,mSelectedQuiz.QuizId);
+		if (clickedButton == "はい") {
+			//insert quiz
+			Quiz quiz = new Quiz ();
+			quiz.Title = mSelectedQuiz.title;
+			quiz.QuizUrl = mSelectedQuiz.url;
+			quiz.QuizId = mSelectedQuiz.QuizId;
+			quiz.BoughtDate = DateTime.Now.ToString ();
+			QuizListDao.instance.Insert (quiz);
 			int userPoint = PrefsManager.Instance.GetUserPoint ();
 			userPoint -= mSelectedQuiz.point;
 			PrefsManager.Instance.SaveUserPoint (userPoint);

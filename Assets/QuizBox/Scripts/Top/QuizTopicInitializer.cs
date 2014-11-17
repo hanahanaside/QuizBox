@@ -24,20 +24,16 @@ public class QuizTopicInitializer : MonoBehaviour {
 			grid.AddChild (incentiveButtonObject.transform);
 			incentiveButtonObject.transform.localScale = new Vector2 (1f,1f);
 		} 
-		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
-		foreach (IDictionary quiz in quizList) {
+		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
+		foreach (Quiz quiz in quizList) {
 			GameObject cellObject = Instantiate (topCellPrefab) as GameObject;
 			grid.AddChild (cellObject.transform);
 			cellObject.transform.localScale = new Vector2 (1f, 1f);
-			int id = (int)quiz [QuizListDao.ID_FIELD];
-			string name = (string)quiz [QuizListDao.TITLE_FIELD];
-			string quizUrl = (string)quiz [QuizListDao.QUIZ_URL_FIELD];
-			string boughtDate = (string)quiz [QuizListDao.BOUGHT_DATE_FIELD];
 			CellTop cellTop = cellObject.GetComponent<CellTop> ();
-			cellTop.id = id;
-			cellTop.Name = name;
-			cellTop.quizUrl = quizUrl;
-			cellTop.boughtDate = boughtDate;
+			cellTop.id = quiz.Id;
+			cellTop.Name = quiz.Title;
+			cellTop.quizUrl = quiz.QuizUrl;
+			cellTop.boughtDate = quiz.BoughtDate;
 		}
 		scrollView.ResetPosition ();
 	}

@@ -17,5 +17,5 @@ public class Quiz {
 
 	public string ChallengeQuizData{ get; set; }
 
-	public string BoughtData{ get; set; }
+	public string BoughtDate{ get; set; }
 }
