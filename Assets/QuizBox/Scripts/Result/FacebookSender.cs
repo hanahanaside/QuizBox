@@ -40,7 +40,7 @@ public class FacebookSender : MonoBehaviour {
 		int score = ScoreKeeper.instance.score;
 		int size = QuizListManager.instance.quizList.Count;
 		string result = size + "問中" + score + "問正解!!";
-	//	string imagePath = Application.streamingAssetsPath + "/share_image.png";
+		string imagePath = Application.streamingAssetsPath + "/share_image.png";
 
 #if UNITY_IPHONE
 		Debug.Log("can use composer = "+FacebookBinding.canUserUseFacebookComposer());

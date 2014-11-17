@@ -11,7 +11,6 @@ public class HistoryDataDao {
 	private const string MODE_FIELD = "mode";
 	private const string RESULT_FIELD = "result";
 	private const string DATE_FIELD = "date";
-
 	private static HistoryDataDao sInstance;
 
 	public static HistoryDataDao instance {
@@ -30,7 +29,24 @@ public class HistoryDataDao {
 		sqliteQuery.Step ();
 		sqliteDB.Close ();
 	}
-		
+
+	public void DropTable(){
+		SQLiteDB sqliteDB = OpenDB ();
+		string sql = "drop table " + TABLE_NAME;
+		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sql);
+		sqliteQuery.Step ();
+		sqliteDB.Close ();
+	}
+
+	public void CreateTable(){
+		SQLiteDB sqliteDB = OpenDB ();
+		StringBuilder sb = new StringBuilder ();
+		sb.Append ("");
+		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString());
+		sqliteQuery.Step ();
+		sqliteDB.Close ();
+	}
+
 	public IList<HistoryData> QueryHistoryDataList () {
 		IList<HistoryData> historyDataList = new List<HistoryData> ();
 		SQLiteDB sqliteDB = OpenDB ();
