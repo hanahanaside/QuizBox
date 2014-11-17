@@ -30,7 +30,6 @@ public class ProductListKeeper : MonoBehaviour {
 	void productListRequestFailedEvent (string error) {
 		Debug.Log ("productListRequestFailedEvent");
 		Debug.Log (error);
-		requestProductData ();
 	}
 
 	void ReceivedProductsList (List<StoreKitProduct> productsList) {

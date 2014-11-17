@@ -43,7 +43,7 @@ public class TitleInitializer : MonoBehaviour {
 			item.SetActive (true);
 		}
 		backButtonSprite.enabled = true;
-		titleLabel.text = SelectedQuiz.instance.name;
+		titleLabel.text = SelectedQuiz.instance.Name;
 		StringBuilder sb = new StringBuilder();
 		sb.Append("\u554f\u984c\u6570\n");
 		sb.Append(QuizListManager.instance.allQuizListCount + "\u554f\n");

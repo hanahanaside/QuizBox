@@ -1,56 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CellTop : MonoBehaviour
-{
+public class CellTop : MonoBehaviour {
 
 	private int mId;
 	private string mName;
 	private string mQuizUrl;
 	private string mBoughtDate;
 
-	public void OnClick(){
+	public void OnClick () {
 		Debug.Log ("click");
 		SelectedQuiz.instance.id = mId;
-		SelectedQuiz.instance.name = mName;
+		SelectedQuiz.instance.Name = mName;
 		SelectedQuiz.instance.quizUrl = mQuizUrl;
 		SelectedQuiz.instance.boughtDate = mBoughtDate;
-		Application.LoadLevel("Title");
+		Application.LoadLevel ("Title");
 	}
 
 	public int id {
 		get {
 			return mId;
 		}
-		set{
+		set {
 			mId = value;
 		}
 	}
 
-	public string name {
+	public string Name {
 		get {
 			return mName;
 		}
 		set {
 			mName = value;
-			gameObject.GetComponentInChildren<UILabel>().text = mName;
+			gameObject.GetComponentInChildren<UILabel> ().text = mName;
 		}
 	}
 
-	public string quizUrl{
-		get{
+	public string quizUrl {
+		get {
 			return mQuizUrl;
 		}
-		set{
+		set {
 			mQuizUrl = value;
 		}
 	}
 
-	public string boughtDate{
-		get{
+	public string boughtDate {
+		get {
 			return mBoughtDate;
 		}
-		set{
+		set {
 			mBoughtDate = value;
 		}
 	}
