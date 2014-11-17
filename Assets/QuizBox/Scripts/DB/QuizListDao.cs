@@ -13,6 +13,7 @@ public class QuizListDao {
 	public const string CHALLENGE_QUIZ_CORRECT = "challenge_quiz_correct";
 	public const string BOUGHT_DATE_FIELD = "bought_date";
 	public const string QUIZ_ID_FIELD = "quiz_id";
+	public const string ORDER_NUMBER_FIELD = "order_number";
 	private static QuizListDao sInstance;
 
 	public static QuizListDao instance {
@@ -41,17 +42,27 @@ public class QuizListDao {
 		List<Quiz> quizList = new List<Quiz> ();
 		while (sqliteQuery.Step ()) {
 			Quiz quiz = new Quiz ();
-			quiz.Id = sqliteQuery.GetInteger (ID_FIELD);
-			quiz.Title = sqliteQuery.GetString (TITLE_FIELD);
-			quiz.QuizUrl = sqliteQuery.GetString (QUIZ_URL_FIELD);
-			quiz.BoughtDate = sqliteQuery.GetString (BOUGHT_DATE_FIELD);
-			quiz.QuizId = sqliteQuery.GetInteger (QUIZ_ID_FIELD);
-			quizList.Add (quiz);
+			//カラムがない場合アリ
+			try {
+				quiz.Id = sqliteQuery.GetInteger (ID_FIELD);
+				quiz.Title = sqliteQuery.GetString (TITLE_FIELD);
+				quiz.QuizUrl = sqliteQuery.GetString (QUIZ_URL_FIELD);
+				quiz.BoughtDate = sqliteQuery.GetString (BOUGHT_DATE_FIELD);
+				quiz.QuizId = sqliteQuery.GetInteger (QUIZ_ID_FIELD);
+				quiz.ChallengeQuizCorrect = sqliteQuery.GetInteger (CHALLENGE_QUIZ_CORRECT);
+				quiz.ChallengeQuizCount = sqliteQuery.GetInteger (CHALLENGE_QUIZ_COUNT);
+				quiz.ChallengeQuizData = sqliteQuery.GetString (CHALLENGE_QUIZ_DATA_FIELD);
+				quiz.OrderNumber = sqliteQuery.GetInteger(ORDER_NUMBER_FIELD);
+			} catch (Exception e) {
+				Debug.LogError (e.Message);
+			} finally {
+				quizList.Add (quiz);
+			}
 		}
 		sqliteDB.Close ();
 		return quizList;
 	}
-		
+
 	public void Insert (Quiz quiz) {			
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
@@ -63,7 +74,8 @@ public class QuizListDao {
 		sb.Append (quiz.ChallengeQuizCount + " ,");
 		sb.Append (quiz.ChallengeQuizCorrect + " ,");
 		sb.Append ("'" + quiz.BoughtDate + "',");
-		sb.Append (quiz.QuizId);
+		sb.Append (quiz.QuizId+ " ,");
+		sb.Append (quiz.OrderNumber);
 		sb.Append (");");
 		QuerySQL (sqliteDB, sb.ToString ());
 	}
@@ -106,10 +118,10 @@ public class QuizListDao {
 	public void RemoveChallengeData (int id) {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
-		sb.Append ("update quiz_list set " + CHALLENGE_QUIZ_DATA_FIELD + " = null where id = " + id);
+		sb.Append ("update quiz_list set " + CHALLENGE_QUIZ_DATA_FIELD + " = '' where id = " + id);
 		QuerySQL (sqliteDB, sb.ToString ());
 	}
-		
+
 	private SQLiteDB OpenDatabase () {
 		SQLiteDB sqliteDB = new SQLiteDB ();
 		string fileName = Application.persistentDataPath + "/quiz_box.db";

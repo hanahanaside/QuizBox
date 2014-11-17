@@ -55,7 +55,7 @@ public class DatabaseUpdater : MonoBehaviour {
 			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		case 1:
-			//ヒストリーデータを再構築(tweet_flagを削除)
+			//ヒストリーデータを再構築(tweet_flagを削除)ver1.9
 			IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
 			List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
 			string databaseFileName = "quiz_box.db";
@@ -70,9 +70,10 @@ public class DatabaseUpdater : MonoBehaviour {
 				QuizListDao.instance.Insert (quiz);
 			}
 			PrefsManager.Instance.DatabaseVersion = 2;
+			UpdateDatabase ();
 			break;
 		case 2:
-			//オーダーナンバーを追加
+			//オーダーナンバーを追加 ver2.0
 			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		}
