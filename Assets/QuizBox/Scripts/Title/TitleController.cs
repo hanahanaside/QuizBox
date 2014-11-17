@@ -28,7 +28,7 @@ public class TitleController : MonoBehaviour {
 		EtceteraAndroidManager.alertCancelledEvent -= alertCancelledEvent;
 		#endif
 	}
-
+		
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
 			QuizListManager.instance.ReleaseQuizList();

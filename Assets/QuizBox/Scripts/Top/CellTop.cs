@@ -7,6 +7,9 @@ public class CellTop : MonoBehaviour {
 	private string mName;
 	private string mQuizUrl;
 	private string mBoughtDate;
+	private float mTime;
+	private bool mIsDown;
+	private UIDragDropItem mDragDropItem;
 
 	public void OnClick () {
 		Debug.Log ("click");
@@ -15,6 +18,36 @@ public class CellTop : MonoBehaviour {
 		SelectedQuiz.instance.quizUrl = mQuizUrl;
 		SelectedQuiz.instance.boughtDate = mBoughtDate;
 		Application.LoadLevel ("Title");
+	}
+
+	void Start(){
+		mDragDropItem = GetComponent<UIDragDropItem> ();
+	}
+
+	void OnPress (bool isDown) {
+		mIsDown = isDown;
+		mTime = 1.0f;
+		if(!isDown){
+			QuizTopicDialogManager.Instance.StopDragging ();
+			transform.localEulerAngles = new Vector3 (0,0,0);
+		}
+	}
+		
+	void Update () {
+		if (!mIsDown) {
+			return;
+		}
+		mTime -= Time.deltaTime;
+		if (mTime > 0) {
+			return;
+		}
+		if(!mDragDropItem.enabled){
+			QuizTopicDialogManager.Instance.StartDragging ();
+		}
+	}
+
+	public void SetDragDropEnabled(bool state){
+		mDragDropItem.enabled = state;
 	}
 
 	public int id {
