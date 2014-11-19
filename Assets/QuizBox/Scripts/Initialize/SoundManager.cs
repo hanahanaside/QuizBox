@@ -52,6 +52,9 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	public void PlayBGM (BGM_CHANNEL bgmChannel) {
+		if(!PrefsManager.Instance.IsBGMON()){
+			return;
+		}
 		int channelId = (int)bgmChannel;
 		mBGMAudioSource.clip = bgmClipArray [channelId];
 		mBGMAudioSource.Play ();
@@ -62,7 +65,7 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	public void PlaySESound (SE_CHANNEL seChannel) {
-		if (!PrefsManager.Instance.IsSoundON ()) {
+		if (!PrefsManager.Instance.IsSEON ()) {
 			return;
 		}
 		int seChannelId = (int)seChannel;
