@@ -45,7 +45,7 @@ public class DatabaseUpdater : MonoBehaviour {
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
 		switch (databaseVersion) {
 		case 0:
-			//金魂クイズをインサート
+				//金魂クイズをインサート
 			Quiz kinkonQuiz = new Quiz ();
 			kinkonQuiz.Title = "金魂クイズ";
 			kinkonQuiz.QuizUrl = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
@@ -72,15 +72,15 @@ public class DatabaseUpdater : MonoBehaviour {
 		updatedDatabaseEvent ();
 	}
 
-	private void InitOrderNumber(){
+	private void InitOrderNumber () {
 		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
-		foreach(Quiz quiz in quizList){
+		foreach (Quiz quiz in quizList) {
 			quiz.OrderNumber = quiz.Id;
 			QuizListDao.instance.UpdateOrderNumber (quiz);
 		}
 	}
 
-	private void RemakeDatabase(){
+	private void RemakeDatabase () {
 		IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
 		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
 		string databaseFileName = "quiz_box.db";
@@ -95,7 +95,7 @@ public class DatabaseUpdater : MonoBehaviour {
 			QuizListDao.instance.Insert (quiz);
 		}
 	}
-		
+
 	private void ShowErrorDialog () {
 		string title = "通信エラー";
 		string message = "1度アプリを終了します";

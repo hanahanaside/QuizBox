@@ -42,6 +42,17 @@ public class AddQuizInitializer : MonoBehaviour {
 			mAddQuizButtonList = (IList)Json.Deserialize (response);
 			CreateScrollView (mAddQuizButtonList);
 		}
+	} 
+
+	public void RemakeList(){
+		ShowProgressDialog ();
+		List<Transform> childList = grid.GetChildList();
+		foreach(Transform child in childList){
+			Destroy (child.gameObject);
+		}
+		mQuizList = QuizListDao.instance.GetQuizList ();
+		WWW www = new WWW (JSON_URL);
+		StartCoroutine (httpClient.Excute (www));
 	}
 
 	private void CreateScrollView (IList jsonArray) {

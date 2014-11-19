@@ -8,6 +8,7 @@ public class AddQuizController : MonoBehaviour {
 	public AddQuizDialog addQuizDialogPrefab;
 	public ShortPointDialog shortPointDialogPrefab;
 	public OkDialog okDialogPrefab;
+	public AddQuizInitializer addQuizInitializer;
 	private AddQuiz mSelectedQuiz;
 
 	void OnEnable () {
@@ -44,20 +45,19 @@ public class AddQuizController : MonoBehaviour {
 		Application.LoadLevel ("Top");
 	}
 
-	void OnClickAddQuiz (AddQuiz addQuiz) {
+	void OnClickAddQuiz (AddQuizButtonController addQuizButtonController) {
+		mSelectedQuiz = addQuizButtonController.SelectedQuiz;
 		#if UNITY_EDITOR
-		mSelectedQuiz = addQuiz;
 		alertButtonClickedEvent("はい");
 		#else
-		int needPoint = addQuiz.point;
+		int needPoint = mSelectedQuiz.point;
 		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		if (userPoint < needPoint) {
 		ShortPointDialog shortPointDialog = Instantiate (shortPointDialogPrefab) as ShortPointDialog;
 		shortPointDialog.Show ();
-		} else {
-		mSelectedQuiz = addQuiz; 
+		}else{
 		AddQuizDialog addQuizDialog = Instantiate (addQuizDialogPrefab)as AddQuizDialog;
-		addQuizDialog.Show (addQuiz, userPoint);
+		addQuizDialog.Show (mSelectedQuiz, userPoint);
 		}
 		#endif
 	}
@@ -80,8 +80,7 @@ public class AddQuizController : MonoBehaviour {
 			string message = mSelectedQuiz.title + "\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f";
 			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
 			okDialog.Show (title, message); 
-			TopController.Instance.OnAddQuizClicked ();
-			Destroy (transform.parent.gameObject);
+			addQuizInitializer.RemakeList ();
 		}
 	}
 }
