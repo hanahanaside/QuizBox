@@ -17,11 +17,13 @@ public class TopController : MonoBehaviour {
 	public GameObject[] dialogArray;
 	public UISprite[] buttonFilterArray;
 	private static TopController sInstance;
-	private GameObject mCurrentDialog;
+	private GameObject mCurrentDialogObject;
+	private Dialog mCurrentDialog;
 
 	void Start () {
 		sInstance = this;
 		ShowDialog (Dialog.QuizTopic);
+		mCurrentDialog = Dialog.QuizTopic;
 		SetActiveButtonFilter (Dialog.QuizTopic);
 		UpdateUserPointLabel ();
 		ImobileManager.Instance.ShowBannerAd ();
@@ -40,9 +42,13 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnTopClicked () {
-		mCurrentDialog.SetActive (false);
+		if(mCurrentDialog == Dialog.QuizTopic){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
 		SetActiveButtonFilter (Dialog.QuizTopic);
 		ShowDialog (Dialog.QuizTopic);
+		mCurrentDialog = Dialog.QuizTopic;
 	}
 
 	public void OnAddPointClicked () {
@@ -54,21 +60,33 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnResultClicked () {
-		mCurrentDialog.SetActive (false);
+		if(mCurrentDialog == Dialog.History){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
 		SetActiveButtonFilter (Dialog.History);
 		ShowDialog (Dialog.History);
+		mCurrentDialog = Dialog.History;
 	}
 
 	public void OnSettingClicked () {
-		mCurrentDialog.SetActive (false);
+		if(mCurrentDialog == Dialog.Setting){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
 		SetActiveButtonFilter (Dialog.Setting);
 		ShowDialog (Dialog.Setting);
+		mCurrentDialog = Dialog.Setting;
 	}
 
 	public void OnAddQuizClicked () {
-		mCurrentDialog.SetActive (false);
+		if(mCurrentDialog == Dialog.AddQuiz){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
 		SetActiveButtonFilter (Dialog.AddQuiz);
 		ShowDialog (Dialog.AddQuiz);
+		mCurrentDialog = Dialog.AddQuiz;
 	}
 
 	public void UpdateUserPointLabel () {
@@ -80,7 +98,7 @@ public class TopController : MonoBehaviour {
 		Debug.Log ("show dialog " + ((int)dialog));
 		GameObject currentDialog = dialogArray[(int)dialog];
 		currentDialog.SetActive (true);
-		mCurrentDialog = currentDialog;
+		mCurrentDialogObject = currentDialog;
 	}
 
 	private void SetActiveButtonFilter (Dialog dialog) {

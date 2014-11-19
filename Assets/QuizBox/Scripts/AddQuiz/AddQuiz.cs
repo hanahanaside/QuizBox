@@ -5,6 +5,7 @@ public class AddQuiz {
 	private int mPoint;
 	private int mQuizCount;
 	private int mQuizId;
+	private bool mFlagNew;
 	private string mUrl;
 	private string mTitle;
 
@@ -50,6 +51,15 @@ public class AddQuiz {
 		}
 		get{
 			return mQuizId;
+		}
+	}
+
+	public bool FlagNew{
+		set{
+			mFlagNew = value;
+		}
+		get{
+			return mFlagNew;
 		}
 	}
 }

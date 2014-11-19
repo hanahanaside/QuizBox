@@ -45,22 +45,30 @@ public class DatabaseUpdater : MonoBehaviour {
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
 		switch (databaseVersion) {
 		case 0:
+			List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
+			if(quizList.Count ==0){
 				//金魂クイズをインサート
-			Quiz kinkonQuiz = new Quiz ();
-			kinkonQuiz.Title = "金魂クイズ";
-			kinkonQuiz.QuizUrl = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
-			kinkonQuiz.QuizId = 73;
-			kinkonQuiz.BoughtDate = DateTime.Now.ToString ();
-			kinkonQuiz.OrderNumber = 1;
-			QuizListDao.instance.Insert (kinkonQuiz);
-			PrefsManager.Instance.DatabaseVersion = 3;
+				Quiz kinkonQuiz = new Quiz ();
+				kinkonQuiz.Title = "金魂クイズ";
+				kinkonQuiz.QuizUrl = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
+				kinkonQuiz.QuizId = 73;
+				kinkonQuiz.BoughtDate = DateTime.Now.ToString ("yyyy/MM/dd");
+				kinkonQuiz.OrderNumber = 1;
+				QuizListDao.instance.Insert (kinkonQuiz);
+				PrefsManager.Instance.DatabaseVersion = 3;
+			}else {
+				//ver0のままアップデートした人なので既存のレコードにquiz id を入れてあげる
+				RemakeDatabase ();
+				InitQuizId ();
+				InitOrderNumber ();
+				PrefsManager.Instance.DatabaseVersion = 3;
+			}
 			break;
 		case 1:
 			//ヒストリーデータを再構築(tweet_flagを削除)ver1.9
 			RemakeDatabase ();
 			InitOrderNumber ();
 			PrefsManager.Instance.DatabaseVersion = 3;
-			UpdateDatabase ();
 			break;
 		case 2:
 			//オーダーナンバーを追加 ver2.0
@@ -107,5 +115,9 @@ public class DatabaseUpdater : MonoBehaviour {
 		#if UNITY_ANDROID
 		EtceteraAndroid.showAlert (title,message,"OK");
 		#endif
+	}
+
+	private void InitQuizId(){
+
 	}
 }

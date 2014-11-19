@@ -56,15 +56,34 @@ public class AddQuizInitializer : MonoBehaviour {
 	}
 
 	private void CreateScrollView (IList jsonArray) {
-		foreach (object item in jsonArray) {
+		int maxId = GetMaxId (jsonArray);
+		Debug.Log ("max id " + maxId);
+		for(int i = 0;i<jsonArray.Count;i++){
+			object item = jsonArray[i];
 			IDictionary jsonObject = (IDictionary)item;
-			SetButtons (jsonObject);
+			SetButtons (jsonObject,maxId);
 		}
 		scrollView.ResetPosition ();
 		DismissProgressDialog ();
 	}
 
-	private void SetButtons (IDictionary jsonObject) {
+	private int GetMaxId(IList jsonArray){
+		int maxId = 0;
+		foreach(object item in jsonArray){
+			IDictionary jsonObject = (IDictionary)item;
+			bool publish = (bool)jsonObject ["publish"];
+			if (!publish) {
+				continue;
+			}
+			long quizId = (long)jsonObject ["id"];
+			if(quizId > maxId){
+				maxId = (int)quizId;
+			}
+		}
+		return maxId;
+	}
+
+	private void SetButtons (IDictionary jsonObject, int maxId) {
 		bool publish = (bool)jsonObject ["publish"];
 		string title = jsonObject ["title"].ToString ();
 		if (!publish) {
@@ -84,6 +103,10 @@ public class AddQuizInitializer : MonoBehaviour {
 		addQuiz.title = title;
 		addQuiz.quizCount = (int)quizCount;
 		addQuiz.QuizId = (int)quizId;
+		if(quizId > maxId -5){
+			addQuiz.FlagNew = true;
+		}
+
 		GameObject addQuizButtonObject = Instantiate (addQuizButtonPrefab)as GameObject;
 		grid.AddChild (addQuizButtonObject.transform);
 		addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);

@@ -70,7 +70,7 @@ public class AddQuizController : MonoBehaviour {
 			quiz.Title = mSelectedQuiz.title;
 			quiz.QuizUrl = mSelectedQuiz.url;
 			quiz.QuizId = mSelectedQuiz.QuizId;
-			quiz.BoughtDate = DateTime.Now.ToString ();
+			quiz.BoughtDate = DateTime.Now.ToString ("yyyy/MM/dd");
 			QuizListDao.instance.Insert (quiz);
 			int userPoint = PrefsManager.Instance.GetUserPoint ();
 			userPoint -= mSelectedQuiz.point;

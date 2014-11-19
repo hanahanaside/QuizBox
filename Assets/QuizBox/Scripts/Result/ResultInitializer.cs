@@ -48,7 +48,7 @@ public class ResultInitializer : MonoBehaviour {
 //		if (timeSpan.TotalDays >= unlockDaySpan) {
 //			StartCoroutine (OpenWallAd ());
 //		} 
-		Invoke ("OpenWallAd",4.0f);
+		Invoke ("OpenWallAd",3.0f);
 	}
 
 	void OnLabelEventCompleted () {
