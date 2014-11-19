@@ -1,4 +1,4 @@
-#define SQLITE_ASCII
+﻿#define SQLITE_ASCII
 #define SQLITE_DISABLE_LFS
 #define SQLITE_ENABLE_OVERSIZE_CELL_CHECK
 #define SQLITE_MUTEX_OMIT
@@ -149,7 +149,7 @@ namespace Community.CsharpSqlite
     static int sqlite3GetToken( string z, int iOffset, ref int tokenType )
     {
       int i;
-      byte c = 0;
+			char c = '\0';
       switch ( z[iOffset + 0] )
       {
         case ' ':
@@ -221,7 +221,7 @@ namespace Community.CsharpSqlite
               c = (byte)z[iOffset + i];
             }
             if ( iOffset + i == z.Length )
-              c = 0;
+						c = '\0';
             if ( c != 0 )
               i++;
             tokenType = TK_SPACE; /* IMP: R-22934-25134 */
