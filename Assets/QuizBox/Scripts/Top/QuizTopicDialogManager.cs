@@ -14,10 +14,28 @@ public class QuizTopicDialogManager : MonoBehaviour {
 	private iTweenEvent mShakeEvent;
 	private Vector3 mGridStartPosition;
 
-	void OnEnable () {
+	void OnEnable () { 
+		DateTime dtNow = DateTime.Now;
+		string installedDate = PrefsManager.Instance.InstalledDate;
+		DateTime dtInstalled = DateTime.Parse (installedDate);
+		TimeSpan timeSpan = dtNow - dtInstalled;
+		int unlockDaySpan = 0;
+		#if UNITY_IPHONE
+		unlockDaySpan = 1;
+		#endif
+//		if (timeSpan.TotalDays < unlockDaySpan) {
+//			//show
+//			scrollView.transform.localPosition = new Vector3 (0,520f,0);
+//		}
+
+		if (timeSpan.TotalMinutes < 1) {
+			//show
+			scrollView.transform.localPosition = new Vector3 (0,520f,0);
+		}
+
+
 		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
 		quizList.Sort (CompareByOrderNumber);
-
 		for (int i = 0; i < quizList.Count; i++) {
 			Quiz quiz = quizList [i];
 			GameObject cellObject = Instantiate (topCellPrefab) as GameObject;
