@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class AddPointDialogController : MonoBehaviour {
 	public void OnCloseClick () {
-		Destroy (transform.parent.gameObject);
+		transform.parent.gameObject.SetActive (false);
 	}
 
 	public void On100ptButtonClicked () {

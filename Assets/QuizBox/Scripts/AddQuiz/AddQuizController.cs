@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using MiniJSON;
 using System.Collections;
+using System;
 
 public class AddQuizController : MonoBehaviour {
 
 	public AddQuizDialog addQuizDialogPrefab;
 	public ShortPointDialog shortPointDialogPrefab;
 	public OkDialog okDialogPrefab;
-	private GameObject uiRoot;
+	public AddQuizInitializer addQuizInitializer;
 	private AddQuiz mSelectedQuiz;
 
 	void OnEnable () {
@@ -34,10 +35,6 @@ public class AddQuizController : MonoBehaviour {
 #endif
 	}
 
-	void Start () {
-		uiRoot = transform.parent.gameObject.transform.parent.gameObject;
-	}
-
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.LoadLevel ("Top");
@@ -48,29 +45,33 @@ public class AddQuizController : MonoBehaviour {
 		Application.LoadLevel ("Top");
 	}
 
-	void OnClickAddQuiz (AddQuiz addQuiz) {
+	void OnClickAddQuiz (AddQuizButtonController addQuizButtonController) {
+		mSelectedQuiz = addQuizButtonController.SelectedQuiz;
 		#if UNITY_EDITOR
-		mSelectedQuiz = addQuiz;
 		alertButtonClickedEvent("はい");
 		#else
-		int needPoint = addQuiz.point;
+		int needPoint = mSelectedQuiz.point;
 		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		if (userPoint < needPoint) {
 		ShortPointDialog shortPointDialog = Instantiate (shortPointDialogPrefab) as ShortPointDialog;
 		shortPointDialog.Show ();
-		} else {
-		mSelectedQuiz = addQuiz; 
+		}else{
 		AddQuizDialog addQuizDialog = Instantiate (addQuizDialogPrefab)as AddQuizDialog;
-		addQuizDialog.Show (addQuiz, userPoint);
+		addQuizDialog.Show (mSelectedQuiz, userPoint);
 		}
 		#endif
 	}
 
 	void alertButtonClickedEvent (string clickedButton) {
 		Debug.Log ("alertButtonClickedEvent: " + clickedButton);
-		if (clickedButton == "\u306f\u3044") {
-			//add quiz
-			QuizListDao.instance.Insert (mSelectedQuiz.title, mSelectedQuiz.url,mSelectedQuiz.QuizId);
+		if (clickedButton == "はい") {
+			//insert quiz
+			Quiz quiz = new Quiz ();
+			quiz.Title = mSelectedQuiz.title;
+			quiz.QuizUrl = mSelectedQuiz.url;
+			quiz.QuizId = mSelectedQuiz.QuizId;
+			quiz.BoughtDate = DateTime.Now.ToString ();
+			QuizListDao.instance.Insert (quiz);
 			int userPoint = PrefsManager.Instance.GetUserPoint ();
 			userPoint -= mSelectedQuiz.point;
 			PrefsManager.Instance.SaveUserPoint (userPoint);
@@ -79,8 +80,7 @@ public class AddQuizController : MonoBehaviour {
 			string message = mSelectedQuiz.title + "\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f";
 			OkDialog okDialog = Instantiate (okDialogPrefab)as OkDialog;
 			okDialog.Show (title, message); 
-			TopController.Instance.OnAddQuizClicked ();
-			Destroy (transform.parent.gameObject);
+			addQuizInitializer.RemakeList ();
 		}
 	}
 }
