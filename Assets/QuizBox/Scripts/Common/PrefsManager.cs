@@ -8,8 +8,7 @@ public class PrefsManager {
 	private const string USER_POINT_KEY = "user_point_key";
 	private const string IS_REGISTERED = "isRegistered";
 	private const string IS_REVIEWED = "isReviewed";
-	private const string IS_BGM_ON = "isBGMOn";
-	private const string IS_SE_ON = "isSEOn";
+	private const string IS_SOUND_ON = "isSoundOn";
 	private const string POST_COUNT_DATA = "postCountData";
 	private const string POST_DATE_KEY = "postDateKey";
 	private const string POST_COUNT_KEY = "postCountKey";
@@ -68,40 +67,22 @@ public class PrefsManager {
 		return true;
 	}
 
-	public void SaveBGMON (bool soundOn) {
+	public void SaveSoundON (bool soundOn) {
 		if (soundOn) {
-			PlayerPrefs.SetInt (IS_BGM_ON, 0);
+			PlayerPrefs.SetInt (IS_SOUND_ON, 0);
 		} else {
-			PlayerPrefs.SetInt (IS_BGM_ON, 1);
+			PlayerPrefs.SetInt (IS_SOUND_ON, 1);
 		}
 		PlayerPrefs.Save ();
 	}
 
-	public bool IsBGMON () {
-		int flag = PlayerPrefs.GetInt (IS_BGM_ON, 0);
+	public bool IsSoundON () {
+		int flag = PlayerPrefs.GetInt (IS_SOUND_ON, 0);
 		if (flag == 0) {
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	public void SaveSEON (bool seOn) {
-		if (seOn) {
-			PlayerPrefs.SetInt (IS_SE_ON, 0);
-		} else {
-			PlayerPrefs.SetInt (IS_SE_ON, 1);
-		}
-		PlayerPrefs.Save ();
-		Debug.Log ("save " + seOn);
-	}
-
-	public bool IsSEON () {
-		int flag = PlayerPrefs.GetInt (IS_SE_ON, 0);
-		if (flag == 0) {
-			return true;
-		}
-		return false;
 	}
 
 	public string InstalledDate {
@@ -115,23 +96,23 @@ public class PrefsManager {
 
 	}
 
-	public string LoginDate {
-		set {
-			PlayerPrefs.SetString (LOGIN_DATE, value);
+	public string LoginDate{
+		set{
+			PlayerPrefs.SetString (LOGIN_DATE,value);
 			PlayerPrefs.Save ();
 		}
-		get {
+		get{
 			return PlayerPrefs.GetString (LOGIN_DATE);
 		}
 	}
 
-	public int DatabaseVersion {
-		set {
-			PlayerPrefs.SetInt (DATABASE_VERSION, value);
+	public int DatabaseVersion{
+		set{
+			PlayerPrefs.SetInt (DATABASE_VERSION,value);
 			PlayerPrefs.Save ();
 		}
-		get {
-			return PlayerPrefs.GetInt (DATABASE_VERSION, 0);
+		get{
+			return PlayerPrefs.GetInt (DATABASE_VERSION,0);
 		}
 	}
 
@@ -167,12 +148,12 @@ public class PrefsManager {
 		return postCountData;
 	}
 
-	public string PauseIncentiveIntervalDate {
-		set {
-			PlayerPrefs.SetString (PAUSE_INCENTIVE_INTERVAL_DATE, value);
+	public string PauseIncentiveIntervalDate{
+		set{
+			PlayerPrefs.SetString (PAUSE_INCENTIVE_INTERVAL_DATE,value);
 		}
-		get {
-			return PlayerPrefs.GetString (PAUSE_INCENTIVE_INTERVAL_DATE, "");
+		get{
+			return PlayerPrefs.GetString (PAUSE_INCENTIVE_INTERVAL_DATE,"");
 		}
 	}
 }

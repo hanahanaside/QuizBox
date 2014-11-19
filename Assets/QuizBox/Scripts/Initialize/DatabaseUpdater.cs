@@ -45,54 +45,92 @@ public class DatabaseUpdater : MonoBehaviour {
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
 		switch (databaseVersion) {
 		case 0:
-				//金魂クイズをインサート
-			Quiz kinkonQuiz = new Quiz ();
-			kinkonQuiz.Title = "金魂クイズ";
-			kinkonQuiz.QuizUrl = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
-			kinkonQuiz.QuizId = 73;
-			kinkonQuiz.BoughtDate = DateTime.Now.ToString ();
-			kinkonQuiz.OrderNumber = 1;
+			//金魂クイズをインサート
+			IDictionary kinkonQuiz = new Dictionary<string,object> ();
+			kinkonQuiz [QuizListDao.TITLE_FIELD] = "金魂クイズ";
+			kinkonQuiz [QuizListDao.QUIZ_URL_FIELD] = "http://ryodb.us/projects/5035e95766e5411652000001/quizzes.json";
+			kinkonQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
+			kinkonQuiz [QuizListDao.BOUGHT_DATE_FIELD] = DateTime.Now.ToString ();
 			QuizListDao.instance.Insert (kinkonQuiz);
-			PrefsManager.Instance.DatabaseVersion = 3;
+			PrefsManager.Instance.DatabaseVersion = 2;
 			break;
 		case 1:
-			//ヒストリーデータを再構築(tweet_flagを削除)ver1.9
-			RemakeDatabase ();
-			InitOrderNumber ();
-			PrefsManager.Instance.DatabaseVersion = 3;
-			UpdateDatabase ();
-			break;
-		case 2:
-			//オーダーナンバーを追加 ver2.0
-			RemakeDatabase ();
-			InitOrderNumber ();
-			PrefsManager.Instance.DatabaseVersion = 3;
+			//ヒストリーデータを再構築
+			IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
+			IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+			string databaseFileName = "quiz_box.db";
+			string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
+			string filePath = Application.persistentDataPath + "/" + databaseFileName;
+			File.Delete (filePath);
+			File.Copy (baseFilePath, filePath); 
+			foreach (HistoryData historyData in historyDataList) {
+				HistoryDataDao.instance.InsertHistoryData (historyData);
+			}
+			foreach (IDictionary quiz in quizList) {
+				QuizListDao.instance.Insert (quiz);
+			}
+			PrefsManager.Instance.DatabaseVersion = 2;
 			break;
 		}
+
 		updatedDatabaseEvent ();
 	}
 
-	private void InitOrderNumber () {
-		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
-		foreach (Quiz quiz in quizList) {
-			quiz.OrderNumber = quiz.Id;
-			QuizListDao.instance.UpdateOrderNumber (quiz);
+	private void UpdateToVersion1 () {
+		Debug.Log ("Update to ver1");
+		try {
+			QuizListDao.instance.AddQuizIdField ();
+		} catch (Exception e) {
+			Debug.Log ("error " + e);
+		}
+
+		WWWClient wwwClient = new WWWClient (this, JSON_URL);
+		wwwClient.OnSuccess = (string response) => {
+			UpdateQuizId (response);
+			PrefsManager.Instance.DatabaseVersion = 1;
+			updatedDatabaseEvent ();
+		};
+		wwwClient.OnFail = (string response) => {
+			Debug.Log ("onFail");
+			#if !UNITY_EDITOR
+			ShowErrorDialog();
+			#endif
+		};
+		wwwClient.OnTimeOut = () => {
+			#if !UNITY_EDITOR
+			ShowErrorDialog();
+			#endif
+		};
+		wwwClient.GetData ();
+	}
+
+	private void UpdateQuizId (string response) {
+		Debug.Log ("update quiz id");
+		IList jsonArray = (IList)Json.Deserialize (response);
+		IList<IDictionary> quizList = QuizListDao.instance.GetQuizList ();
+		//銀魂クイズのquizIdを73にする
+		IDictionary gintamaQuiz = quizList [0];
+		gintamaQuiz [QuizListDao.QUIZ_ID_FIELD] = 73;
+		QuizListDao.instance.UpdateQuiz (gintamaQuiz);
+		foreach (IDictionary quiz in quizList) {
+			CheckIndexOfTitle (jsonArray, quiz);
 		}
 	}
 
-	private void RemakeDatabase () {
-		IList<HistoryData> historyDataList = HistoryDataDao.instance.QueryHistoryDataList ();
-		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
-		string databaseFileName = "quiz_box.db";
-		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
-		string filePath = Application.persistentDataPath + "/" + databaseFileName;
-		File.Delete (filePath);
-		File.Copy (baseFilePath, filePath); 
-		foreach (HistoryData historyData in historyDataList) {
-			HistoryDataDao.instance.InsertHistoryData (historyData);
-		}
-		foreach (Quiz quiz in quizList) {
-			QuizListDao.instance.Insert (quiz);
+	//名前で検索して、対応するクイズIDを挿入する
+	private void CheckIndexOfTitle (IList jsonArray, IDictionary quiz) {
+		string quizTitle = (string)quiz [QuizListDao.TITLE_FIELD];
+		Debug.Log ("quizTitle = " + quizTitle);
+		foreach (Dictionary<string,object> jsonObject in jsonArray) {
+			string jsonObjectTitle = (string)jsonObject ["title"];
+			if (jsonObjectTitle.IndexOf (quizTitle) >= 0) {
+				Debug.Log ("hit");
+				long quizId = (long)jsonObject ["id"];
+				Debug.Log ("id = " + quizId);
+				quiz [QuizListDao.QUIZ_ID_FIELD] = (int)quizId;
+				QuizListDao.instance.UpdateQuiz (quiz);
+				break;
+			}
 		}
 	}
 

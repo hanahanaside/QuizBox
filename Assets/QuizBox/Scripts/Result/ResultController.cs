@@ -8,11 +8,6 @@ public class ResultController : MonoBehaviour {
 	public GameObject uiRoot;
 	private bool mEscapeClicked = false;
 
-	void Start(){
-		SoundManager.Instance.StopBGM ();
-		SoundManager.Instance.PlaySESound (SoundManager.SE_CHANNEL.Result);
-	}
-
 	void Update () {
 		if(mEscapeClicked){
 			return;
@@ -27,14 +22,12 @@ public class ResultController : MonoBehaviour {
 		DestroyEffect ();
 		Reset ();
 		QuizListManager.instance.Retry ();
-		SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Quiz);
 		Application.LoadLevel ("Game");
 	}
 
 	public void OnTopClick () {
 		DestroyEffect ();
 		Reset ();
-		SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Main);
 		Application.LoadLevel ("Title");
 	
 	}

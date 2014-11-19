@@ -19,12 +19,11 @@ public class InitializeController : MonoBehaviour {
 		
 	void OnDatabaseCreated(){
 		Debug.Log ("OnDatabaseCreated");
-		SoundManager.Instance.PlaySESound (SoundManager.SE_CHANNEL.Hanauta);
+		SoundManager.Instance.PlaySESound (SoundManager.HANAUTA_SOUND_ID);
 		Invoke ("StartFadeoutAnimation",3.0f);
 	}
 
 	private void OnFadeoutAnimationFinished(){
-		SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Main);
 		Application.LoadLevel ("Top");
 	}
 

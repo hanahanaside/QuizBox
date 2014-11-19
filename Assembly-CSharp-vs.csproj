@@ -190,15 +190,14 @@
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\HttpClient.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\ShortPointDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\AlertDialog.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Common\HistoryData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\NetworkErrorDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\OkDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\OnSaleChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\PrefsManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\RecommendAppDialog.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\DB\HistoryData.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\DB\HistoryDataDao.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\DB\Quiz.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\DB\QuizListDao.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Dao\HistoryDataDao.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Dao\QuizListDao.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\AnswerDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\CheckFinishQuizDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\CheckSaveQuizDialog.cs" />
@@ -210,6 +209,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Game\Referee.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Game\ScoreKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\History\HistoryContoroller.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\History\HistoryInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\APNsRegister.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DataInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
@@ -228,6 +228,7 @@
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountDataKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostQuizController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\UsePolicyDialogController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Quiz.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\FacebookSender.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\MedalEffect.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\ResultController.cs" />
@@ -255,7 +256,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\PostQuizDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PrivacyPolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ProductListKeeper.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\Top\QuizTopicDialogManager.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\QuizTopicInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\RecommendAppChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ReviewAppChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ReviewDialog.cs" />

@@ -5,16 +5,11 @@ using System.Collections.Generic;
 using MiniJSON;
 
 public class LoginManager : MonoBehaviour {
-
-	public UILabel userPointLabel;
-
-	#if !UNITY_EDITOR
 	private static readonly DateTime UNIX_EPOCH = new DateTime (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 	private static readonly string URL = "https://ntp-a1.nict.go.jp/cgi-bin/json";
-
+	public UILabel userPointLabel;
 
 	void Awake () {
-
 		Debug.Log ("check login");
 		WWWClient wwwClient = new WWWClient (this, URL);
 		wwwClient.OnSuccess = (string response) => {
@@ -33,7 +28,6 @@ public class LoginManager : MonoBehaviour {
 			}
 		};
 		wwwClient.GetData ();
-		
 	}
 
 	private void ApplyBonus(DateTime dtNow){
@@ -46,13 +40,13 @@ public class LoginManager : MonoBehaviour {
 	private void ShowLoginBonusDialog () {
 		string title = "ログインボーナス";
 		string message = "5ptゲット!!";
-		#if UNITY_IPHONE
+		#if UNITY_EDITOR
+
+		#elif UNITY_IPHONE
 		string[] buttons = {"OK"};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);
-		#endif
-		#if UNITY_ANDROID
+		#elif UNITY_ANDROID
 		EtceteraAndroid.showAlert (title,message,"OK");
 		#endif
 	}
-	#endif
 }

@@ -16,8 +16,77 @@ public class ImobileManager : MonoBehaviour {
 	}
 
 	void Start () {
+		string bannerMediaId;
+		string bannerSpotId;
+		string iconMediaId;
+		string iconSpotId;
+		string wallMediaId;
+		string wallSpotId;
+		string interstitialMediaId;
+		string interstitialSpotId;
+		string rectangleMediaId;
+		string rectangleSpotId;
+#if UNITY_IPHONE
+		bannerMediaId = account.iOS.bannerMediaId;
+		bannerSpotId = account.iOS.bannerSpotId;
+		iconMediaId = account.iOS.iconMediaId;
+		iconSpotId = account.iOS.iconSpotId;
+		wallMediaId = account.iOS.wallMediaId;
+		wallSpotId = account.iOS.wallSpotId;
+		interstitialMediaId = account.iOS.interstitialMediaId;
+		interstitialSpotId = account.iOS.interstitialSpotId;
+		rectangleMediaId = account.iOS.rectangleMediaId;
+		rectangleSpotId = account.iOS.rectangleSpotId;
+#endif
+
+#if UNITY_ANDROID
+		bannerMediaId = account.Android.bannerMediaId;
+		bannerSpotId = account.Android.bannerSpotId;
+		iconMediaId = account.Android.iconMediaId;
+		iconSpotId = account.Android.iconSpotId;
+		wallMediaId = account.Android.wallMediaId;
+		wallSpotId = account.Android.wallSpotId;
+		interstitialMediaId = account.Android.interstitialMediaId;
+		interstitialSpotId = account.Android.interstitialSpotId;
+		rectangleMediaId = account.Android.rectangleMediaId;
+		rectangleSpotId = account.Android.rectangleSpotId;
+#endif
+
 		#if !UNITY_EDITOR
-		Init();
+		//prepare banner
+		IMobileSdkAdsUnityPlugin.registerInline (publisherId, bannerMediaId, bannerSpotId);
+		IMobileSdkAdsUnityPlugin.start (bannerSpotId);
+		mBannerViewId = IMobileSdkAdsUnityPlugin.show (bannerSpotId, IMobileSdkAdsUnityPlugin.AdType.BANNER, 
+		IMobileSdkAdsUnityPlugin.AdAlignPosition.CENTER, 
+		IMobileSdkAdsUnityPlugin.AdValignPosition.BOTTOM);
+
+		//prepare icon
+		IMobileSdkAdsUnityPlugin.registerInline (publisherId, iconMediaId, iconSpotId);
+		IMobileSdkAdsUnityPlugin.start (iconSpotId);
+		IMobileIconParams iconParams = new IMobileIconParams ();
+		iconParams.iconNumber = 2;
+		iconParams.iconTitleEnable = false;
+		mIconViewId = IMobileSdkAdsUnityPlugin.show (iconSpotId, IMobileSdkAdsUnityPlugin.AdType.ICON, 0, 10, iconParams);
+
+		//prepare wall
+		IMobileSdkAdsUnityPlugin.registerFullScreen (publisherId, wallMediaId, wallSpotId);
+		IMobileSdkAdsUnityPlugin.start (wallSpotId);
+
+		//prepare intersticial 
+		IMobileSdkAdsUnityPlugin.registerFullScreen (publisherId, interstitialMediaId, interstitialSpotId);
+		IMobileSdkAdsUnityPlugin.start (interstitialSpotId);
+
+		//prepare rectangle
+		IMobileSdkAdsUnityPlugin.registerInline (publisherId, rectangleMediaId, rectangleSpotId);
+		IMobileSdkAdsUnityPlugin.start (rectangleSpotId);
+		mRectangleViewId = IMobileSdkAdsUnityPlugin.show (rectangleSpotId, 
+		IMobileSdkAdsUnityPlugin.AdType.MEDIUM_RECTANGLE,
+		IMobileSdkAdsUnityPlugin.AdAlignPosition.CENTER, 
+		IMobileSdkAdsUnityPlugin.AdValignPosition.MIDDLE);
+
+		HideBannerAd ();
+		HideIconAd (); 
+		HideRectangleAd ();
 		#endif
 	}
 
@@ -81,80 +150,7 @@ public class ImobileManager : MonoBehaviour {
 		IMobileSdkAdsUnityPlugin.show (account.Android.interstitialSpotId);
 		#endif
 	}
-
-	private void Init(){
-		string bannerMediaId;
-		string bannerSpotId;
-		string iconMediaId;
-		string iconSpotId;
-		string wallMediaId;
-		string wallSpotId;
-		string interstitialMediaId;
-		string interstitialSpotId;
-		string rectangleMediaId;
-		string rectangleSpotId;
-		#if UNITY_IPHONE
-		bannerMediaId = account.iOS.bannerMediaId;
-		bannerSpotId = account.iOS.bannerSpotId;
-		iconMediaId = account.iOS.iconMediaId;
-		iconSpotId = account.iOS.iconSpotId;
-		wallMediaId = account.iOS.wallMediaId;
-		wallSpotId = account.iOS.wallSpotId;
-		interstitialMediaId = account.iOS.interstitialMediaId;
-		interstitialSpotId = account.iOS.interstitialSpotId;
-		rectangleMediaId = account.iOS.rectangleMediaId;
-		rectangleSpotId = account.iOS.rectangleSpotId;
-		#endif
-
-		#if UNITY_ANDROID
-		bannerMediaId = account.Android.bannerMediaId;
-		bannerSpotId = account.Android.bannerSpotId;
-		iconMediaId = account.Android.iconMediaId;
-		iconSpotId = account.Android.iconSpotId;
-		wallMediaId = account.Android.wallMediaId;
-		wallSpotId = account.Android.wallSpotId;
-		interstitialMediaId = account.Android.interstitialMediaId;
-		interstitialSpotId = account.Android.interstitialSpotId;
-		rectangleMediaId = account.Android.rectangleMediaId;
-		rectangleSpotId = account.Android.rectangleSpotId;
-		#endif
-
-		//prepare banner
-		IMobileSdkAdsUnityPlugin.registerInline (publisherId, bannerMediaId, bannerSpotId);
-		IMobileSdkAdsUnityPlugin.start (bannerSpotId);
-		mBannerViewId = IMobileSdkAdsUnityPlugin.show (bannerSpotId, IMobileSdkAdsUnityPlugin.AdType.BANNER, 
-		IMobileSdkAdsUnityPlugin.AdAlignPosition.CENTER, 
-		IMobileSdkAdsUnityPlugin.AdValignPosition.BOTTOM);
-
-		//prepare icon
-		IMobileSdkAdsUnityPlugin.registerInline (publisherId, iconMediaId, iconSpotId);
-		IMobileSdkAdsUnityPlugin.start (iconSpotId);
-		IMobileIconParams iconParams = new IMobileIconParams ();
-		iconParams.iconNumber = 2;
-		iconParams.iconTitleEnable = false;
-		mIconViewId = IMobileSdkAdsUnityPlugin.show (iconSpotId, IMobileSdkAdsUnityPlugin.AdType.ICON, 0, 10, iconParams);
-
-		//prepare wall
-		IMobileSdkAdsUnityPlugin.registerFullScreen (publisherId, wallMediaId, wallSpotId);
-		IMobileSdkAdsUnityPlugin.start (wallSpotId);
-
-		//prepare intersticial 
-		IMobileSdkAdsUnityPlugin.registerFullScreen (publisherId, interstitialMediaId, interstitialSpotId);
-		IMobileSdkAdsUnityPlugin.start (interstitialSpotId);
-
-		//prepare rectangle
-		IMobileSdkAdsUnityPlugin.registerInline (publisherId, rectangleMediaId, rectangleSpotId);
-		IMobileSdkAdsUnityPlugin.start (rectangleSpotId);
-		mRectangleViewId = IMobileSdkAdsUnityPlugin.show (rectangleSpotId, 
-		IMobileSdkAdsUnityPlugin.AdType.MEDIUM_RECTANGLE,
-		IMobileSdkAdsUnityPlugin.AdAlignPosition.CENTER, 
-		IMobileSdkAdsUnityPlugin.AdValignPosition.MIDDLE);
-
-		HideBannerAd ();
-		HideIconAd (); 
-		HideRectangleAd ();
-	}
-				
+		
 	[System.SerializableAttribute]
 	public class Account {
 		public ImobileID Android;

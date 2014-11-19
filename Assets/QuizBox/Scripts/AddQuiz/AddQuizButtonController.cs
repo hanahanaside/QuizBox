@@ -4,7 +4,7 @@ using System.Collections;
 
 public class AddQuizButtonController : MonoBehaviour {
 
-	public static event Action<AddQuizButtonController> clickedEvent;
+	public static event Action<AddQuiz> clickedEvent;
 
 	public UILabel titleLabel;
 	public UILabel pointLabel;
@@ -16,15 +16,9 @@ public class AddQuizButtonController : MonoBehaviour {
 		pointLabel.text = mAddQuiz.point + "pt";
 	}
 
-	public AddQuiz SelectedQuiz{
-		get{
-			return mAddQuiz;
-		}
-	}
-
 	public void OnButtonClick () {
 		if (clickedEvent != null) {
-			clickedEvent (this); 
+			clickedEvent (mAddQuiz);
 		}
 	}
 }
