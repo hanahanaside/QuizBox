@@ -1,4 +1,4 @@
-﻿#define SQLITE_ASCII
+#define SQLITE_ASCII
 #define SQLITE_DISABLE_LFS
 #define SQLITE_ENABLE_OVERSIZE_CELL_CHECK
 #define SQLITE_MUTEX_OMIT
@@ -67,8 +67,7 @@ namespace Community.CsharpSqlite
     //#define IdChar(C)  ((sqlite3CtypeMap[(unsigned char)C]&0x46)!=0)
     static bool IdChar( u8 C )
     {
-     // return ( sqlite3CtypeMap[(char)C] & 0x46 ) != 0;
-			return (sqlite3CtypeMap[C] & 0x46) != 0;
+      return ( sqlite3CtypeMap[(char)C] & 0x46 ) != 0;
     }
 #endif
 //#if  SQLITE_EBCDIC
@@ -266,8 +265,7 @@ namespace Community.CsharpSqlite
 //#if SQLITE_EBCDIC
 //        unsigned char c;
 //#endif
-			if ( IdChar((u8)zSql[zIdx] ) )
-
+              if ( IdChar( (u8)zSql[zIdx] ) )
               {
                 /* Keywords and unquoted identifiers */
                 int nId;
