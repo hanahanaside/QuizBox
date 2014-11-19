@@ -45,10 +45,10 @@ public class ResultInitializer : MonoBehaviour {
 		#if UNITY_IPHONE
 		unlockDaySpan = 1;
 		#endif
-		if (timeSpan.TotalDays >= unlockDaySpan) {
-			StartCoroutine (OpenWallAd ());
-		} 
-
+//		if (timeSpan.TotalDays >= unlockDaySpan) {
+//			StartCoroutine (OpenWallAd ());
+//		} 
+		Invoke ("OpenWallAd",4.0f);
 	}
 
 	void OnLabelEventCompleted () {
@@ -87,15 +87,8 @@ public class ResultInitializer : MonoBehaviour {
 		Application.CaptureScreenshot (TweetSender.SHARE_FILE_NAME);
 	}
 
-	private IEnumerator OpenWallAd () {
-		yield return new WaitForSeconds (3.0f);
-		var parameters = new APUnityPluginSetting();
-		parameters.setParam(APUnityPluginSetting.iOSAppkey, "KAQ2AGURBDTNY54F");
-		parameters.setParam(APUnityPluginSetting.onStatusArea, true);
-		parameters.setParam(APUnityPluginSetting.orientation, "UIInterfaceOrientationLandscapeLeft");
-		parameters.setParam(APUnityPluginSetting.isClose, true);
-		parameters.setParam(APUnityPluginSetting.AndroidAppKey, "HORGV6VG3484JCEW");
-		APUnityPlugin.ShowAppliPromotionWall(parameters);
+	private void OpenWallAd () {
+		GameFeatManager.Instance.ShowWall ();
 	}
 	
 }

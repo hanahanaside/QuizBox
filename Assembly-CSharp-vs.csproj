@@ -215,6 +215,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseUpdater.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\GCMRegister.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\GameFeatManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\IABManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\ImobileManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
