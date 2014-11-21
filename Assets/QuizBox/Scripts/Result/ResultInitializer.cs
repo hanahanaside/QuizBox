@@ -48,7 +48,10 @@ public class ResultInitializer : MonoBehaviour {
 //		if (timeSpan.TotalDays >= unlockDaySpan) {
 //			StartCoroutine (OpenWallAd ());
 //		} 
-		Invoke ("OpenWallAd",3.0f);
+		if(Application.internetReachability != NetworkReachability.NotReachable){
+			Invoke ("OpenWallAd",3.0f);
+		}
+
 	}
 
 	void OnLabelEventCompleted () {
