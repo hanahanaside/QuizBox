@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class AddPointDialogController : MonoBehaviour {
-	public void OnCloseClick () {
-		transform.parent.gameObject.SetActive (false);
-	}
+
+	public static event Action ClosedAddPointDialogEvent;
 
 	public void On100ptButtonClicked () {
 		#if UNITY_IPHONE

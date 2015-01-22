@@ -9,7 +9,18 @@ public class AddQuizButtonController : MonoBehaviour {
 	public GameObject newSprite;
 	public UILabel titleLabel;
 	public UILabel pointLabel;
+	public UITexture logoTexture;
 	private AddQuiz mAddQuiz;
+
+	void OnEnable(){
+		if(mAddQuiz == null){
+			return;
+		}
+		if(logoTexture.mainTexture == null){
+			Debug.Log ("null");
+			LoadTexture ();
+		}
+	}
 
 	public void Init (AddQuiz addQuiz) {
 		mAddQuiz = addQuiz;
@@ -19,6 +30,7 @@ public class AddQuizButtonController : MonoBehaviour {
 			//show new label
 			newSprite.SetActive (true);
 		}
+		LoadTexture ();
 	}
 
 	public AddQuiz SelectedQuiz{
@@ -30,6 +42,22 @@ public class AddQuizButtonController : MonoBehaviour {
 	public void OnButtonClick () {
 		if (clickedEvent != null) {
 			clickedEvent (this); 
+		}
+	}
+		
+	public void ReloadTexture(){
+		LoadTexture ();
+	}
+
+	private void LoadTexture(){
+		if(logoTexture.mainTexture == null){
+			WWWClient wwwClient = new WWWClient (this,"https://dl.dropboxusercontent.com/u/32529846/gold.png");
+			wwwClient.SetTimeOutInterval (120.0f);
+			wwwClient.OnSuccess = (WWW www) => {
+				logoTexture.mainTexture = www.texture;
+
+			};
+			wwwClient.GetData ();
 		}
 	}
 }

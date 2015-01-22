@@ -13,11 +13,11 @@ public class QuizRenamer : MonoBehaviour {
 	public void RenameQuiz () {
 		Debug.Log ("Rename Quiz");
 		WWWClient wwwClient = new WWWClient (this, JSON_URL);
-		wwwClient.OnSuccess = (string response) => {
-			RenameQuiz (response);
+		wwwClient.OnSuccess = (WWW www) => {
+			RenameQuiz (www.text);
 			renamedQuizEvent ();
 		};
-		wwwClient.OnFail = (string response) => {
+		wwwClient.OnFail = (WWW www) => {
 			renamedQuizEvent ();
 		};
 		wwwClient.OnTimeOut = () => {

@@ -10,21 +10,25 @@ public class AddQuizInitializer : MonoBehaviour {
 	public OkDialog okDialogPrefab;
 	public UIScrollView scrollView;
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
-	private IList mAddQuizButtonList = null;
 	private List<Quiz> mQuizList;
+	private int mLoadingTextureIndex;
+	private List<AddQuizButtonController> mAddQuizButtonControllerList;
 
 	void OnEnable () {
 		Debug.Log ("enable");
 		HttpClient.responseEvent += ResponseCallback;
+		scrollView.ResetPosition ();
 	}
 
 	void OnDisable () {
 		Debug.Log ("disable");
 		HttpClient.responseEvent -= ResponseCallback;
 	}
+
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("start");
+		mAddQuizButtonControllerList = new List<AddQuizButtonController> ();
 		ShowProgressDialog ();
 		mQuizList = QuizListDao.instance.GetQuizList ();
 		WWW www = new WWW (JSON_URL);
@@ -39,15 +43,15 @@ public class AddQuizInitializer : MonoBehaviour {
 			NetworkErrorDialog dialog = new NetworkErrorDialog ();
 			dialog.Show ();
 		} else {
-			mAddQuizButtonList = (IList)Json.Deserialize (response);
-			CreateScrollView (mAddQuizButtonList);
+			IList addQuizButtonList = (IList)Json.Deserialize (response);
+			CreateScrollView (addQuizButtonList);
 		}
-	} 
+	}
 
-	public void RemakeList(){
+	public void RemakeList () {
 		ShowProgressDialog ();
-		List<Transform> childList = grid.GetChildList();
-		foreach(Transform child in childList){
+		List<Transform> childList = grid.GetChildList ();
+		foreach (Transform child in childList) {
 			Destroy (child.gameObject);
 		}
 		mQuizList = QuizListDao.instance.GetQuizList ();
@@ -58,25 +62,25 @@ public class AddQuizInitializer : MonoBehaviour {
 	private void CreateScrollView (IList jsonArray) {
 		int maxId = GetMaxId (jsonArray);
 		Debug.Log ("max id " + maxId);
-		for(int i = 0;i<jsonArray.Count;i++){
-			object item = jsonArray[i];
+		for (int i = 0; i < jsonArray.Count; i++) {
+			object item = jsonArray [i];
 			IDictionary jsonObject = (IDictionary)item;
-			SetButtons (jsonObject,maxId);
+			SetButtons (jsonObject, maxId);
 		}
 		scrollView.ResetPosition ();
 		DismissProgressDialog ();
 	}
 
-	private int GetMaxId(IList jsonArray){
+	private int GetMaxId (IList jsonArray) {
 		int maxId = 0;
-		foreach(object item in jsonArray){
+		foreach (object item in jsonArray) {
 			IDictionary jsonObject = (IDictionary)item;
 			bool publish = (bool)jsonObject ["publish"];
 			if (!publish) {
 				continue;
 			}
 			long quizId = (long)jsonObject ["id"];
-			if(quizId > maxId){
+			if (quizId > maxId) {
 				maxId = (int)quizId;
 			}
 		}
@@ -103,14 +107,16 @@ public class AddQuizInitializer : MonoBehaviour {
 		addQuiz.title = title;
 		addQuiz.quizCount = (int)quizCount;
 		addQuiz.QuizId = (int)quizId;
-		if(quizId > maxId -5){
+		if (quizId > maxId - 5) {
 			addQuiz.FlagNew = true;
 		}
 
 		GameObject addQuizButtonObject = Instantiate (addQuizButtonPrefab)as GameObject;
 		grid.AddChild (addQuizButtonObject.transform);
 		addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);
-		addQuizButtonObject.BroadcastMessage ("Init", addQuiz);
+		AddQuizButtonController controller = addQuizButtonObject.GetComponentInChildren<AddQuizButtonController> ();
+		mAddQuizButtonControllerList.Add (controller);
+		controller.Init (addQuiz);
 	}
 
 	private bool CheckDuplicateQuiz (IDictionary jsonObject) {
@@ -124,7 +130,7 @@ public class AddQuizInitializer : MonoBehaviour {
 		return false;
 	}
 
-	private void ShowProgressDialog(){
+	private void ShowProgressDialog () {
 		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
 		FenceInstanceKeeper.Instance.SetActive (true);
 		#if UNITY_IOS
@@ -137,7 +143,7 @@ public class AddQuizInitializer : MonoBehaviour {
 		#endif
 	}
 
-	private void DismissProgressDialog(){
+	private void DismissProgressDialog () {
 		FenceInstanceKeeper.Instance.SetActive (false);
 		#if UNITY_IOS
 		EtceteraBinding.hideActivityView ();

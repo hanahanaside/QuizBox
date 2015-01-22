@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 
 public class WWWClient {
-	public delegate void RequestFinishedDelegate (string response);
+	public delegate void RequestFinishedDelegate (WWW www);
 
 	public delegate void TimeOutDelegate ();
 
-	private const float TIME_OUT_INTERVAL = 10.0f;
+	public float timeOutInterval = 10.0f;
 	private RequestFinishedDelegate mOnSuccess;
 	private RequestFinishedDelegate mOnFail;
 	private TimeOutDelegate mOnTimeOut;
@@ -41,26 +41,14 @@ public class WWWClient {
 		mHeader.Add ("Content-Type", "application/json");
 	}
 
-	public void PostData (string json) {
-		mMonoBehaviour.StartCoroutine (PostCoroutine (json));
+	public void SetTimeOutInterval(float time){
+		timeOutInterval = time;
 	}
-
+		
 	public void GetData () {
 		mMonoBehaviour.StartCoroutine (GetCoroutine ());
 	}
-
-	private IEnumerator PostCoroutine (string json) {
-		byte[] data = Encoding.UTF8.GetBytes (json);
-		if (mHeader.Count == 0) {
-			mWWW = new WWW (mURL, data);
-		} else {
-			mWWW = new WWW (mURL, data, mHeader);
-		}
-		yield return mMonoBehaviour.StartCoroutine (CheckTimeout ());
-
-		CheckResponse ();
-	}
-
+		
 	private IEnumerator GetCoroutine () {
 		mWWW = new WWW (mURL);
 		yield return mMonoBehaviour.StartCoroutine (CheckTimeout ());
@@ -88,7 +76,7 @@ public class WWWClient {
 	private void CallBackSuccess () {
 		Debug.Log ("www ok");
 		if (mOnSuccess != null) {
-			mOnSuccess (mWWW.text);
+			mOnSuccess (mWWW);
 		}
 	}
 
@@ -96,14 +84,14 @@ public class WWWClient {
 		Debug.Log ("www error");
 		Debug.Log (mWWW.text);
 		if (mOnFail != null) {
-			mOnFail (mWWW.text);
+			mOnFail (mWWW);
 		}
 	}
 
 	private  IEnumerator CheckTimeout () {
 		float startRequestTime = Time.time;
 		while (!mWWW.isDone) {
-			if (Time.time - startRequestTime < TIME_OUT_INTERVAL)
+			if (Time.time - startRequestTime < timeOutInterval)
 				yield return null;
 			else {
 				//タイムアウト

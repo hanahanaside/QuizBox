@@ -20,6 +20,14 @@ public class TopController : MonoBehaviour {
 	private GameObject mCurrentDialogObject;
 	private Dialog mCurrentDialog;
 
+	void OnEnable(){
+		AddPointDialogController.ClosedAddPointDialogEvent += ClosedAddPointDialogEvent;
+	}
+
+	void OnDisable(){
+		AddPointDialogController.ClosedAddPointDialogEvent -= ClosedAddPointDialogEvent;
+	}
+
 	void Start () {
 		sInstance = this;
 		ShowDialog (Dialog.QuizTopic);
@@ -33,6 +41,10 @@ public class TopController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Escape)) {
 			Application.Quit ();
 		}
+	}
+
+	void ClosedAddPointDialogEvent(){
+		mCurrentDialogObject.SetActive (true);
 	}
 
 	public static TopController Instance {
@@ -52,7 +64,10 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnAddPointClicked () {
-		dialogArray [(int)Dialog.AddPoint].SetActive (true);
+		mCurrentDialogObject.SetActive (false);
+		ShowDialog (Dialog.AddPoint);
+		mCurrentDialog = Dialog.AddPoint;
+	//	dialogArray [(int)Dialog.AddPoint].SetActive (true);
 	}
 
 	public void OnPostQuizClicked () {
