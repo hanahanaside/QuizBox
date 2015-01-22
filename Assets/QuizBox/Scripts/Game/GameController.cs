@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using MiniJSON;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,10 +6,13 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 	public GameObject quizSetter;
 	public QuizKeeper quizKeeper;
-	public ScoreKeeper scoreKeeper;
 	public Referee referee;
 	public UILabel titleLabel;
 	public UILabel[] buttonLabelArray;
+
+	#if UNITY_ANDROID
+	private bool mBackClicked;
+	#endif
 
 
 	void OnEnable () {
@@ -34,13 +37,18 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Start () {
-		titleLabel.text = SelectedQuiz.instance.name;
+		titleLabel.text = SelectedQuiz.instance.Name;
+		SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Quiz);
 	}
 
 	void Update () {
-		if (Input.GetKey (KeyCode.Escape)) {
+		#if UNITY_ANDROID
+		if (Input.GetKey (KeyCode.Escape) && !mBackClicked) {
+			mBackClicked = true;
 			OnBackButtonClick ();
+			return;
 		}
+		#endif
 	}
 	
 	public void OnAnswerButtonClick () {
@@ -62,29 +70,39 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void OnBackButtonClick () {
+		#if UNITY_EDITOR
+		SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Main);
+		Application.LoadLevel ("Title");
+		#else
 		if (QuizListManager.instance.quizList.Count == QuizListManager.instance.allQuizListCount) {
 			//check save
 			CheckSaveQuizDialog.Show ();
 		} else {
 			CheckFinishQuizDialog.Show ();
 		}
+		#endif
 	}
 
 	private void AlertButtonClickedEvent (string clickedButton) {
 		Debug.Log (clickedButton);
-		if (clickedButton == "\u7d42\u4e86\u3059\u308b") {
+		if (clickedButton == "終了する") {
+			SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Main);
 			Application.LoadLevel ("Title");
 		}
-		if (clickedButton == "\u30bb\u30fc\u30d6\u3057\u3066\u7d42\u4e86") {
+		if (clickedButton == "セーブして終了") {
 			//save
 			Debug.Log ("save");
 			string jsonString = QuizListManager.instance.jsonString;
 			int id = SelectedQuiz.instance.id;
 			int quizCount = quizKeeper.questionNumber;
-			int correctCount = scoreKeeper.score;
+			int correctCount = ScoreKeeper.instance.score;
 			QuizListDao.instance.UpdateChallengeData (jsonString, quizCount, correctCount, id);
+			SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Main);
 			Application.LoadLevel ("Title");
 		}
+		#if UNITY_ANDROID
+		mBackClicked = false;
+		#endif
 	}
 
 }

@@ -7,7 +7,7 @@ public class AnswerDialogController : MonoBehaviour {
 	public QuizSetter quizSetter;
 
 	public void OnNextButtonClicked () {
-		AdManager.Instance.HideRectangleAd ();
+		ImobileManager.Instance.HideRectangleAd ();
 		if (quizKeeper.questionNumber >= QuizListManager.instance.quizList.Count) {
 			Application.LoadLevel ("Result");
 		} else {

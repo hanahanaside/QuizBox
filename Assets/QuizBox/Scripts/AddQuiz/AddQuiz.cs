@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AddQuiz
-{
+public class AddQuiz {
 	private int mPoint;
 	private int mQuizCount;
+	private int mQuizId;
+	private bool mFlagNew;
 	private string mUrl;
 	private string mTitle;
 
@@ -35,12 +36,30 @@ public class AddQuiz
 		}
 	}
 
-	public int quizCount{
-		set{
+	public int quizCount {
+		set {
 			mQuizCount = value;
 		}
-		get{
+		get {
 			return mQuizCount;
+		}
+	}
+
+	public int QuizId{
+		set{
+			mQuizId = value;
+		}
+		get{
+			return mQuizId;
+		}
+	}
+
+	public bool FlagNew{
+		set{
+			mFlagNew = value;
+		}
+		get{
+			return mFlagNew;
 		}
 	}
 }

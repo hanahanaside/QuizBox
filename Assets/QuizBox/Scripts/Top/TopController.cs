@@ -1,26 +1,33 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class TopController : MonoBehaviour {
 
+	enum Dialog
+	{
+		QuizTopic,
+		AddQuiz,
+		History,
+		Setting,
+		AddPoint}
+	;
+
 	public GameObject uiRoot;
 	public UILabel userPointLabel;
 	public GameObject[] dialogArray;
+	public UISprite[] buttonFilterArray;
 	private static TopController sInstance;
-	private GameObject mCurrentDialog;
+	private GameObject mCurrentDialogObject;
+	private Dialog mCurrentDialog;
 
 	void Start () {
 		sInstance = this;
-		ShowDialog (Instantiate (dialogArray [0])as GameObject);
-		SetUserPointLabel ();
+		ShowDialog (Dialog.QuizTopic);
+		mCurrentDialog = Dialog.QuizTopic;
+		SetActiveButtonFilter (Dialog.QuizTopic);
+		UpdateUserPointLabel ();
+		ImobileManager.Instance.ShowBannerAd ();
 	}
-
-//	void OnGUI () {
-//		if(GUI.Button(new Rect(0,0,80,20), "Delete DB")) {
-//			string filePath = Application.persistentDataPath + "/" + "quiz_box.db";
-//			System.IO.File.Delete(filePath);
-//		}
-//	}
 
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
@@ -34,56 +41,71 @@ public class TopController : MonoBehaviour {
 		}
 	}
 
-	public void SetCurrentDialog (GameObject dialog) {
-		mCurrentDialog = dialog;
-	}
-
-	public void UPdateUserPointLabel () {
-		SetUserPointLabel ();
-	}
-
 	public void OnTopClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [0])as GameObject);
+		if(mCurrentDialog == Dialog.QuizTopic){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
+		SetActiveButtonFilter (Dialog.QuizTopic);
+		ShowDialog (Dialog.QuizTopic);
+		mCurrentDialog = Dialog.QuizTopic;
 	}
 
 	public void OnAddPointClicked () {
-		GameObject addPointDialog = Instantiate (dialogArray [1])as GameObject;
-		addPointDialog.transform.parent = uiRoot.transform;
-		addPointDialog.transform.localScale = new Vector3 (1, 1, 1);
+		dialogArray [(int)Dialog.AddPoint].SetActive (true);
 	}
 
 	public void OnPostQuizClicked () {
-		Application.LoadLevel("PostQuiz");
+		Application.LoadLevel ("PostQuiz");
 	}
 
 	public void OnResultClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [3])as GameObject);
+		if(mCurrentDialog == Dialog.History){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
+		SetActiveButtonFilter (Dialog.History);
+		ShowDialog (Dialog.History);
+		mCurrentDialog = Dialog.History;
 	}
 
 	public void OnSettingClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [4])as GameObject);
+		if(mCurrentDialog == Dialog.Setting){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
+		SetActiveButtonFilter (Dialog.Setting);
+		ShowDialog (Dialog.Setting);
+		mCurrentDialog = Dialog.Setting;
 	}
 
 	public void OnAddQuizClicked () {
-		OnButtonClicked ();
-		ShowDialog (Instantiate (dialogArray [5])as GameObject);
+		if(mCurrentDialog == Dialog.AddQuiz){
+			return;
+		}
+		mCurrentDialogObject.SetActive (false);
+		SetActiveButtonFilter (Dialog.AddQuiz);
+		ShowDialog (Dialog.AddQuiz);
+		mCurrentDialog = Dialog.AddQuiz;
 	}
 
-	private void SetUserPointLabel () {
+	public void UpdateUserPointLabel () {
 		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		userPointLabel.text = userPoint + "pt";
 	}
 
-	private void OnButtonClicked () {
-		Destroy (mCurrentDialog);
+	private void ShowDialog (Dialog dialog) {
+		Debug.Log ("show dialog " + ((int)dialog));
+		GameObject currentDialog = dialogArray[(int)dialog];
+		currentDialog.SetActive (true);
+		mCurrentDialogObject = currentDialog;
 	}
 
-	private void ShowDialog (GameObject dialog) {
-		dialog.transform.parent = uiRoot.transform;
-		dialog.transform.localScale = new Vector3 (1f, 1f, 1f);
-		mCurrentDialog = dialog;
+	private void SetActiveButtonFilter (Dialog dialog) {
+		int buttonId = (int)dialog;
+		foreach (UISprite buttonFilter in buttonFilterArray) {
+			buttonFilter.enabled = true;
+		}
+		buttonFilterArray [buttonId].enabled = false;
 	}
 }

@@ -2,34 +2,57 @@
 using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 
-public class DatabaseCreator : MonoBehaviour
-{
+public class DatabaseCreator : MonoBehaviour {
 	public static event Action createdDatabaseEvent;
+	public DatabaseUpdater databaseUpdater;
+	public QuizRenamer quizRenamer;
+
 	private static string databaseFileName = "quiz_box.db";
 
-	void Start(){
-		CreateDatabase();
+	void OnEnable(){
+		DatabaseUpdater.updatedDatabaseEvent += OnUpdated;
+		QuizRenamer.renamedQuizEvent += OnRenamed;
 	}
 
-	// Use this for initialization
-	private void CreateDatabase ()
-	{
+	void OnDisable(){
+		DatabaseUpdater.updatedDatabaseEvent -= OnUpdated;
+		QuizRenamer.renamedQuizEvent -= OnRenamed;
+	}
+
+
+	void Start () {
+		CreateDatabase ();
+	}
+
+	void OnUpdated(){
+		quizRenamer.RenameQuiz ();
+	}
+
+	void OnRenamed(){
+		CreatedDatabase ();
+	}
+
+	private void CreateDatabase () {
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
+
 		#if UNITY_IPHONE
-		if(!File.Exists(filePath)){
-			File.Copy( baseFilePath, filePath); 
-			QuizListDao.instance.InitBoughtDate();
-			Debug.Log("create Database");
+		if (!File.Exists (filePath)) {
+			File.Copy (baseFilePath, filePath); 
+		//	QuizListDao.instance.InitBoughtDate ();
+			Debug.Log ("create Database");
 		}
-		CreatedDatabase();
+
+		databaseUpdater.UpdateDatabase();
 		#endif
 
 		#if UNITY_ANDROID 
 		#if UNITY_EDITOR
 		baseFilePath = "file://"+Path.Combine (Application.streamingAssetsPath, databaseFileName);
 		#endif
+		Debug.Log("file exists = " + File.Exists(filePath));
 		if(File.Exists(filePath)){
 			CreatedDatabase();
 		}else {
@@ -37,7 +60,6 @@ public class DatabaseCreator : MonoBehaviour
 		}
 #endif
 	}
-
 	#if UNITY_ANDROID
 	private IEnumerator CreateAndroidDatabase (string baseFilePath,string filePath)
 	{
@@ -47,16 +69,23 @@ public class DatabaseCreator : MonoBehaviour
 		WWW www = new WWW (baseFilePath);
 		yield return www;
 		File.WriteAllBytes (filePath, www.bytes);
-		CreatedDatabase();
+		QuizListDao.instance.InitBoughtDate();
+		databaseUpdater.UpdateDatabase();
 	}
 	#endif
 
-	private void CreatedDatabase()
-	{
+	private void CreatedDatabase () {
 		Debug.Log ("create finished");
-		if( createdDatabaseEvent != null ){
-			createdDatabaseEvent();
+		#if !UNITY_EDITOR
+	//	CheckRenameQuiz();
+		DateTime dtNow = DateTime.Now;
+		string installedDate = PrefsManager.Instance.InstalledDate;
+		if (string.IsNullOrEmpty (installedDate)) {
+		PrefsManager.Instance.InstalledDate = dtNow.ToString ();
+		}
+		#endif
+		if (createdDatabaseEvent != null) {
+			createdDatabaseEvent ();
 		}
 	}
-
 }

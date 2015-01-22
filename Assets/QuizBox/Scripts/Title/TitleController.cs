@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class TitleController : MonoBehaviour {
 
 	public GameObject seriesDialogPrefab;
 	public GameObject uiRoot;
+
 
 	void OnEnable () {
 #if UNITY_IPHONE
@@ -13,6 +14,7 @@ public class TitleController : MonoBehaviour {
 
 		#if UNITY_ANDROID
 		EtceteraAndroidManager.alertButtonClickedEvent += AlertButtonCoicked;
+		EtceteraAndroidManager.alertCancelledEvent += alertCancelledEvent;
 		#endif
 	}
 
@@ -23,11 +25,13 @@ public class TitleController : MonoBehaviour {
 
 		#if UNITY_ANDROID
 		EtceteraAndroidManager.alertButtonClickedEvent -= AlertButtonCoicked;
+		EtceteraAndroidManager.alertCancelledEvent -= alertCancelledEvent;
 		#endif
 	}
-
+		
 	void Update () {
 		if (Input.GetKey (KeyCode.Escape)) {
+			QuizListManager.instance.ReleaseQuizList();
 			Application.LoadLevel ("Top");
 		}
 	}
@@ -44,10 +48,12 @@ public class TitleController : MonoBehaviour {
 	}
 
 	public void OnChallengeModeClicked () {
+		Debug.Log ("OnChallengeModeClicked");
 		int id = SelectedQuiz.instance.id;
-		IDictionary challengeQuizDictionary = QuizListDao.instance.GetChallengeData (id);
+		IDictionary challengeQuizDictionary = QuizListDao.instance.GetChallengeDataById (id);
+		Debug.Log ("count = " + challengeQuizDictionary.Count);
 		string jsonString = (string)challengeQuizDictionary [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD];
-		if (jsonString == "null") {
+		if (jsonString == "null" || string.IsNullOrEmpty(jsonString)) {
 			StartChallengeDialog.Show ();
 		} else {
 			int questionCount = (int)challengeQuizDictionary [QuizListDao.CHALLENGE_QUIZ_COUNT];
@@ -55,7 +61,6 @@ public class TitleController : MonoBehaviour {
 			QuizListManager.instance.PlayChallenteModeResume (jsonString, questionCount, correctCount);
 			RestartChallengeDialog.Show ();
 		}
-
 	}
 
 	public void OnBackClicked () {
@@ -70,18 +75,28 @@ public class TitleController : MonoBehaviour {
 			Application.LoadLevel ("Game");
 		}
 
-		if (clickedButton == "\u518d\u958b\u3059\u308b") {
+		if (clickedButton == "再開する") {
 			//restart challenge
 			Application.LoadLevel ("Game");
 		}
 
-		if(clickedButton == "\u6700\u521d\u304b\u3089\u3084\u308a\u76f4\u3059"){
-			Debug.Log("remove");
+		if(clickedButton == "最初からやり直す"){
+			RemoveChallengeDataDialog dialog = new RemoveChallengeDataDialog ();
+			dialog.Show ();
+		}
+
+		if(clickedButton == RemoveChallengeDataDialog.NEGATIVE_BUTTON){
 			int id = SelectedQuiz.instance.id;
 			QuizListDao.instance.RemoveChallengeData(id);
 			QuizListManager.instance.PlayChallengeMode ();
-			//remove data 
 			Application.LoadLevel ("Game");
 		}
 	}
+
+	#if UNITY_ANDROID
+	void alertCancelledEvent(){
+		NetworkErrorDialog dialog = new NetworkErrorDialog ();
+		dialog.Show ();
+	}
+	#endif
 }

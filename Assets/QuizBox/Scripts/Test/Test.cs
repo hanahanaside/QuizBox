@@ -1,39 +1,30 @@
 ﻿using UnityEngine;
-using System.Text;
 using System.Collections;
-using System.Collections.Generic;
 using System;
 
 public class Test : MonoBehaviour {
 
-	private DateTime mDateTime;
+	public string rectangleMediaId;
+	public string rectangleSpotId;
+	public string publisherId;
 
-	void Start()
-	{
-		mDateTime = DateTime.Now;
+	public static string screenshotFilename = "someScreenshot.png";
+
+	void Start () {
+		IMobileSdkAdsUnityPlugin.registerInline (publisherId, rectangleMediaId, rectangleSpotId);
+		IMobileSdkAdsUnityPlugin.start (rectangleSpotId);
 	}
 
-	public void OnButton1(){
-		DateTime now = DateTime.Now;
-		switch(mDateTime.CompareTo(now)){
-		case -1:
-			Debug.Log("Post は now より古い");
-			break;
-		case 0:
-			Debug.Log("Post と now は等しい");
-			break;
-		case 1:
-			Debug.Log("Post は now より新しい");
-			break;
-		}
+	void OnEnable(){
+		Debug.Log ("enable");
 	}
 
-	public void OnButton2(){
-		TouchScreenKeyboard.Open("text2",TouchScreenKeyboardType.ASCIICapable);
+	void OnDisable(){
+		Debug.Log ("disable");
 	}
 
-	public void OnButton3(){
-		TouchScreenKeyboard.hideInput = true;
+	void OnApplicationPause(bool pauseStatus){
+		Debug.Log ("pause "+pauseStatus);
 	}
-
+		
 }
