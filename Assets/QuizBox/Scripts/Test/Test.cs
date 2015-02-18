@@ -9,10 +9,19 @@ public class Test : MonoBehaviour {
 	public string publisherId;
 
 	public static string screenshotFilename = "someScreenshot.png";
+	public UILabel label;
 
-	void Start () {
-		IMobileSdkAdsUnityPlugin.registerInline (publisherId, rectangleMediaId, rectangleSpotId);
-		IMobileSdkAdsUnityPlugin.start (rectangleSpotId);
+	void Awake () {
+
+	}
+
+	void Update(){
+	
+	}
+
+	public void OnButtonClicked(){
+		label.GetComponent<TypewriterEffect> ().ResetToBeginning();
+		label.text = "bbbbbbbbbbbbb";
 	}
 
 	void OnEnable(){
