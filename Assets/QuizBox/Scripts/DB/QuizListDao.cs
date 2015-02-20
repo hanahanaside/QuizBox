@@ -36,11 +36,11 @@ public class QuizListDao {
 		sqliteDB.Close ();
 	}
 
-	public void UpdateOrderNumber(Quiz quiz){
+	public void UpdateOrderNumber (Quiz quiz) {
 		SQLiteDB sqliteDB = OpenDatabase ();
 		StringBuilder sb = new StringBuilder ();
 		sb.Append ("update quiz_list set ");
-		sb.Append (ORDER_NUMBER_FIELD + " = " + quiz.OrderNumber +" ");
+		sb.Append (ORDER_NUMBER_FIELD + " = " + quiz.OrderNumber + " ");
 		sb.Append ("where " + ID_FIELD + " = " + quiz.Id + ";");
 		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString ());
 		sqliteQuery.Step ();
@@ -63,7 +63,7 @@ public class QuizListDao {
 				quiz.ChallengeQuizCorrect = sqliteQuery.GetInteger (CHALLENGE_QUIZ_CORRECT);
 				quiz.ChallengeQuizCount = sqliteQuery.GetInteger (CHALLENGE_QUIZ_COUNT);
 				quiz.ChallengeQuizData = sqliteQuery.GetString (CHALLENGE_QUIZ_DATA_FIELD);
-				quiz.OrderNumber = sqliteQuery.GetInteger(ORDER_NUMBER_FIELD);
+				quiz.OrderNumber = sqliteQuery.GetInteger (ORDER_NUMBER_FIELD);
 			} catch (Exception e) {
 				Debug.LogError (e.Message);
 			} finally {
@@ -85,7 +85,7 @@ public class QuizListDao {
 		sb.Append (quiz.ChallengeQuizCount + " ,");
 		sb.Append (quiz.ChallengeQuizCorrect + " ,");
 		sb.Append ("'" + quiz.BoughtDate + "',");
-		sb.Append (quiz.QuizId+ " ,");
+		sb.Append (quiz.QuizId + " ,");
 		sb.Append (quiz.OrderNumber);
 		sb.Append (");");
 		QuerySQL (sqliteDB, sb.ToString ());
@@ -113,15 +113,21 @@ public class QuizListDao {
 		sb.Append ("from quiz_list where " + ID_FIELD + " = " + id + ";");
 		SQLiteQuery sqliteQuery = new SQLiteQuery (sqliteDB, sb.ToString ());
 		IDictionary challengeQuizDictionary = new Dictionary<object,object> ();
-		while (sqliteQuery.Step ()) {
-			string challengeData = sqliteQuery.GetString (CHALLENGE_QUIZ_DATA_FIELD);
-			Debug.Log ("challenge data = " + challengeData);
-			int challengeCount = sqliteQuery.GetInteger (CHALLENGE_QUIZ_COUNT);
-			int correctCount = sqliteQuery.GetInteger (CHALLENGE_QUIZ_CORRECT);
-			challengeQuizDictionary.Add (CHALLENGE_QUIZ_DATA_FIELD, challengeData);
-			challengeQuizDictionary.Add (CHALLENGE_QUIZ_COUNT, challengeCount);
-			challengeQuizDictionary.Add (CHALLENGE_QUIZ_CORRECT, correctCount);
+		try {
+			while (sqliteQuery.Step ()) {
+				string challengeData = sqliteQuery.GetString (CHALLENGE_QUIZ_DATA_FIELD);
+				int challengeCount = sqliteQuery.GetInteger (CHALLENGE_QUIZ_COUNT);
+				int correctCount = sqliteQuery.GetInteger (CHALLENGE_QUIZ_CORRECT);
+				challengeQuizDictionary.Add (CHALLENGE_QUIZ_DATA_FIELD, challengeData);
+				challengeQuizDictionary.Add (CHALLENGE_QUIZ_COUNT, challengeCount);
+				challengeQuizDictionary.Add (CHALLENGE_QUIZ_CORRECT, correctCount);
+			}
+		} catch (Exception e) {
+			Debug.Log (e.Message);
+			sqliteDB.Close ();
+			return null;
 		}
+
 		sqliteDB.Close ();
 		return challengeQuizDictionary;
 	}

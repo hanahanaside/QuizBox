@@ -51,6 +51,11 @@ public class TitleController : MonoBehaviour {
 		Debug.Log ("OnChallengeModeClicked");
 		int id = SelectedQuiz.instance.id;
 		IDictionary challengeQuizDictionary = QuizListDao.instance.GetChallengeDataById (id);
+		//取得時にエラーが発生したらNullが返ってくる
+		if(challengeQuizDictionary == null){
+			StartChallengeDialog.Show ();
+			return;
+		}
 		Debug.Log ("count = " + challengeQuizDictionary.Count);
 		string jsonString = (string)challengeQuizDictionary [QuizListDao.CHALLENGE_QUIZ_DATA_FIELD];
 		if (jsonString == "null" || string.IsNullOrEmpty(jsonString)) {
