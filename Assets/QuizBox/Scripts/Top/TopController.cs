@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TopController : MonoBehaviour {
+public class TopController : MonoSingleton<TopController> {
 
 	enum Dialog
 	{
@@ -16,7 +16,6 @@ public class TopController : MonoBehaviour {
 	public UILabel userPointLabel;
 	public GameObject[] dialogArray;
 	public UISprite[] buttonFilterArray;
-	private static TopController sInstance;
 	private GameObject mCurrentDialogObject;
 	private Dialog mCurrentDialog;
 
@@ -29,7 +28,6 @@ public class TopController : MonoBehaviour {
 	}
 
 	void Start () {
-		sInstance = this;
 		ShowDialog (Dialog.QuizTopic);
 		mCurrentDialog = Dialog.QuizTopic;
 		SetActiveButtonFilter (Dialog.QuizTopic);
@@ -45,12 +43,6 @@ public class TopController : MonoBehaviour {
 
 	void ClosedAddPointDialogEvent(){
 		mCurrentDialogObject.SetActive (true);
-	}
-
-	public static TopController Instance {
-		get {
-			return sInstance;
-		}
 	}
 
 	public void OnTopClicked () {

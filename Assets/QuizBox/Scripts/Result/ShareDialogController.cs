@@ -35,7 +35,7 @@ public class ShareDialogController : MonoBehaviour {
 		#endif
 		if (didSucceed) {
 			PrefsManager.Instance.AddUserPoint(1);
-			TopController.Instance.UpdateUserPointLabel ();
+			TopController.instance.UpdateUserPointLabel ();
 			GameObject.Find ("A_ShareButton").SetActive(false);
 			ShowCompleteDialog ();
 		}

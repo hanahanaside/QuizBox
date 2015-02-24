@@ -33,7 +33,7 @@ public class HistoryCellController : MonoBehaviour {
 		#endif
 		if (didSucceed) {
 			PrefsManager.Instance.AddUserPoint(1);
-			TopController.Instance.UpdateUserPointLabel ();
+			TopController.instance.UpdateUserPointLabel ();
 			tweetButton.SetActive (false);		
 			ShowCompleteDialog ();
 		}

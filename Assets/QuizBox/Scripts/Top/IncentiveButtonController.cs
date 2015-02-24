@@ -61,7 +61,7 @@ public class IncentiveButtonController : MonoBehaviour {
 		clickButtonObject.SetActive (false);
 		timeLabel.gameObject.SetActive (true);
 		PrefsManager.Instance.AddUserPoint (1);
-		TopController.Instance.UpdateUserPointLabel ();
+		TopController.instance.UpdateUserPointLabel ();
 		string title = "ボーナス!!";
 		string message = "1ptゲット!!";
 		#if UNITY_IPHONE

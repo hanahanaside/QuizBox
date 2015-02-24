@@ -101,7 +101,7 @@ public class IABManager : MonoSingleton<IABManager> {
 		}
 		GoogleIAB.consumeProduct (purchase.productId);
 		PrefsManager.Instance.AddUserPoint(addPoint);
-		TopController.Instance.UpdateUserPointLabel ();
+		TopController.instance.UpdateUserPointLabel ();
 	}
 
 	public void PurchaseSku (int skuIndex) {
