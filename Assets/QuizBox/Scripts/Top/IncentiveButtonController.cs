@@ -14,17 +14,6 @@ public class IncentiveButtonController : MonoBehaviour {
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		DateTime dtInstalled = DateTime.Parse (installedDate);
 		TimeSpan timeSpan = dtNow - dtInstalled;
-		int unlockDaySpan = 0;
-		#if UNITY_IPHONE
-		unlockDaySpan = 1;
-		#endif
-//		if (timeSpan.TotalDays >= unlockDaySpan) {
-//			//show
-//			transform.parent.gameObject.SetActive (true);
-//		} else {
-//			transform.parent.gameObject.SetActive (false);
-//			return;
-//		}
 
 		if (timeSpan.TotalMinutes >1) {
 			//show

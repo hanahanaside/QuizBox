@@ -67,15 +67,6 @@ public class QuizTopicDialogManager : MonoBehaviour {
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		DateTime dtInstalled = DateTime.Parse (installedDate);
 		TimeSpan timeSpan = dtNow - dtInstalled;
-		int unlockDaySpan = 0;
-		#if UNITY_IPHONE
-		unlockDaySpan = 1;
-		#endif
-		//		if (timeSpan.TotalDays < unlockDaySpan) {
-		//			//show
-		//			scrollView.transform.localPosition = new Vector3 (0,520f,0);
-		//		}
-
 		if (timeSpan.TotalMinutes < 1) {
 			//show
 			scrollView.gameObject.transform.localPosition = new Vector3 (0,700,0);
