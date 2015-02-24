@@ -55,7 +55,7 @@ public class IncentiveButtonController : MonoBehaviour {
 	}
 
 	public void OnClickButtonClicked () {
-		ImobileManager.Instance.ShowInterstitialAd ();
+		ImobileManager.instance.ShowInterstitialAd ();
 		SaveTime ();
 		CalcTime ();
 		clickButtonObject.SetActive (false);

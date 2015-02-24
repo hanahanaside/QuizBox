@@ -12,15 +12,11 @@ public class InitializeController : MonoBehaviour {
 	void OnDisable(){
 		DatabaseCreator.createdDatabaseEvent -= OnDatabaseCreated;
 	}
-
-	void Awake(){
-		TweenAlpha.Begin (backgroundObject,2.0f,1);
-	}
 		
 	void OnDatabaseCreated(){
 		Debug.Log ("OnDatabaseCreated");
 		SoundManager.Instance.PlaySESound (SoundManager.SE_CHANNEL.Hanauta);
-		Invoke ("StartFadeoutAnimation",3.0f);
+		StartFadeoutAnimation ();
 	}
 
 	private void OnFadeoutAnimationFinished(){

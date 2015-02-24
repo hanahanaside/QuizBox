@@ -29,8 +29,10 @@ public class GCMRegister : MonoBehaviour {
 	}
 
 	void Start () {
+	#if !UNITY_EDITOR
 		DontDestroyOnLoad (gameObject);
 		ChceckRegistered ();
+	#endif
 	}
 
 	private void ChceckRegistered () {

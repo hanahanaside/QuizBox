@@ -12,7 +12,7 @@ public class AddPointDialogController : MonoBehaviour {
 		purchaseProduct (0);
 #endif
 		#if UNITY_ANDROID
-		IABManager.Instance.PurchaseSku(0);
+		IABManager.instance.PurchaseSku(0);
 		#endif
 	}
 
@@ -21,7 +21,7 @@ public class AddPointDialogController : MonoBehaviour {
 		purchaseProduct (4);
 #endif
 		#if UNITY_ANDROID
-		IABManager.Instance.PurchaseSku(1);
+		IABManager.instance.PurchaseSku(1);
 		#endif
 	}
 
@@ -30,7 +30,7 @@ public class AddPointDialogController : MonoBehaviour {
 		purchaseProduct (1);
 #endif
 		#if UNITY_ANDROID
-		IABManager.Instance.PurchaseSku(2);
+		IABManager.instance.PurchaseSku(2);
 		#endif
 	}
 
@@ -39,7 +39,7 @@ public class AddPointDialogController : MonoBehaviour {
 		purchaseProduct (3);
 #endif
 		#if UNITY_ANDROID
-		IABManager.Instance.PurchaseSku(3);
+		IABManager.instance.PurchaseSku(3);
 		#endif
 	}
 
@@ -48,7 +48,7 @@ public class AddPointDialogController : MonoBehaviour {
 		purchaseProduct (5);
 #endif
 		#if UNITY_ANDROID
-		IABManager.Instance.PurchaseSku(4);
+		IABManager.instance.PurchaseSku(4);
 		#endif
 	}
 
@@ -57,7 +57,7 @@ public class AddPointDialogController : MonoBehaviour {
 		purchaseProduct (2);
 		#endif
 		#if UNITY_ANDROID
-		IABManager.Instance.PurchaseSku(5);
+		IABManager.instance.PurchaseSku(5);
 		#endif
 	}
 	#if UNITY_IPHONE

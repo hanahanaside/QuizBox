@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ProductListKeeper : MonoBehaviour {
+public class ProductListKeeper : MonoSingleton<ProductListKeeper> {
 	
 	public string[] productIdentifiers;
 	#if UNITY_IPHONE
-	private static ProductListKeeper sInstance;
 	private static List<StoreKitProduct> _products;
 
 	void OnEnable () {
@@ -21,10 +20,11 @@ public class ProductListKeeper : MonoBehaviour {
 	
 	
 	// Use this for initialization
-	void Awake () {
-		sInstance = this;
+	public override void OnInitialize () {
+	#if !UNITY_EDITOR
 		DontDestroyOnLoad (gameObject);
 		requestProductData ();
+	#endif
 	}
 
 	void productListRequestFailedEvent (string error) {
@@ -39,13 +39,7 @@ public class ProductListKeeper : MonoBehaviour {
 			Debug.Log ("name = " + productList [0].productIdentifier);
 		}
 	}
-
-	public static ProductListKeeper instance {
-		get {
-			return sInstance;
-		}
-	}
-
+		
 	public List<StoreKitProduct> productList {
 		get {
 			return _products;

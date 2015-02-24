@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ImobileManager : MonoBehaviour {
+public class ImobileManager : MonoSingleton<ImobileManager> {
 
 	public string publisherId;
-	private static ImobileManager sInstance;
 	private int mBannerViewId = -1;
 	private int mIconViewId = -1;
 	private int mRectangleViewId = -1;
 	public Account account;
 
-	void Awake () {
-		sInstance = this;
+	public override void OnInitialize () {
 		DontDestroyOnLoad (gameObject);
 	}
 
@@ -19,12 +17,6 @@ public class ImobileManager : MonoBehaviour {
 		#if !UNITY_EDITOR
 		Init();
 		#endif
-	}
-
-	public static ImobileManager Instance {
-		get {
-			return sInstance;
-		}
 	}
 
 	public void ShowIconAd () { 

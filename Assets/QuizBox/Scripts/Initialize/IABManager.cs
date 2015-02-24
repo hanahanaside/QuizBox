@@ -2,13 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class IABManager : MonoBehaviour {
+public class IABManager : MonoSingleton<IABManager> {
 	public string encodePublicKey = "";
 	public string[] skuArray;
 
 	#if UNITY_ANDROID
-
-	private static IABManager sInstance;
 
 	void OnEnable () {
 		// Listen to all events for illustration purposes
@@ -37,9 +35,10 @@ public class IABManager : MonoBehaviour {
 	}
 
 	void Awake () {
-		sInstance = this;
+	#if !UNITY_EDITOR
 		DontDestroyOnLoad (gameObject);
 		GoogleIAB.init (encodePublicKey);
+	#endif
 	}
 		
 	void purchaseFailedEvent (string error) {
@@ -103,12 +102,6 @@ public class IABManager : MonoBehaviour {
 		GoogleIAB.consumeProduct (purchase.productId);
 		PrefsManager.Instance.AddUserPoint(addPoint);
 		TopController.Instance.UpdateUserPointLabel ();
-	}
-
-	public static IABManager Instance{
-		get{
-			return sInstance;
-		}
 	}
 
 	public void PurchaseSku (int skuIndex) {

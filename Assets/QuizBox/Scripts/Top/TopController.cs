@@ -34,7 +34,7 @@ public class TopController : MonoBehaviour {
 		mCurrentDialog = Dialog.QuizTopic;
 		SetActiveButtonFilter (Dialog.QuizTopic);
 		UpdateUserPointLabel ();
-		ImobileManager.Instance.ShowBannerAd ();
+		ImobileManager.instance.ShowBannerAd ();
 	}
 
 	void Update () {
