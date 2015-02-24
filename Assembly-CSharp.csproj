@@ -211,7 +211,6 @@
      <Compile Include="Assets\QuizBox\Scripts\Game\ScoreKeeper.cs" />
      <Compile Include="Assets\QuizBox\Scripts\History\HistoryContoroller.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\APNsRegister.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\Initialize\DataInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseCreator.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\DatabaseUpdater.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\GCMRegister.cs" />

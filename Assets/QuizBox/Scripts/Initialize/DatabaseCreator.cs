@@ -41,7 +41,7 @@ public class DatabaseCreator : MonoBehaviour {
 		#if UNITY_IPHONE
 		if (!File.Exists (filePath)) {
 			File.Copy (baseFilePath, filePath); 
-		//	QuizListDao.instance.InitBoughtDate ();
+			InitBoughtDate ();
 			Debug.Log ("create Database");
 		}
 
@@ -69,6 +69,7 @@ public class DatabaseCreator : MonoBehaviour {
 		WWW www = new WWW (baseFilePath);
 		yield return www;
 		File.WriteAllBytes (filePath, www.bytes);
+		InitBoughtDate ();
 		databaseUpdater.UpdateDatabase();
 	}
 	#endif
@@ -76,7 +77,6 @@ public class DatabaseCreator : MonoBehaviour {
 	private void CreatedDatabase () {
 		Debug.Log ("create finished");
 		#if !UNITY_EDITOR
-	//	CheckRenameQuiz();
 		DateTime dtNow = DateTime.Now;
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		if (string.IsNullOrEmpty (installedDate)) {
@@ -85,6 +85,14 @@ public class DatabaseCreator : MonoBehaviour {
 		#endif
 		if (createdDatabaseEvent != null) {
 			createdDatabaseEvent ();
+		}
+	}
+
+	private void InitBoughtDate(){
+		List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
+		foreach(Quiz quiz in quizList){
+			quiz.BoughtDate = DateTime.Now.ToString ("yyyy/MM/dd");
+			QuizListDao.instance.UpdateRecord (quiz);
 		}
 	}
 }

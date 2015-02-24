@@ -131,7 +131,8 @@ public class PrefsManager {
 			PlayerPrefs.Save ();
 		}
 		get {
-			return PlayerPrefs.GetInt (DATABASE_VERSION, 3);
+			int databaseVersion = PlayerPrefs.GetInt (DATABASE_VERSION, 3);
+			return databaseVersion;
 		}
 	}
 
