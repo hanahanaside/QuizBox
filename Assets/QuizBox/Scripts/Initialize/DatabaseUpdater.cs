@@ -77,6 +77,7 @@ public class DatabaseUpdater : MonoBehaviour {
 			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		}
+		Debug.Log ("finish update");
 		updatedDatabaseEvent ();
 	}
 

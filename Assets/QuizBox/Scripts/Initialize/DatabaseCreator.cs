@@ -54,12 +54,13 @@ public class DatabaseCreator : MonoBehaviour {
 		#endif
 		Debug.Log("file exists = " + File.Exists(filePath));
 		if(File.Exists(filePath)){
-			CreatedDatabase();
+			databaseUpdater.UpdateDatabase();
 		}else {
 			StartCoroutine(CreateAndroidDatabase(baseFilePath,filePath));
 		}
 #endif
 	}
+
 	#if UNITY_ANDROID
 	private IEnumerator CreateAndroidDatabase (string baseFilePath,string filePath)
 	{

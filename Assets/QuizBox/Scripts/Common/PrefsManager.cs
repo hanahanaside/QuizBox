@@ -110,7 +110,7 @@ public class PrefsManager {
 			PlayerPrefs.Save ();
 		}
 		get {
-			return PlayerPrefs.GetString (INSTALLED_DATE);
+			return PlayerPrefs.GetString (INSTALLED_DATE,DateTime.Now.ToString());
 		}
 
 	}

@@ -39,12 +39,19 @@ public class QuizRenamer : MonoBehaviour {
 		int quizId = quiz.QuizId;
 		foreach (Dictionary<string,object> jsonObject in jsonArray) {
 			long jsonId = (long)jsonObject ["id"];
-			if (quizId == jsonId) {
-				Debug.Log ("Renamed " + quiz.Title + " to " + jsonObject[QuizListDao.TITLE_FIELD]);
-				quiz.Title = (string)jsonObject [QuizListDao.TITLE_FIELD];
-				QuizListDao.instance.UpdateTitle (quiz);
+			if (quizId != jsonId) {
+				continue;
+			}
+			string jsonTitle = (string)jsonObject [QuizListDao.TITLE_FIELD];
+			//名前が既に同じだったら何もしない
+			if(quiz.Title == jsonTitle){
 				break;
 			}
+			//リネーム
+			Debug.Log ("Renamed " + quiz.Title + " to " + jsonTitle);
+			quiz.Title = jsonTitle;
+			QuizListDao.instance.UpdateTitle (quiz);
+			break;
 		}
 	}
 }

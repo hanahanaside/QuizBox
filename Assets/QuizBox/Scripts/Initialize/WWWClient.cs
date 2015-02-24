@@ -8,7 +8,11 @@ public class WWWClient {
 
 	public delegate void TimeOutDelegate ();
 
+	#if UNITY_EDITOR
+	public float timeOutInterval = 100.0f;
+	#else
 	public float timeOutInterval = 10.0f;
+	#endif
 	private RequestFinishedDelegate mOnSuccess;
 	private RequestFinishedDelegate mOnFail;
 	private TimeOutDelegate mOnTimeOut;
