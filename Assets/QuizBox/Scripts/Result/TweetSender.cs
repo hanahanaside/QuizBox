@@ -125,7 +125,7 @@ public class TweetSender : MonoBehaviour {
 
 	private void ShowCompleteDialog () {
 		PrefsManager.Instance.AddUserPoint(1);
-		TopController.Instance.UpdateUserPointLabel ();
+		TopController.instance.UpdateUserPointLabel ();
 		string title = "\u30c4\u30a4\u30fc\u30c8\u6210\u529f!!";
 		string message = "1\u30dd\u30a4\u30f3\u30c8\u8ffd\u52a0\u3057\u307e\u3057\u305f";
 		ShowOKDialog (title, message);

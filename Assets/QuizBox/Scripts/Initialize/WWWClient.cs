@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Text;
 
 public class WWWClient {
-	public delegate void RequestFinishedDelegate (string response);
+	public delegate void RequestFinishedDelegate (WWW www);
 
 	public delegate void TimeOutDelegate ();
 
-	private const float TIME_OUT_INTERVAL = 10.0f;
+	#if UNITY_EDITOR
+	public float timeOutInterval = 100.0f;
+	#else
+	public float timeOutInterval = 10.0f;
+	#endif
 	private RequestFinishedDelegate mOnSuccess;
 	private RequestFinishedDelegate mOnFail;
 	private TimeOutDelegate mOnTimeOut;
@@ -18,8 +22,7 @@ public class WWWClient {
 	private string mURL;
 	private bool mIsTimeOut;
 
-	public WWWClient (MonoBehaviour monoBehaviour, string url)
-	{
+	public WWWClient (MonoBehaviour monoBehaviour, string url) {
 		mMonoBehaviour = monoBehaviour;
 		mURL = url;
 		mHeader = new Dictionary<string, string> ();
@@ -41,24 +44,12 @@ public class WWWClient {
 		mHeader.Add ("Content-Type", "application/json");
 	}
 
-	public void PostData (string json) {
-		mMonoBehaviour.StartCoroutine (PostCoroutine (json));
+	public void SetTimeOutInterval (float time) {
+		timeOutInterval = time;
 	}
 
 	public void GetData () {
 		mMonoBehaviour.StartCoroutine (GetCoroutine ());
-	}
-
-	private IEnumerator PostCoroutine (string json) {
-		byte[] data = Encoding.UTF8.GetBytes (json);
-		if (mHeader.Count == 0) {
-			mWWW = new WWW (mURL, data);
-		} else {
-			mWWW = new WWW (mURL, data, mHeader);
-		}
-		yield return mMonoBehaviour.StartCoroutine (CheckTimeout ());
-
-		CheckResponse ();
 	}
 
 	private IEnumerator GetCoroutine () {
@@ -88,22 +79,21 @@ public class WWWClient {
 	private void CallBackSuccess () {
 		Debug.Log ("www ok");
 		if (mOnSuccess != null) {
-			mOnSuccess (mWWW.text);
+			mOnSuccess (mWWW);
 		}
 	}
 
 	private void CallBackFail () {
 		Debug.Log ("www error");
-		Debug.Log (mWWW.text);
 		if (mOnFail != null) {
-			mOnFail (mWWW.text);
+			mOnFail (mWWW);
 		}
 	}
 
 	private  IEnumerator CheckTimeout () {
 		float startRequestTime = Time.time;
 		while (!mWWW.isDone) {
-			if (Time.time - startRequestTime < TIME_OUT_INTERVAL)
+			if (Time.time - startRequestTime < timeOutInterval)
 				yield return null;
 			else {
 				//タイムアウト

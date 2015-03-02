@@ -68,8 +68,8 @@ public class QuizListManager : MonoBehaviour {
 		Debug.Log ("url = " + SelectedQuiz.instance.quizUrl);
 		if (allQuizList == null) {
 			WWWClient wwwClient = new WWWClient (this,SelectedQuiz.instance.quizUrl);
-			wwwClient.OnSuccess = (string response) => {
-				sJsonString = response;
+			wwwClient.OnSuccess = (WWW www) => {
+				sJsonString = www.text;
 				sJsonString = sJsonString.Replace ("'", "");
 				IDictionary jsonObject = (IDictionary)Json.Deserialize (sJsonString);
 				allQuizList = (IList)jsonObject ["updated_quiz"];
@@ -78,7 +78,7 @@ public class QuizListManager : MonoBehaviour {
 				loadSucceedEvent ();
 			};
 				
-			wwwClient.OnFail = (string response) => {
+			wwwClient.OnFail = (WWW www) => {
 				loadFailedEvent ();
 			};
 

@@ -9,18 +9,28 @@ public class AddQuizButtonController : MonoBehaviour {
 	public GameObject newSprite;
 	public UILabel titleLabel;
 	public UILabel pointLabel;
+	public UITexture logoTexture;
 	private AddQuiz mAddQuiz;
 
-	public void Init (AddQuiz addQuiz) {
-		mAddQuiz = addQuiz;
-		titleLabel.text = mAddQuiz.title + "\n(" + mAddQuiz.quizCount + "\u554f)";
-		pointLabel.text = mAddQuiz.point + "pt";
-		if(mAddQuiz.FlagNew){
-			//show new label
-			newSprite.SetActive (true);
+	private SelledProject mSelledProject;
+
+	void OnEnable(){
+		if(mAddQuiz == null){
+			return;
+		}
+		if(logoTexture.mainTexture == null){
+			Debug.Log ("null");
+			LoadTexture ();
 		}
 	}
 
+	public void Init(SelledProject selledProject){
+		mSelledProject = selledProject;
+		titleLabel.text = mSelledProject.title + "\n" + mSelledProject.quiz_count + "問)";
+		pointLabel.text = mSelledProject.point + "pt";
+		LoadTexture ();
+	}
+		
 	public AddQuiz SelectedQuiz{
 		get{
 			return mAddQuiz;
@@ -30,6 +40,22 @@ public class AddQuizButtonController : MonoBehaviour {
 	public void OnButtonClick () {
 		if (clickedEvent != null) {
 			clickedEvent (this); 
+		}
+	}
+		
+	public void ReloadTexture(){
+		LoadTexture ();
+	}
+
+	private void LoadTexture(){
+		if(logoTexture.mainTexture == null){
+			WWWClient wwwClient = new WWWClient (this,"https://dl.dropboxusercontent.com/u/32529846/gold.png");
+			wwwClient.SetTimeOutInterval (120.0f);
+			wwwClient.OnSuccess = (WWW www) => {
+				logoTexture.mainTexture = www.texture;
+
+			};
+			wwwClient.GetData ();
 		}
 	}
 }

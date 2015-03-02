@@ -32,7 +32,7 @@ public class ShortPointDialog : MonoBehaviour {
 	}
 
 	public void alertButtonClickedEvent(string clickedButton){
-		TopController.Instance.OnAddPointClicked();
+		TopController.instance.OnAddPointClicked();
 		Destroy(gameObject);
 	}
 }

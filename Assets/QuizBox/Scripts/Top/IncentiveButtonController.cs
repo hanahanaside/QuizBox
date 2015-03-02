@@ -14,17 +14,6 @@ public class IncentiveButtonController : MonoBehaviour {
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		DateTime dtInstalled = DateTime.Parse (installedDate);
 		TimeSpan timeSpan = dtNow - dtInstalled;
-		int unlockDaySpan = 0;
-		#if UNITY_IPHONE
-		unlockDaySpan = 1;
-		#endif
-//		if (timeSpan.TotalDays >= unlockDaySpan) {
-//			//show
-//			transform.parent.gameObject.SetActive (true);
-//		} else {
-//			transform.parent.gameObject.SetActive (false);
-//			return;
-//		}
 
 		if (timeSpan.TotalMinutes >1) {
 			//show
@@ -66,13 +55,13 @@ public class IncentiveButtonController : MonoBehaviour {
 	}
 
 	public void OnClickButtonClicked () {
-		ImobileManager.Instance.ShowInterstitialAd ();
+		ImobileManager.instance.ShowInterstitialAd ();
 		SaveTime ();
 		CalcTime ();
 		clickButtonObject.SetActive (false);
 		timeLabel.gameObject.SetActive (true);
 		PrefsManager.Instance.AddUserPoint (1);
-		TopController.Instance.UpdateUserPointLabel ();
+		TopController.instance.UpdateUserPointLabel ();
 		string title = "ボーナス!!";
 		string message = "1ptゲット!!";
 		#if UNITY_IPHONE

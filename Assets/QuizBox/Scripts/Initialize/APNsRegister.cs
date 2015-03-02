@@ -55,7 +55,6 @@ public class APNsRegister : MonoBehaviour {
 
 
 	private void RegisterForRemoteNotifcations () {
-		//	NotificationServices.RegisterForRemoteNotificationTypes (RemoteNotificationType.Alert | RemoteNotificationType.Badge | RemoteNotificationType.Sound);
 		EtceteraBinding.registerForRemoteNotifcations (P31RemoteNotificationType.Alert | P31RemoteNotificationType.Badge | P31RemoteNotificationType.Sound);
 	}
 

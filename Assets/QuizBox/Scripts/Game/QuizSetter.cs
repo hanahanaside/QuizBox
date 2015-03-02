@@ -43,7 +43,7 @@ public class QuizSetter : MonoBehaviour {
 
 	private IEnumerator TypeWrite () {
 		if (!enabled) {
-			return true; 
+			yield	return null; 
 		}
 		char text = mCharArray [mIndexNumber];
 		mStringBuilder.Append (text);

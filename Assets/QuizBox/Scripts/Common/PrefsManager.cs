@@ -110,7 +110,7 @@ public class PrefsManager {
 			PlayerPrefs.Save ();
 		}
 		get {
-			return PlayerPrefs.GetString (INSTALLED_DATE);
+			return PlayerPrefs.GetString (INSTALLED_DATE,DateTime.Now.ToString());
 		}
 
 	}
@@ -131,7 +131,8 @@ public class PrefsManager {
 			PlayerPrefs.Save ();
 		}
 		get {
-			return PlayerPrefs.GetInt (DATABASE_VERSION, 0);
+			int databaseVersion = PlayerPrefs.GetInt (DATABASE_VERSION, 3);
+			return databaseVersion;
 		}
 	}
 

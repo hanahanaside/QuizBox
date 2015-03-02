@@ -12,8 +12,8 @@ public class PostCountDataKeeper : MonoBehaviour {
 	void Start () {
 		mPostCountData = PrefsManager.Instance.GetPostCountData ();
 		WWWClient wwwClient = new WWWClient (this, URL);
-		wwwClient.OnSuccess = (string response) => {
-			Dictionary<string,object> dic = (Dictionary<string,object>)Json.Deserialize (response);
+		wwwClient.OnSuccess = (WWW www) => {
+			Dictionary<string,object> dic = (Dictionary<string,object>)Json.Deserialize (www.text);
 			double unixTime = (double)dic ["st"];
 			DateTime dtNow = UNIX_EPOCH.AddSeconds ((long)unixTime).ToLocalTime ();
 			if (string.IsNullOrEmpty (mPostCountData.PostDate)) {

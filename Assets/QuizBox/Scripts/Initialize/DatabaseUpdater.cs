@@ -43,6 +43,7 @@ public class DatabaseUpdater : MonoBehaviour {
 	public void UpdateDatabase () {
 		Debug.Log ("update database");
 		int databaseVersion = PrefsManager.Instance.DatabaseVersion;
+		Debug.Log ("database version = " + databaseVersion);
 		switch (databaseVersion) {
 		case 0:
 			List<Quiz> quizList = QuizListDao.instance.GetQuizList ();
@@ -59,7 +60,6 @@ public class DatabaseUpdater : MonoBehaviour {
 			}else {
 				//ver0のままアップデートした人なので既存のレコードにquiz id を入れてあげる
 				RemakeDatabase ();
-				InitQuizId ();
 				InitOrderNumber ();
 				PrefsManager.Instance.DatabaseVersion = 3;
 			}
@@ -77,6 +77,7 @@ public class DatabaseUpdater : MonoBehaviour {
 			PrefsManager.Instance.DatabaseVersion = 3;
 			break;
 		}
+		Debug.Log ("finish update");
 		updatedDatabaseEvent ();
 	}
 
@@ -115,9 +116,5 @@ public class DatabaseUpdater : MonoBehaviour {
 		#if UNITY_ANDROID
 		EtceteraAndroid.showAlert (title,message,"OK");
 		#endif
-	}
-
-	private void InitQuizId(){
-
 	}
 }

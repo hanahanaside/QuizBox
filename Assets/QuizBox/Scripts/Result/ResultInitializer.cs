@@ -36,18 +36,7 @@ public class ResultInitializer : MonoBehaviour {
 		foreach (GameObject item in resultLabelArray) {
 			iTweenEvent.GetEvent (item, "EntranceEvent").Play ();
 		}
-
-		DateTime dtNow = DateTime.Now;
-		string installedDate = PrefsManager.Instance.InstalledDate;
-		DateTime dtInstalled = DateTime.Parse (installedDate);
-		TimeSpan timeSpan = dtNow - dtInstalled;
-		int unlockDaySpan = 0;
-		#if UNITY_IPHONE
-		unlockDaySpan = 1;
-		#endif
-//		if (timeSpan.TotalDays >= unlockDaySpan) {
-//			StartCoroutine (OpenWallAd ());
-//		} 
+			
 		if(Application.internetReachability != NetworkReachability.NotReachable){
 			Invoke ("OpenWallAd",3.0f);
 		}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TopController : MonoBehaviour {
+public class TopController : MonoSingleton<TopController> {
 
 	enum Dialog
 	{
@@ -16,17 +16,23 @@ public class TopController : MonoBehaviour {
 	public UILabel userPointLabel;
 	public GameObject[] dialogArray;
 	public UISprite[] buttonFilterArray;
-	private static TopController sInstance;
 	private GameObject mCurrentDialogObject;
 	private Dialog mCurrentDialog;
 
+	void OnEnable(){
+		AddPointDialogController.ClosedAddPointDialogEvent += ClosedAddPointDialogEvent;
+	}
+
+	void OnDisable(){
+		AddPointDialogController.ClosedAddPointDialogEvent -= ClosedAddPointDialogEvent;
+	}
+
 	void Start () {
-		sInstance = this;
 		ShowDialog (Dialog.QuizTopic);
 		mCurrentDialog = Dialog.QuizTopic;
 		SetActiveButtonFilter (Dialog.QuizTopic);
 		UpdateUserPointLabel ();
-		ImobileManager.Instance.ShowBannerAd ();
+		ImobileManager.instance.ShowBannerAd ();
 	}
 
 	void Update () {
@@ -35,10 +41,8 @@ public class TopController : MonoBehaviour {
 		}
 	}
 
-	public static TopController Instance {
-		get {
-			return sInstance;
-		}
+	void ClosedAddPointDialogEvent(){
+		mCurrentDialogObject.SetActive (true);
 	}
 
 	public void OnTopClicked () {
@@ -52,7 +56,9 @@ public class TopController : MonoBehaviour {
 	}
 
 	public void OnAddPointClicked () {
-		dialogArray [(int)Dialog.AddPoint].SetActive (true);
+		mCurrentDialogObject.SetActive (false);
+		ShowDialog (Dialog.AddPoint);
+		mCurrentDialog = Dialog.AddPoint;
 	}
 
 	public void OnPostQuizClicked () {
@@ -85,7 +91,7 @@ public class TopController : MonoBehaviour {
 		}
 		mCurrentDialogObject.SetActive (false);
 		SetActiveButtonFilter (Dialog.AddQuiz);
-		ShowDialog (Dialog.AddQuiz);
+		AddQuizContainer.instance.Show ();
 		mCurrentDialog = Dialog.AddQuiz;
 	}
 

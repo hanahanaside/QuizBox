@@ -1,30 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.IO;
 
 public class Test : MonoBehaviour {
 
-	public string rectangleMediaId;
-	public string rectangleSpotId;
-	public string publisherId;
-
-	public static string screenshotFilename = "someScreenshot.png";
-
-	void Start () {
-		IMobileSdkAdsUnityPlugin.registerInline (publisherId, rectangleMediaId, rectangleSpotId);
-		IMobileSdkAdsUnityPlugin.start (rectangleSpotId);
-	}
-
-	void OnEnable(){
-		Debug.Log ("enable");
-	}
-
-	void OnDisable(){
-		Debug.Log ("disable");
-	}
-
-	void OnApplicationPause(bool pauseStatus){
-		Debug.Log ("pause "+pauseStatus);
+	void Start(){
+		Test2 test2 = GetComponentInChildren<Test2> ();
+		test2.Show ();
 	}
 		
 }
