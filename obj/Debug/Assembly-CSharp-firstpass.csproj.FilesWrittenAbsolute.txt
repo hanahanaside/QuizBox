@@ -9,3 +9,4 @@
 /Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
 /Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/obj/Debug/Assembly-CSharp-firstpass.dll
 /Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/obj/Debug/Assembly-CSharp-firstpass.dll.mdb
+/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Temp/bin/Debug/JsonFx.Json.dll

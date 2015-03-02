@@ -240,6 +240,9 @@
  <Reference Include="Prime31MenuItem">
  <HintPath>/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Assets/Editor/Prime31/Prime31MenuItem.dll</HintPath>
  </Reference>
+ <Reference Include="JsonFx.Json">
+ <HintPath>/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Assets/Plugins/JsonFx.Json.dll</HintPath>
+ </Reference>
  <Reference Include="P31RestKit">
  <HintPath>/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Assets/Plugins/P31RestKit.dll</HintPath>
  </Reference>

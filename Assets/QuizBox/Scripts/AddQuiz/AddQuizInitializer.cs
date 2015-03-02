@@ -12,7 +12,6 @@ public class AddQuizInitializer : MonoBehaviour {
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 	private List<Quiz> mQuizList;
 	private int mLoadingTextureIndex;
-	private List<AddQuizButtonController> mAddQuizButtonControllerList;
 
 	void OnEnable () {
 		Debug.Log ("enable");
@@ -28,11 +27,10 @@ public class AddQuizInitializer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("start");
-		mAddQuizButtonControllerList = new List<AddQuizButtonController> ();
-		ShowProgressDialog ();
-		mQuizList = QuizListDao.instance.GetQuizList ();
-		WWW www = new WWW (JSON_URL);
-		StartCoroutine (httpClient.Excute (www));
+	//	ShowProgressDialog ();
+	//	mQuizList = QuizListDao.instance.GetQuizList ();
+	//	WWW www = new WWW (JSON_URL);
+	//	StartCoroutine (httpClient.Excute (www));
 	}
 
 	void ResponseCallback (string response) {
@@ -115,8 +113,7 @@ public class AddQuizInitializer : MonoBehaviour {
 		grid.AddChild (addQuizButtonObject.transform);
 		addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);
 		AddQuizButtonController controller = addQuizButtonObject.GetComponentInChildren<AddQuizButtonController> ();
-		mAddQuizButtonControllerList.Add (controller);
-		controller.Init (addQuiz);
+//		controller.Init (addQuiz);
 	}
 
 	private bool CheckDuplicateQuiz (IDictionary jsonObject) {

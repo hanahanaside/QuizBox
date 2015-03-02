@@ -3,10 +3,8 @@ using MiniJSON;
 using System.Collections;
 using System;
 
-public class AddQuizController : MonoBehaviour {
+public class AddQuizDialogController : MonoBehaviour {
 
-	public AddQuizDialog addQuizDialogPrefab;
-	public ShortPointDialog shortPointDialogPrefab;
 	public OkDialog okDialogPrefab;
 	public AddQuizInitializer addQuizInitializer;
 	private AddQuiz mSelectedQuiz;
@@ -34,17 +32,7 @@ public class AddQuizController : MonoBehaviour {
 		EtceteraAndroidManager.alertButtonClickedEvent -= alertButtonClickedEvent;
 #endif
 	}
-
-	void Update () {
-		if (Input.GetKey (KeyCode.Escape)) {
-			Application.LoadLevel ("Top");
-		}
-	}
-
-	public void OnBackButtonClick () {
-		Application.LoadLevel ("Top");
-	}
-
+		
 	void OnClickAddQuiz (AddQuizButtonController addQuizButtonController) {
 		mSelectedQuiz = addQuizButtonController.SelectedQuiz;
 		#if UNITY_EDITOR
@@ -82,5 +70,25 @@ public class AddQuizController : MonoBehaviour {
 			okDialog.Show (title, message); 
 			addQuizInitializer.RemakeList ();
 		}
+	}
+
+	public void PopularButtonClicked(){
+
+	}
+
+	public void BoysComicButtonClicked(){
+
+	}
+
+	public void GirlsComiButtonClicked(){
+
+	}
+
+	public void PracticalButtonClicked(){
+
+	}
+
+	public void IdolButtonClicked(){
+
 	}
 }

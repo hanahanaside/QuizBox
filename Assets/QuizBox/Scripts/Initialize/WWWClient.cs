@@ -22,8 +22,7 @@ public class WWWClient {
 	private string mURL;
 	private bool mIsTimeOut;
 
-	public WWWClient (MonoBehaviour monoBehaviour, string url)
-	{
+	public WWWClient (MonoBehaviour monoBehaviour, string url) {
 		mMonoBehaviour = monoBehaviour;
 		mURL = url;
 		mHeader = new Dictionary<string, string> ();
@@ -45,14 +44,14 @@ public class WWWClient {
 		mHeader.Add ("Content-Type", "application/json");
 	}
 
-	public void SetTimeOutInterval(float time){
+	public void SetTimeOutInterval (float time) {
 		timeOutInterval = time;
 	}
-		
+
 	public void GetData () {
 		mMonoBehaviour.StartCoroutine (GetCoroutine ());
 	}
-		
+
 	private IEnumerator GetCoroutine () {
 		mWWW = new WWW (mURL);
 		yield return mMonoBehaviour.StartCoroutine (CheckTimeout ());
@@ -86,7 +85,6 @@ public class WWWClient {
 
 	private void CallBackFail () {
 		Debug.Log ("www error");
-		Debug.Log (mWWW.text);
 		if (mOnFail != null) {
 			mOnFail (mWWW);
 		}

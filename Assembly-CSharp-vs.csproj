@@ -184,8 +184,8 @@
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddPointDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuiz.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizButtonController.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizDialog.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\HttpClient.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\ShortPointDialog.cs" />
@@ -195,6 +195,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Common\OnSaleChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\PrefsManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\RecommendAppDialog.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Container\AddQuizContainer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DB\HistoryData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DB\HistoryDataDao.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DB\Quiz.cs" />
@@ -219,7 +220,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\ImobileManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\LoginManager.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\Initialize\QuizRenamer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\SelledProjectsArray.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\ShareImageWriter.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\SoundManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\WWWClient.cs" />
@@ -234,7 +235,9 @@
      <Compile Include="Assets\QuizBox\Scripts\Result\ShareDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Result\TweetSender.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Splash\SplashController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Test\DeleteAllData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Test\Test.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Test\Test2.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\QuizListManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\RemoveChallengeDataDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\RestartChallengeDialog.cs" />
@@ -244,6 +247,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleDialogManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleInitializer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\AddQuizScrollView.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\CellTop.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FAQDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FenceInstanceKeeper.cs" />
@@ -251,6 +255,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryCellController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryDialogInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\IncentiveButtonController.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\PopularQuizGrid.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PostQuizDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PrivacyPolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ProductListKeeper.cs" />
@@ -259,6 +264,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\ReviewAppChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ReviewDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\SelectedQuiz.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\SelledProject.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\SettingDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\StoreKitEventListener.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\TopController.cs" />
@@ -463,6 +469,9 @@
      <None Include="Assets\NGUI\Examples\Resources\Localization.txt" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\values-iw\strings.xml" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\values\strings.xml" />
+ <Reference Include="JsonFx.Json">
+ <HintPath>/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Assets/Plugins/JsonFx.Json.dll</HintPath>
+ </Reference>
  <Reference Include="P31RestKit">
  <HintPath>/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Assets/Plugins/P31RestKit.dll</HintPath>
  </Reference>

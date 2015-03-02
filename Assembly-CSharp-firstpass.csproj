@@ -208,6 +208,9 @@
      <None Include="Assets\NGUI\Examples\Resources\Localization.txt" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\values-iw\strings.xml" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\values\strings.xml" />
+ <Reference Include="JsonFx.Json">
+ <HintPath>/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Assets/Plugins/JsonFx.Json.dll</HintPath>
+ </Reference>
  <Reference Include="P31RestKit">
  <HintPath>/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Assets/Plugins/P31RestKit.dll</HintPath>
  </Reference>

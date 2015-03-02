@@ -59,7 +59,6 @@ public class TopController : MonoSingleton<TopController> {
 		mCurrentDialogObject.SetActive (false);
 		ShowDialog (Dialog.AddPoint);
 		mCurrentDialog = Dialog.AddPoint;
-	//	dialogArray [(int)Dialog.AddPoint].SetActive (true);
 	}
 
 	public void OnPostQuizClicked () {
@@ -92,7 +91,7 @@ public class TopController : MonoSingleton<TopController> {
 		}
 		mCurrentDialogObject.SetActive (false);
 		SetActiveButtonFilter (Dialog.AddQuiz);
-		ShowDialog (Dialog.AddQuiz);
+		AddQuizContainer.instance.Show ();
 		mCurrentDialog = Dialog.AddQuiz;
 	}
 

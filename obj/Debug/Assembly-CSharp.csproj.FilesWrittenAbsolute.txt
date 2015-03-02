@@ -11,3 +11,4 @@
 /Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/obj/Debug/Assembly-CSharp.dll
 /Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/hanada/Library/Hanada/Unity/Repositories/QuizBox/Temp/bin/Debug/JsonFx.Json.dll

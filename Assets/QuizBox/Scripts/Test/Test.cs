@@ -5,12 +5,9 @@ using System.IO;
 
 public class Test : MonoBehaviour {
 
-	private static string databaseFileName = "quiz_box.db";
-
 	void Start(){
-		string filePath = Application.persistentDataPath + "/" + databaseFileName;
-		File.Delete (filePath);
-		PlayerPrefs.DeleteAll ();
+		Test2 test2 = GetComponentInChildren<Test2> ();
+		test2.Show ();
 	}
 		
 }

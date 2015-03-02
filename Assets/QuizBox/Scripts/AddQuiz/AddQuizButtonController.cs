@@ -12,6 +12,8 @@ public class AddQuizButtonController : MonoBehaviour {
 	public UITexture logoTexture;
 	private AddQuiz mAddQuiz;
 
+	private SelledProject mSelledProject;
+
 	void OnEnable(){
 		if(mAddQuiz == null){
 			return;
@@ -22,17 +24,13 @@ public class AddQuizButtonController : MonoBehaviour {
 		}
 	}
 
-	public void Init (AddQuiz addQuiz) {
-		mAddQuiz = addQuiz;
-		titleLabel.text = mAddQuiz.title + "\n(" + mAddQuiz.quizCount + "\u554f)";
-		pointLabel.text = mAddQuiz.point + "pt";
-		if(mAddQuiz.FlagNew){
-			//show new label
-			newSprite.SetActive (true);
-		}
+	public void Init(SelledProject selledProject){
+		mSelledProject = selledProject;
+		titleLabel.text = mSelledProject.title + "\n" + mSelledProject.quiz_count + "問)";
+		pointLabel.text = mSelledProject.point + "pt";
 		LoadTexture ();
 	}
-
+		
 	public AddQuiz SelectedQuiz{
 		get{
 			return mAddQuiz;
