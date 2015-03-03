@@ -12,32 +12,14 @@ public class AddQuizInitializer : MonoBehaviour {
 	private const string JSON_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 	private List<Quiz> mQuizList;
 	private int mLoadingTextureIndex;
-
-	void OnEnable () {
-		Debug.Log ("enable");
-		HttpClient.responseEvent += ResponseCallback;
-		scrollView.ResetPosition ();
-	}
-
-	void OnDisable () {
-		Debug.Log ("disable");
-		HttpClient.responseEvent -= ResponseCallback;
-	}
-
-	// Use this for initialization
+			
 	void Start () {
-		Debug.Log ("start");
-	//	ShowProgressDialog ();
-	//	mQuizList = QuizListDao.instance.GetQuizList ();
-	//	WWW www = new WWW (JSON_URL);
-	//	StartCoroutine (httpClient.Excute (www));
+
 	}
 
 	void ResponseCallback (string response) {
 
 		if (response == null) {
-			//error
-			DismissProgressDialog ();
 			NetworkErrorDialog dialog = new NetworkErrorDialog ();
 			dialog.Show ();
 		} else {
@@ -47,7 +29,6 @@ public class AddQuizInitializer : MonoBehaviour {
 	}
 
 	public void RemakeList () {
-		ShowProgressDialog ();
 		List<Transform> childList = grid.GetChildList ();
 		foreach (Transform child in childList) {
 			Destroy (child.gameObject);
@@ -66,7 +47,6 @@ public class AddQuizInitializer : MonoBehaviour {
 			SetButtons (jsonObject, maxId);
 		}
 		scrollView.ResetPosition ();
-		DismissProgressDialog ();
 	}
 
 	private int GetMaxId (IList jsonArray) {
@@ -91,9 +71,6 @@ public class AddQuizInitializer : MonoBehaviour {
 		if (!publish) {
 			return;
 		}
-		if (CheckDuplicateQuiz (jsonObject)) {
-			return;
-		}
 		long point = (long)jsonObject ["point"];
 		string url = jsonObject ["quiz_management_url"].ToString ();
 		long quizCount = (long)jsonObject ["quiz_count"];
@@ -114,40 +91,5 @@ public class AddQuizInitializer : MonoBehaviour {
 		addQuizButtonObject.transform.localScale = new Vector3 (1, 1, 1);
 		AddQuizButtonController controller = addQuizButtonObject.GetComponentInChildren<AddQuizButtonController> ();
 //		controller.Init (addQuiz);
-	}
-
-	private bool CheckDuplicateQuiz (IDictionary jsonObject) {
-		long jsonObjectId = (long)jsonObject ["id"];
-		foreach (Quiz quiz in mQuizList) {
-			int quizId = quiz.QuizId;
-			if (jsonObjectId == quizId) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private void ShowProgressDialog () {
-		string title = "\u304a\u5f85\u3061\u304f\u3060\u3055\u3044";
-		FenceInstanceKeeper.Instance.SetActive (true);
-		#if UNITY_IOS
-		EtceteraBinding.showBezelActivityViewWithLabel (title);
-		#endif
-
-		#if UNITY_ANDROID
-		string message = "\u554f\u984c\u3092\u53d6\u5f97\u3057\u3066\u3044\u307e\u3059";
-		EtceteraAndroid.showProgressDialog(title,message);
-		#endif
-	}
-
-	private void DismissProgressDialog () {
-		FenceInstanceKeeper.Instance.SetActive (false);
-		#if UNITY_IOS
-		EtceteraBinding.hideActivityView ();
-		#endif
-
-		#if UNITY_ANDROID
-		EtceteraAndroid.hideProgressDialog();
-		#endif
 	}
 }

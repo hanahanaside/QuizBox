@@ -3,18 +3,17 @@ using System.Collections;
 
 public class AddQuizContainer : MonoSingleton<AddQuizContainer> {
 
-	public AddQuizScrollView mAddQuizScrollView;
+	private AddQuizScrollView mAddQuizScrollView;
 
 	public override void OnInitialize(){
-		Debug.Log ("init");
-		Hide ();
+		mAddQuizScrollView = GetComponentInChildren<AddQuizScrollView> ();
 	}
 
 	public void Show(){
 		foreach(Transform child in transform){
 			child.gameObject.SetActive (true);
 		}
-		mAddQuizScrollView.ShowPopularCategory ();
+		mAddQuizScrollView.Show ();
 	}
 
 	public void Hide(){

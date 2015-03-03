@@ -5,7 +5,27 @@ public class AddQuizScrollView : MonoBehaviour {
 
 	public PopularQuizGrid mPopularQuizGrid;
 
-	public void ShowPopularCategory(){
+	private enum Grid {
+		Popular
+
+	}
+
+	private Grid mCurrentGrid;
+
+	void Awake () {
+		mCurrentGrid = Grid.Popular;
+		mPopularQuizGrid = GetComponentInChildren<PopularQuizGrid> ();
+	}
+
+	public void Show () {
+		switch (mCurrentGrid) {
+		case Grid.Popular:
+			ShowPopularGrid ();
+			break;
+		}
+	}
+
+	public void ShowPopularGrid() {
 		mPopularQuizGrid.Show ();
 	}
 }
