@@ -47,6 +47,14 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\AssetPostprocessUTF8Encode.cs" />
+     <Compile Include="Assets\Jemast\LocalCache\Editor\CacheManager.cs" />
+     <Compile Include="Assets\Jemast\LocalCache\Editor\CompressionManager.cs" />
+     <Compile Include="Assets\Jemast\LocalCache\Editor\JLocalCacheWindow.cs" />
+     <Compile Include="Assets\Jemast\LocalCache\Editor\LogUtility.cs" />
+     <Compile Include="Assets\Jemast\LocalCache\Editor\Platform.cs" />
+     <Compile Include="Assets\Jemast\LocalCache\Editor\Preferences.cs" />
+     <Compile Include="Assets\Jemast\LocalCache\Editor\Shared.cs" />
+     <Compile Include="Assets\Jemast\Shared\Editor\JCF.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvDatabaseInspector.cs" />
      <Compile Include="Assets\NGUI\Examples\Scripts\InventorySystem\Editor\InvFindItem.cs" />
      <Compile Include="Assets\NGUI\Scripts\Editor\ActiveAnimationEditor.cs" />
@@ -199,6 +207,7 @@
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\layout\com_facebook_usersettingsfragment.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\drawable\com_facebook_button_check.xml" />
+     <None Include="Assets\Jemast\LocalCache\README.txt" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\drawable\com_facebook_button_blue.xml" />
      <None Include="Assets\SU3DJPFont\readme_jp.txt" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\layout\com_facebook_placepickerfragment_list_row.xml" />

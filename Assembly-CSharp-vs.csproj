@@ -433,6 +433,7 @@
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\layout\com_facebook_usersettingsfragment.xml" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\drawable\com_facebook_button_check.xml" />
+     <None Include="Assets\Jemast\LocalCache\README.txt" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\drawable\com_facebook_button_blue.xml" />
      <None Include="Assets\SU3DJPFont\readme_jp.txt" />
      <None Include="Assets\Plugins\EtceteraAndroid\Android\Facebook-Plugin-Library\res\layout\com_facebook_placepickerfragment_list_row.xml" />
