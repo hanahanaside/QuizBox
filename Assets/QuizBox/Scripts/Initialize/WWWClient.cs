@@ -77,7 +77,6 @@ public class WWWClient {
 	}
 
 	private void CallBackSuccess () {
-		Debug.Log ("www ok");
 		if (mOnSuccess != null) {
 			mOnSuccess (mWWW);
 		}
