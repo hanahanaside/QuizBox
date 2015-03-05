@@ -3,21 +3,9 @@ using System.Collections;
 
 public class TopController : MonoSingleton<TopController> {
 
-	enum Dialog
-	{
-		QuizTopic,
-		AddQuiz,
-		History,
-		Setting,
-		AddPoint}
-	;
-
-	public GameObject uiRoot;
 	public UILabel userPointLabel;
-	public GameObject[] dialogArray;
-	public UISprite[] buttonFilterArray;
-	private GameObject mCurrentDialogObject;
-	private Dialog mCurrentDialog;
+
+	private IContainer mCurrentContainer;
 
 	void OnEnable(){
 		AddPointDialogController.ClosedAddPointDialogEvent += ClosedAddPointDialogEvent;
@@ -28,9 +16,8 @@ public class TopController : MonoSingleton<TopController> {
 	}
 
 	void Start () {
-		ShowDialog (Dialog.QuizTopic);
-		mCurrentDialog = Dialog.QuizTopic;
-		SetActiveButtonFilter (Dialog.QuizTopic);
+		mCurrentContainer = QuizTopicContainer.instance;
+		mCurrentContainer.Show ();
 		UpdateUserPointLabel ();
 		ImobileManager.instance.ShowBannerAd ();
 	}
@@ -42,23 +29,15 @@ public class TopController : MonoSingleton<TopController> {
 	}
 
 	void ClosedAddPointDialogEvent(){
-		mCurrentDialogObject.SetActive (true);
+	//	mCurrentDialogObject.SetActive (true);
 	}
 
 	public void OnTopClicked () {
-		if(mCurrentDialog == Dialog.QuizTopic){
-			return;
-		}
-		mCurrentDialogObject.SetActive (false);
-		SetActiveButtonFilter (Dialog.QuizTopic);
-		ShowDialog (Dialog.QuizTopic);
-		mCurrentDialog = Dialog.QuizTopic;
+		ChangeContainer (QuizTopicContainer.instance);
 	}
 
 	public void OnAddPointClicked () {
-		mCurrentDialogObject.SetActive (false);
-		ShowDialog (Dialog.AddPoint);
-		mCurrentDialog = Dialog.AddPoint;
+		ChangeContainer (AddPointContainer.instance);
 	}
 
 	public void OnPostQuizClicked () {
@@ -66,52 +45,25 @@ public class TopController : MonoSingleton<TopController> {
 	}
 
 	public void OnResultClicked () {
-		if(mCurrentDialog == Dialog.History){
-			return;
-		}
-		mCurrentDialogObject.SetActive (false);
-		SetActiveButtonFilter (Dialog.History);
-		ShowDialog (Dialog.History);
-		mCurrentDialog = Dialog.History;
+		ChangeContainer (HistoryContainer.instance);
 	}
 
 	public void OnSettingClicked () {
-		if(mCurrentDialog == Dialog.Setting){
-			return;
-		}
-		mCurrentDialogObject.SetActive (false);
-		SetActiveButtonFilter (Dialog.Setting);
-		ShowDialog (Dialog.Setting);
-		mCurrentDialog = Dialog.Setting;
+		ChangeContainer (SettingContainer.instance);
 	}
 
 	public void OnAddQuizClicked () {
-		if(mCurrentDialog == Dialog.AddQuiz){
-			return;
-		}
-		mCurrentDialogObject.SetActive (false);
-		SetActiveButtonFilter (Dialog.AddQuiz);
-		AddQuizContainer.instance.Show ();
-		mCurrentDialog = Dialog.AddQuiz;
+		ChangeContainer (AddQuizContainer.instance);
 	}
 
 	public void UpdateUserPointLabel () {
 		int userPoint = PrefsManager.Instance.GetUserPoint ();
 		userPointLabel.text = userPoint + "pt";
 	}
-
-	private void ShowDialog (Dialog dialog) {
-		Debug.Log ("show dialog " + ((int)dialog));
-		GameObject currentDialog = dialogArray[(int)dialog];
-		currentDialog.SetActive (true);
-		mCurrentDialogObject = currentDialog;
-	}
-
-	private void SetActiveButtonFilter (Dialog dialog) {
-		int buttonId = (int)dialog;
-		foreach (UISprite buttonFilter in buttonFilterArray) {
-			buttonFilter.enabled = true;
-		}
-		buttonFilterArray [buttonId].enabled = false;
+		
+	private void ChangeContainer(IContainer container){
+		mCurrentContainer.Hide ();
+		mCurrentContainer = container;
+		mCurrentContainer.Show ();
 	}
 }

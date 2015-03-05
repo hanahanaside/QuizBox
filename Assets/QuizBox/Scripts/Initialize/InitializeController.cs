@@ -7,12 +7,12 @@ public class InitializeController : MonoBehaviour {
 
 	void OnEnable () {
 		DatabaseCreator.createdDatabaseEvent += OnDatabaseCreated;
-		SelledProjectsArray.createdEvent += SelledProjectArrayCreatedEvent;
+		SelledProjectsManager.createdEvent += SelledProjectArrayCreatedEvent;
 	}
 
 	void OnDisable () {
 		DatabaseCreator.createdDatabaseEvent -= OnDatabaseCreated;
-		SelledProjectsArray.createdEvent -= SelledProjectArrayCreatedEvent;
+		SelledProjectsManager.createdEvent -= SelledProjectArrayCreatedEvent;
 	}
 
 	void Start () {
@@ -21,7 +21,7 @@ public class InitializeController : MonoBehaviour {
 
 	void OnDatabaseCreated () {
 		Debug.Log ("OnDatabaseCreated");
-		SelledProjectsArray.instance.Create ();
+		SelledProjectsManager.instance.Create ();
 	}
 
 	void SelledProjectArrayCreatedEvent (bool success) {

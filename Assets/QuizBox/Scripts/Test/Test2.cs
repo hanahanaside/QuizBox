@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Test2 : MonoSingleton<Test2> {
+public class Test2 : MonoBehaviour{
 
-	public void Show(){
-		gameObject.SetActive (true);
+	int mCount;
+
+	public void Init(int count){
+		mCount = count;
+	}
+
+	void Update(){
+		Debug.Log ("count " + mCount);
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OkDialog : MonoBehaviour {
+public static class OkDialog {
 
-	public void Show(string title,string message){
+	public static void Show(string title,string message){
 #if UNITY_IPHONE
 		string[] buttons = {"OK"};
 		EtceteraBinding.showAlertWithTitleMessageAndButtons(title,message,buttons);

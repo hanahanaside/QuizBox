@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AddQuizDialog : MonoBehaviour {
-	public void Show (AddQuiz addQuiz, int userPoint) {
+public static class AddQuizDialog {
+
+
+	public static void Show (SelledProject addQuiz, int userPoint) {
 		string quizTitle = addQuiz.title;
 		string title = "\u6240\u6301pt : " + userPoint + "pt";
 		string message = quizTitle + "を" + addQuiz.point + "pt\u3067\u8ffd\u52a0\u3057\u307e\u3059\u304b\uff1f";

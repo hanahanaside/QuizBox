@@ -185,7 +185,6 @@
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuiz.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizButtonController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizDialog.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\AddQuiz\AddQuizInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\HttpClient.cs" />
      <Compile Include="Assets\QuizBox\Scripts\AddQuiz\ShortPointDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\AlertDialog.cs" />
@@ -194,7 +193,11 @@
      <Compile Include="Assets\QuizBox\Scripts\Common\OnSaleChecker.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\PrefsManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Common\RecommendAppDialog.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Container\AddPointContainer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Container\AddQuizContainer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Container\HistoryContainer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Container\QuizTopicContainer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Container\SettingContainer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DB\HistoryData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DB\HistoryDataDao.cs" />
      <Compile Include="Assets\QuizBox\Scripts\DB\Quiz.cs" />
@@ -219,10 +222,11 @@
      <Compile Include="Assets\QuizBox\Scripts\Initialize\ImobileManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\InitializeController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\LoginManager.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\Initialize\SelledProjectsArray.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Initialize\SelledProjectsManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\ShareImageWriter.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\SoundManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Initialize\WWWClient.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Interface\IContainer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\BackDialog.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountData.cs" />
      <Compile Include="Assets\QuizBox\Scripts\PostQuiz\PostCountDataKeeper.cs" />
@@ -246,6 +250,7 @@
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleDialogManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleInitializer.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\AddQuizGrid.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\AddQuizScrollView.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\CellTop.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FAQDialogController.cs" />
@@ -254,7 +259,6 @@
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryCellController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryDialogInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\IncentiveButtonController.cs" />
-     <Compile Include="Assets\QuizBox\Scripts\Top\PopularQuizGrid.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PostQuizDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\PrivacyPolicyDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\ProductListKeeper.cs" />

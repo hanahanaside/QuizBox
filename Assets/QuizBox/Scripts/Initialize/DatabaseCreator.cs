@@ -94,8 +94,8 @@ public class DatabaseCreator : MonoSingleton<DatabaseCreator> {
 
 	//selled project array から該当のクイズを見つけてリネームする
 	private void RenameFromSelledProjectsArray (Quiz quiz) {
-		for (int i = 0; i < SelledProjectsArray.instance.Length; i++) {
-			SelledProject selldProject = SelledProjectsArray.instance.Get (i);
+		for (int i = 0; i < SelledProjectsManager.instance.Length; i++) {
+			SelledProject selldProject = SelledProjectsManager.instance.Get (i);
 			if (selldProject.id != quiz.QuizId) {
 				continue;
 			}

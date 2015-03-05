@@ -3,11 +3,16 @@ using System.Collections;
 using System;
 using System.IO;
 
-public class Test : MonoBehaviour {
+public class Test : MonoSingleton<Test> {
+
+	public Test2 test2;
+	private int mCount;
 
 	void Start(){
-		Test2 test2 = GetComponentInChildren<Test2> ();
-		test2.Show ();
+		test2.Init (mCount);
 	}
-		
+
+	void Update(){
+		mCount++;
+	}
 }

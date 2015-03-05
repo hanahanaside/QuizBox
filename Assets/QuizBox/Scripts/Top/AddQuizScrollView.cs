@@ -1,31 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AddQuizScrollView : MonoBehaviour {
 
-	public PopularQuizGrid mPopularQuizGrid;
-
-	private enum Grid {
-		Popular
-
-	}
-
-	private Grid mCurrentGrid;
+	private AddQuizGrid mCurrentGrid;
+	private UIScrollView mScrollView;
+	private AddQuizGrid[] mAddQuizGridArray;
 
 	void Awake () {
-		mCurrentGrid = Grid.Popular;
-		mPopularQuizGrid = GetComponentInChildren<PopularQuizGrid> ();
+		mScrollView = GetComponent<UIScrollView> ();
+		mAddQuizGridArray = GetComponentsInChildren<AddQuizGrid> ();
+		mCurrentGrid = mAddQuizGridArray [0];
+	}
+		
+	public void ShowPopularGrid() {
+		ShowGrid (mAddQuizGridArray [0],SelledProjectsManager.instance.GetPopularList());
+		mScrollView.ResetPosition ();
 	}
 
-	public void Show () {
-		switch (mCurrentGrid) {
-		case Grid.Popular:
-			ShowPopularGrid ();
-			break;
+	public void ShowBoysComicGrid(){
+		ShowGrid (mAddQuizGridArray [1],SelledProjectsManager.instance.GetBoysComicList());
+		mScrollView.ResetPosition ();
+	}
+
+	public void ShowGirlsComicGrid(){
+		ShowGrid (mAddQuizGridArray [2],SelledProjectsManager.instance.GetGirlsComicList());
+		mScrollView.ResetPosition ();
+	}
+
+	public void ShowPraticalGrid(){
+		ShowGrid (mAddQuizGridArray [3],SelledProjectsManager.instance.GetPracticalList());
+		mScrollView.ResetPosition ();
+	}
+
+	public void ShowIdolGrid(){
+		ShowGrid (mAddQuizGridArray [4],SelledProjectsManager.instance.GetIdolList());
+		mScrollView.ResetPosition ();
+	}
+
+	public void RemoveButton(SelledProject selledProject){
+		foreach(AddQuizGrid grid in mAddQuizGridArray){
+			grid.RemoveButton (selledProject);
 		}
 	}
 
-	public void ShowPopularGrid() {
-		mPopularQuizGrid.Show ();
+	private void ShowGrid(AddQuizGrid grid,List<SelledProject> selledProjectList){
+		mCurrentGrid.Hide ();
+		mCurrentGrid = grid;
+		mCurrentGrid.Show (selledProjectList);
 	}
 }
