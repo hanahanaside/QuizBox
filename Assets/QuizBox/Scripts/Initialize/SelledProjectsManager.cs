@@ -9,11 +9,11 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 
 	private const string SELLED_PROJECTS_URL = "http://quiz.ryodb.us/list/selled_projects.json";
 
-	private List<SelledProject> mSelledProjectsArray;
+	private List<SelledProject> mSelledProjectsList;
 
 	private List<SelledProject> mPopularList;
 	private List<SelledProject> mBoysComicList;
-	private List<SelledProject> mGirlsComicList;
+	private List<SelledProject> mEtcComicList;
 	private List<SelledProject> mPracticalList;
 	private List<SelledProject> mIdolList;
 
@@ -27,14 +27,14 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 		wwwClient.OnSuccess = (WWW www) => {
 			string json = www.text;
 			SelledProject[] selledProjectArray = JsonFx.Json.JsonReader.Deserialize<SelledProject[]> (json);
-			mSelledProjectsArray = new List<SelledProject> ();
-			mSelledProjectsArray.AddRange (selledProjectArray);
+			mSelledProjectsList = new List<SelledProject> ();
+			mSelledProjectsList.AddRange (selledProjectArray);
 			TrimExistQuiz ();
-			CreatePopularList ();
 			CreateBoysComicList ();
-			CreateGirlsComicList ();
+			CreateEtcComicList ();
 			CreatePraticalList ();
 			CreateIdolList ();
+			CreatePopularList ();
 			createdEvent (true);
 		};
 		wwwClient.OnFail = (WWW www) => {
@@ -54,11 +54,11 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 	}
 
 	private void TrimExistQuiz (Quiz quiz) {
-		int count = mSelledProjectsArray.Count;
+		int count = mSelledProjectsList.Count;
 		for (int i = 0; i < count; i++) {
-			SelledProject selledProject = mSelledProjectsArray [i];
+			SelledProject selledProject = mSelledProjectsList [i];
 			if (selledProject.id == quiz.QuizId) {
-				mSelledProjectsArray.Remove (selledProject);
+				mSelledProjectsList.Remove (selledProject);
 				break;
 
 			}
@@ -69,7 +69,7 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 	public void Remove (SelledProject selledProject) {
 		Remove (mPopularList, selledProject);
 		Remove (mBoysComicList, selledProject);
-		Remove (mGirlsComicList, selledProject);
+		Remove (mEtcComicList, selledProject);
 		Remove (mPracticalList, selledProject);
 		Remove (mIdolList, selledProject);
 	}
@@ -84,15 +84,15 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 	}
 
 	public SelledProject Get (int index) {
-		return mSelledProjectsArray [index];
+		return mSelledProjectsList [index];
 	}
 
 	public int Length {
 		get {
-			if (mSelledProjectsArray == null) {
+			if (mSelledProjectsList == null) {
 				return 0;
 			}
-			return mSelledProjectsArray.Count;
+			return mSelledProjectsList.Count;
 		}
 	}
 
@@ -104,8 +104,8 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 		return mBoysComicList;
 	}
 
-	public List<SelledProject> GetGirlsComicList () {
-		return mGirlsComicList;
+	public List<SelledProject> GetEtcComicList () {
+		return mEtcComicList;
 	}
 
 	public List<SelledProject> GetPracticalList () {
@@ -118,36 +118,46 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 
 	private void CreatePopularList () {
 		mPopularList = new List<SelledProject> ();
-		for (int i = 0; i < 20; i++) {
-			mPopularList.Add (mSelledProjectsArray [i]);
-		}
+		mPopularList = mSelledProjectsList;
 	}
 
 	private void CreateBoysComicList () {
 		mBoysComicList = new List<SelledProject> ();
-		for (int i = 20; i < 40; i++) {
-			mBoysComicList.Add (mSelledProjectsArray [i]);
+		foreach(SelledProject selledProject in mSelledProjectsList){
+			if (selledProject.title.Contains ("boy_")) {
+				selledProject.title = selledProject.title.Replace ("boy_","");
+				mBoysComicList.Add (selledProject);
+			}
 		}
 	}
 
-	private void CreateGirlsComicList () {
-		mGirlsComicList = new List<SelledProject> ();
-		for (int i = 40; i < 60; i++) {
-			mGirlsComicList.Add (mSelledProjectsArray [i]);
+	private void CreateEtcComicList () {
+		mEtcComicList = new List<SelledProject> ();
+		foreach (SelledProject selledProject in mSelledProjectsList) {
+			if (selledProject.title.Contains ("etc_")) {
+				selledProject.title = selledProject.title.Replace ("etc_","");
+				mEtcComicList.Add (selledProject);
+			}
 		}
 	}
 
 	private void CreatePraticalList () {
 		mPracticalList = new List<SelledProject> ();
-		for (int i = 60; i < 80; i++) {
-			mPracticalList.Add (mSelledProjectsArray [i]);
+		foreach (SelledProject selledProject in mSelledProjectsList) {
+			if (selledProject.title.Contains ("study_")) {
+				selledProject.title = selledProject.title.Replace ("study_","");
+				mPracticalList.Add (selledProject);
+			}
 		}
 	}
 
 	private void CreateIdolList () {
 		mIdolList = new List<SelledProject> ();
-		for (int i = 80; i < 100; i++) {
-			mIdolList.Add (mSelledProjectsArray [i]);
+		foreach (SelledProject selledProject in mSelledProjectsList) {
+			if (selledProject.title.Contains ("idol_")) {
+				selledProject.title = selledProject.title.Replace ("idol_","");
+				mIdolList.Add (selledProject);
+			}
 		}
 	}
 }

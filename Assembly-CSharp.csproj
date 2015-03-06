@@ -251,10 +251,14 @@
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleDialogManager.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Title\TitleInitializer.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\AddQuizGrid.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\AddQuizHeaderButton.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\AddQuizHeaderGrid.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\AddQuizScrollView.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\CellTop.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FAQDialogController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FenceInstanceKeeper.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\FooterButton.cs" />
+     <Compile Include="Assets\QuizBox\Scripts\Top\FooterGrid.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\FooterPositionSetter.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryCellController.cs" />
      <Compile Include="Assets\QuizBox\Scripts\Top\HistoryDialogInitializer.cs" />

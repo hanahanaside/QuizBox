@@ -29,7 +29,7 @@ public class AddQuizButtonController : MonoBehaviour {
 		titleLabel.text = mSelledProject.title + "\n" + mSelledProject.quiz_count + "問)";
 		pointLabel.text = mSelledProject.point + "pt";
 		if (logoTexture.mainTexture == null) {
-			LoadTexture ();
+		//	LoadTexture ();
 		}
 	}
 
@@ -41,7 +41,7 @@ public class AddQuizButtonController : MonoBehaviour {
 
 	public void ReloadTexture () {
 		if (logoTexture.mainTexture == null) {
-			LoadTexture ();
+		//	LoadTexture ();
 		}
 	}
 

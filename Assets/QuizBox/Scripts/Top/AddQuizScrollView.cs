@@ -25,7 +25,7 @@ public class AddQuizScrollView : MonoBehaviour {
 	}
 
 	public void ShowGirlsComicGrid(){
-		ShowGrid (mAddQuizGridArray [2],SelledProjectsManager.instance.GetGirlsComicList());
+		ShowGrid (mAddQuizGridArray [2],SelledProjectsManager.instance.GetEtcComicList());
 		mScrollView.ResetPosition ();
 	}
 

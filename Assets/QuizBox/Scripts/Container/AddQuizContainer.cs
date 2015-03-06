@@ -95,7 +95,7 @@ public class AddQuizContainer : MonoSingleton<AddQuizContainer> , IContainer{
 		mAddQuizScrollView.ShowBoysComicGrid ();
 	}
 
-	public void GirlsComicButtonClicked(){
+	public void EtcComicButtonClicked(){
 		mAddQuizScrollView.ShowGirlsComicGrid ();
 	}
 
