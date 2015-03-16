@@ -5,16 +5,15 @@ public class AddQuizHeaderButton : MonoBehaviour {
 
 	private GameObject mFilterObject;
 
-	void Awake(){
+	void Awake () {
 		mFilterObject = transform.FindChild ("Filter").gameObject;
 	}
 
-	public void ShowFilter(){
-		Debug.Log ("show");
+	public void ShowFilter () {
 		mFilterObject.SetActive (true);
 	}
 
-	public void HideFilter(){
+	public void HideFilter () {
 		mFilterObject.SetActive (false);
 	}
 }

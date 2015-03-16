@@ -33,7 +33,6 @@ public class InitializeController : MonoBehaviour {
 		StartFadeoutAnimation ();
 	}
 
-
 	private void OnFadeoutAnimationFinished () {
 		SoundManager.Instance.PlayBGM (SoundManager.BGM_CHANNEL.Main);
 		Application.LoadLevel ("Top");

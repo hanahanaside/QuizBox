@@ -29,7 +29,6 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 			SelledProject[] selledProjectArray = JsonFx.Json.JsonReader.Deserialize<SelledProject[]> (json);
 			mSelledProjectsList = new List<SelledProject> ();
 			mSelledProjectsList.AddRange (selledProjectArray);
-			TrimExistQuiz ();
 			CreateBoysComicList ();
 			CreateEtcComicList ();
 			CreatePraticalList ();
@@ -44,26 +43,6 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 			createdEvent (false);
 		};
 		wwwClient.GetData ();
-	}
-
-	private void TrimExistQuiz () {
-		List<Quiz> quizList =	QuizListDao.instance.GetQuizList ();
-		foreach (Quiz quiz in quizList) {
-			TrimExistQuiz (quiz);
-		}
-	}
-
-	private void TrimExistQuiz (Quiz quiz) {
-		int count = mSelledProjectsList.Count;
-		for (int i = 0; i < count; i++) {
-			SelledProject selledProject = mSelledProjectsList [i];
-			if (selledProject.id == quiz.QuizId) {
-				mSelledProjectsList.Remove (selledProject);
-				break;
-
-			}
-		}
-	
 	}
 
 	public void Remove (SelledProject selledProject) {
@@ -123,9 +102,9 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 
 	private void CreateBoysComicList () {
 		mBoysComicList = new List<SelledProject> ();
-		foreach(SelledProject selledProject in mSelledProjectsList){
+		foreach (SelledProject selledProject in mSelledProjectsList) {
 			if (selledProject.title.Contains ("boy_")) {
-				selledProject.title = selledProject.title.Replace ("boy_","");
+				selledProject.title = selledProject.title.Replace ("boy_", "");
 				mBoysComicList.Add (selledProject);
 			}
 		}
@@ -135,7 +114,7 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 		mEtcComicList = new List<SelledProject> ();
 		foreach (SelledProject selledProject in mSelledProjectsList) {
 			if (selledProject.title.Contains ("etc_")) {
-				selledProject.title = selledProject.title.Replace ("etc_","");
+				selledProject.title = selledProject.title.Replace ("etc_", "");
 				mEtcComicList.Add (selledProject);
 			}
 		}
@@ -145,7 +124,7 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 		mPracticalList = new List<SelledProject> ();
 		foreach (SelledProject selledProject in mSelledProjectsList) {
 			if (selledProject.title.Contains ("study_")) {
-				selledProject.title = selledProject.title.Replace ("study_","");
+				selledProject.title = selledProject.title.Replace ("study_", "");
 				mPracticalList.Add (selledProject);
 			}
 		}
@@ -155,7 +134,7 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 		mIdolList = new List<SelledProject> ();
 		foreach (SelledProject selledProject in mSelledProjectsList) {
 			if (selledProject.title.Contains ("idol_")) {
-				selledProject.title = selledProject.title.Replace ("idol_","");
+				selledProject.title = selledProject.title.Replace ("idol_", "");
 				mIdolList.Add (selledProject);
 			}
 		}

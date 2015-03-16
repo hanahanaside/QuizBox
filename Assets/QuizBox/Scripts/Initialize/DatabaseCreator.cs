@@ -22,7 +22,7 @@ public class DatabaseCreator : MonoSingleton<DatabaseCreator> {
 	void OnUpdated () {
 		CreatedDatabase ();
 	}
-		
+
 	public void CreateDatabase () {
 		string baseFilePath = Application.streamingAssetsPath + "/" + databaseFileName;
 		string filePath = Application.persistentDataPath + "/" + databaseFileName;
@@ -34,7 +34,7 @@ public class DatabaseCreator : MonoSingleton<DatabaseCreator> {
 			Debug.Log ("create Database");
 		}
 
-		databaseUpdater.UpdateDatabase();
+		databaseUpdater.UpdateDatabase ();
 		#endif
 
 		#if UNITY_ANDROID 
@@ -69,7 +69,7 @@ public class DatabaseCreator : MonoSingleton<DatabaseCreator> {
 		DateTime dtNow = DateTime.Now;
 		string installedDate = PrefsManager.Instance.InstalledDate;
 		if (string.IsNullOrEmpty (installedDate)) {
-		PrefsManager.Instance.InstalledDate = dtNow.ToString ();
+			PrefsManager.Instance.InstalledDate = dtNow.ToString ();
 		}
 		#endif
 		if (createdDatabaseEvent != null) {
