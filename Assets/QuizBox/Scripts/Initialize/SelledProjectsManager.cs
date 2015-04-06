@@ -25,10 +25,7 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 		Debug.Log ("create selled projects array");
 		WWWClient wwwClient = new WWWClient (this, SELLED_PROJECTS_URL);
 		wwwClient.OnSuccess = (WWW www) => {
-			string json = www.text;
-			SelledProject[] selledProjectArray = JsonFx.Json.JsonReader.Deserialize<SelledProject[]> (json);
-			mSelledProjectsList = new List<SelledProject> ();
-			mSelledProjectsList.AddRange (selledProjectArray);
+			CreateSelledProjectList (www);
 			CreateBoysComicList ();
 			CreateEtcComicList ();
 			CreatePraticalList ();
@@ -96,7 +93,6 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 	}
 
 	private void CreatePopularList () {
-		mPopularList = new List<SelledProject> ();
 		mPopularList = mSelledProjectsList;
 	}
 
@@ -136,6 +132,18 @@ public class SelledProjectsManager : MonoSingleton<SelledProjectsManager> {
 			if (selledProject.title.Contains ("idol_")) {
 				selledProject.title = selledProject.title.Replace ("idol_", "");
 				mIdolList.Add (selledProject);
+			}
+		}
+	}
+
+	//publishになっていないクイズを添削する
+	private void CreateSelledProjectList (WWW www) {
+		string json = www.text;
+		SelledProject[] selledProjectArray = JsonFx.Json.JsonReader.Deserialize<SelledProject[]> (json);
+		mSelledProjectsList = new List<SelledProject> ();
+		foreach (SelledProject selledProject in selledProjectArray) {
+			if (selledProject.publish) {
+				mSelledProjectsList.Add (selledProject);
 			}
 		}
 	}
